@@ -1,0 +1,54 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="aterweb" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>ematerDS</jta-data-source>
+		<class>gov.emater.aterweb.model.Benfeitoria</class>
+		<class>gov.emater.aterweb.model.EntidadeBase</class>
+		<class>gov.emater.aterweb.model.Exploracao</class>
+		<class>gov.emater.aterweb.model.Localizacao</class>
+		<class>gov.emater.aterweb.model.LocalizacaoPaisVi</class>
+		<class>gov.emater.aterweb.model.LocalizacaoEstadoVi</class>
+		<class>gov.emater.aterweb.model.LocalizacaoMunicipioVi</class>
+		<class>gov.emater.aterweb.model.LocalizacaoCidadeVi</class>
+		<class>gov.emater.aterweb.model.LocalizacaoAgrupamento</class>
+		<class>gov.emater.aterweb.model.LocalizacaoGrupo</class>
+		<class>gov.emater.aterweb.model.LocalizacaoTipo</class>
+		<class>gov.emater.aterweb.model.Usuario</class>
+		<class>gov.emater.aterweb.model.UsuarioModulo</class>
+		<class>gov.emater.aterweb.model.UsuarioPerfil</class>
+		<class>gov.emater.aterweb.model.MeioContato</class>
+		<class>gov.emater.aterweb.model.MeioContatoEmail</class>
+		<class>gov.emater.aterweb.model.MeioContatoEndereco</class>
+		<class>gov.emater.aterweb.model.MeioContatoTelefonico</class>
+		<class>gov.emater.aterweb.model.Modulo</class>
+		<class>gov.emater.aterweb.model.ModuloPerfil</class>
+		<class>gov.emater.aterweb.model.OrganizacaoTipo</class>
+		<class>gov.emater.aterweb.model.Perfil</class>
+		<class>gov.emater.aterweb.model.Pessoa</class>
+		<class>gov.emater.aterweb.model.PessoaFisica</class>
+		<class>gov.emater.aterweb.model.PessoaJuridica</class>
+		<class>gov.emater.aterweb.model.PessoaMeioContato</class>
+		<class>gov.emater.aterweb.model.PessoaRelacionamento</class>
+		<class>gov.emater.aterweb.model.Profissao</class>
+		<class>gov.emater.aterweb.model.PropriedadeRural</class>
+		<class>gov.emater.aterweb.model.PropriedadeRuralLocalizacao</class>
+		<class>gov.emater.aterweb.model.PublicoAlvo</class>
+		<class>gov.emater.aterweb.model.PublicoAlvoLocalizacao</class>
+		<class>gov.emater.aterweb.model.PublicoAlvoSetor</class>
+		<class>gov.emater.aterweb.model.Relacionamento</class>
+		<class>gov.emater.aterweb.model.RelacionamentoConfiguracao</class>
+		<class>gov.emater.aterweb.model.RelacionamentoFuncao</class>
+		<class>gov.emater.aterweb.model.RelacionamentoTipo</class>
+		<class>gov.emater.aterweb.model.Setor</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="current_session_context_class" value="thread" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
