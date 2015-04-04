@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the aterwebApp
  */
-angular.module('aterwebApp')
+aterwebApp
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
