@@ -16,13 +16,14 @@
 
  	$scope.reiniciar = function() {
     $scope.submitted = false;
- 		$scope.registro = angular.copy($scope.registroOrig);
- 		if ($scope.$parent.loginForm) {
- 			$scope.$parent.loginForm.$setPristine();
- 		}
- 	};
+    $scope.registro = angular.copy($scope.registroOrig);
+    if ($scope.$parent.loginForm) {
+      $scope.$parent.loginForm.$setPristine();
+    }
+    $('#usuario').focus();
+  };
 
- 	$scope.iniciar();
+  $scope.iniciar();
 
 	// métodos de apoio
 	$scope.submitForm = function () {
@@ -31,57 +32,68 @@
       toastr.error('Verifique os campos marcados', 'Erro');
       //$scope.mensagens.push({ tipo: 'danger', texto: 'Verifique os campos marcados' });
     }
-	};
+  };
 
-	$scope.esqueciSenha = function () {
-		
-	};
+  $scope.esqueciMinhaSenha = function () {
 
-	$scope.mensagens = [
+  };
+
+  $scope.mensagens = [
 		// { tipo: 'danger', texto: 'Oh snap! Change a few things up and try submitting again.' },
 		// { tipo: 'success', texto: 'Well done! You successfully read this important alert message.' }
-	];
+   ];
 
-	$scope.closeAlert = function(index) {
-		$scope.mensagens.splice(index, 1);
-	};
+   $scope.closeAlert = function(index) {
+    $scope.mensagens.splice(index, 1);
+  };
 
-$scope.items = [0,1,2];
-$scope.open = function (size) {
-console.log(93);
+  $scope.open = function (size) {
     var modalInstance = $modal.open({
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
+      templateUrl: 'esqueciMinhaSenhaModal.html',
+      controller: 'EsqueciMinhaSenhaCtrl',
+      size: size
     });
 
     modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
+      //$scope.selected = selectedItem;
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      //$log.info('Modal dismissed at: ' + new Date());
     });
   };
 
 });
 
+aterwebApp.controller('EsqueciMinhaSenhaCtrl', function ($scope, $modalInstance, toastr) {
+  $scope.iniciar = function() {
+    $scope.registroOrig = {};
+    $scope.reiniciar();
+  };
 
- aterwebApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+  $scope.reiniciar = function() {
+    $scope.submitted = false;
+    $scope.registro = angular.copy($scope.registroOrig);
+    if ($scope.$parent.esqueciMinhaSenhaForm) {
+      $scope.$parent.esqueciMinhaSenhaForm.$setPristine();
+    }
+    $('#email').focus();
+    console.log('reiniciar');
+  };
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
+  $scope.iniciar();
+
+  // métodos de apoio
+  $scope.submitForm = function () {
+    if (!$scope.$parent.esqueciMinhaSenhaForm.$valid) {
+      $scope.submitted = true;
+      toastr.error('Verifique os campos marcados', 'Erro');
+    }
   };
 
   $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
+    //$modalInstance.close($scope.selected.item);
   };
 
-  $scope.cancel = function () {
+  $scope.cancelar = function () {
     $modalInstance.dismiss('cancel');
   };
 });
