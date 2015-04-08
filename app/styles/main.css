@@ -7,6 +7,8 @@
 
 body {
   padding: 0;
+  background: url('/images/fundo.jpg') #daeabd fixed top left; 
+  background-size: cover;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */

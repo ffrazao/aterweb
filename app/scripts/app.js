@@ -17,52 +17,65 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ngSanitize',
 	'ngTouch',
 	'ui.router',
-	'ui.bootstrap'
-]);
+	'ui.bootstrap',
+	'toastr'
+	]);
 
 // ajustar o router da aplicação
-aterwebApp.config(function($stateProvider, $urlRouterProvider ) {
-	//
+aterwebApp.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
+	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
+	angular.extend(toastrConfig, {
+		allowHtml: true,
+		closeButton: true,
+		closeHtml: '<button>&times;</button>',
+		containerId: 'toast-container',
+		extendedTimeOut: 1000,
+		iconClasses: {
+			error: 'toast-error',
+			info: 'toast-info',
+			success: 'toast-success',
+			warning: 'toast-warning'
+		},
+		maxOpened: 0,
+		messageClass: 'toast-message',
+		newestOnTop: true,
+		onHidden: null,
+		onShown: null,
+		positionClass: 'toast-top-full-width',
+		preventDuplicates: false,
+		progressBar: true,
+		tapToDismiss: true,
+		target: 'body',
+		templates: {
+			toast: 'directives/toast/toast.html',
+			progressbar: 'directives/progressbar/progressbar.html'
+		},
+		timeOut: 5000,
+		titleClass: 'toast-title',
+		toastClass: 'toast'
+	});
+
 	// For any unmatched url, redirect to /about
-	$urlRouterProvider.otherwise('/about');
+	$urlRouterProvider.otherwise('/');
 	//
 	// Now set up the states
 	$stateProvider
-	.state('about', {
-		url: '/about',
-		templateUrl: 'views/about.html'
-	})
 
-	.state('about.list', {
-		url: '/list',
-		templateUrl: 'views/about.list.html',
-		controller: function($scope, $modal) {
-			$scope.items = ['A', 'List', 'Of', 'Items'];
-			$scope.exibe = function () {
-				$modal.open({
-					templateUrl: 'views/main.html',
-					size: 'lg',
-					resolve: {
-						items: function () {
-							return $scope.items;
-						}
-					}
-				});
-
-			};
-		}
-	})
-
-	.state('main', {
-		url: '/main',
-		templateUrl: 'views/main.html',
-		controller: 'MainCtrl'
+	.state('bem-vindo', {
+		url: '/',
+		templateUrl: 'views/bem-vindo.html'
 	})
 	
-	.state('main.list', {
-		url: '/list',
-		templateUrl: 'views/main.list.html',
-		controller: 'MainListCtrl'
+	.state('bem-vindo.lista', {
+		url: '/lista',
+		templateUrl: 'views/bem-vindo.lista.html',
+		controller: 'BemVindoListaCtrl'
+	})
+
+	.state('login', {
+		url: '/login',
+		templateUrl: 'views/login.html',
+		controller: 'LoginCtrl'
 	});
 
 });

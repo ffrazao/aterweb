@@ -1,0 +1,129 @@
+<div style="width: 50%; max-width: 500px; min-width:400px; margin-top: 2.5cm; display: block; margin-left: auto; margin-right: auto;
+background-color: rgba(255,255,255, 0.2) !important; border: 1px solid rgba(255,255,255,0.5) !important;">
+<p class="text-center">
+	<img src="/images/logo-transparente-pequeno.png"/>
+</p>
+<style type="text/css">
+.ng-invalid {
+	border: 1px solid red;
+}
+.ng-valid {
+	border: 1px solid green;
+}
+form.ng-invalid {
+	border: 0px;
+}
+form.ng-valid {
+	border: 0px;
+}
+</style>
+<form class="form-horizontal" novalidate name="$parent.loginForm" ng-submit="submitForm()">
+	<fieldset>
+
+		<!-- Form Name -->
+		<legend>Login</legend>
+
+		<alert ng-repeat="msg in mensagens" type="{{msg.tipo}}" close="closeAlert($index)">{{msg.texto}}</alert>
+
+		<!-- Text input-->
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="usuario">Usuário *</label>  
+			<div class="col-xs-6">
+				<input id="usuario" name="usuario" type="text" placeholder="Nome do Usuário" class="form-control input-md" required="true" ng-model="registro.usuario" ng-minlength=3>
+				<div ng-show="($parent.loginForm.usuario.$dirty || submitted) && $parent.loginForm.usuario.$invalid">
+					<span class="label label-danger" ng-show="$parent.loginForm.usuario.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Campo Obrigatório
+					</span>
+					<span class="label label-danger" ng-show="$parent.loginForm.usuario.$error.minlength">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Poucos caracteres
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Password input-->
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="senha">Senha *</label>
+			<div class="col-xs-6">
+				<input id="senha" name="senha" type="password" placeholder="Senha de Acesso" class="form-control input-md" required="true" ng-model="registro.senha">
+				<div ng-show="($parent.loginForm.senha.$dirty || submitted) && $parent.loginForm.senha.$invalid">
+					<span class="label label-danger" ng-show="$parent.loginForm.senha.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Campo Obrigatório
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Select Basic -->
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="modulo">Módulo *</label>
+			<div class="col-xs-6">
+				<select id="modulo" name="modulo" class="form-control" required="true" ng-model="registro.modulo">
+					<option value="1">Principal</option>
+				</select>
+				<div ng-show="($parent.loginForm.modulo.$dirty || submitted) && $parent.loginForm.modulo.$invalid">
+					<span class="label label-danger" ng-show="$parent.loginForm.modulo.$error.required">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						Campo Obrigatório
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Multiple Checkboxes (inline) -->
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="administrador"></label>
+			<div class="col-xs-6">
+				<label class="checkbox-inline" for="administrador">
+					<input type="checkbox" name="administrador" id="administrador" ng-true-value="'S'" ng-false-value="'N'" ng-model="registro.administrador">
+					Administrador
+				</label>
+			</div>
+		</div>
+
+		<!-- Button (Double) -->
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="ok"></label>
+			<div class="col-xs-8">
+				<button type="submit" id="ok" name="ok" class="btn btn-primary">OK</button>
+				<button type="button" id="limpar" name="limpar" class="btn btn-warning" ng-click="reiniciar()">Limpar</button>
+				<button type="button" id="cancelar" name="cancelar" class="btn btn-danger">Cancelar</button>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="esqueci"></label>
+			<div class="col-xs-8">
+				<a id="esqueci" href="" ng-click="open('lg');">Esqueci Minha Senha</a>
+			</div>
+		</div>
+
+	</fieldset>
+</form>
+<script type="text/ng-template" id="myModalContent.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Esqueci minha senha!</h3>
+	</div>
+	<div class="modal-body">
+		<ul>
+			<li ng-repeat="item in items">
+				<a ng-click="selected.item = item">{{ item }}</a>
+			</li>
+		</ul>
+		Selected: <b>{{ selected.item }}</b>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<input>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+</div>

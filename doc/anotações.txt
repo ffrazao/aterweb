@@ -1,0 +1,6 @@
+03/04/2015 - Reinicio do projeto agora somente view com angular js
+
+_experimento - criar casos de usos com experimentos do sistema
+
+_modelo_crud - criar um caso de uso de modelo do sistema
+Todos os experimentos bem sucedidos devem aparecer neste modelo

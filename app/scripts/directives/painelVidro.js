@@ -33,10 +33,8 @@ aterwebApp.directive('painelVidro', function ($http) {
     return {
         restrict: 'M',
         replace: true,
-        template: '<div style=" position: fixed; width: 100%; height: 100%; margin: 0; padding: 0; top: 0; left: 0; background-color: gray; opacity: 0.4; z-index: 1000;">carregando...</div>', 
+        template: '<div class="painel-vidro"><div class="carregando"></div></div>', 
         link: function (scope, element, attrs) {
-
-            console.log('painelVidro');
 
             scope.$watch('chamadasAtivas', function (newVal) {
                 if (newVal === 0) {
