@@ -74,7 +74,7 @@ aterwebApp.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 
 	.state('login', {
 		url: '/login',
-		templateUrl: 'views/login.html',
+		templateUrl: 'views/login/login.html',
 		controller: 'LoginCtrl'
 	});
 
