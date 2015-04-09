@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<h3 class="modal-title">Esqueci minha senha!</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" novalidate name="$parent.esqueciMinhaSenhaForm">
+		<fieldset>
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="email" title="E-mail para enviar a recuperação da senha" accesskey="E">Digite o seu <u>e</u>-mail *</label>  
+				<div class="col-xs-6">
+					<input id="email" name="email" type="email" placeholder="usuario@dominio.com.br" class="form-control input-md" required="true" autofocus ng-model="registro.email">
+					<div ng-show="($parent.esqueciMinhaSenhaForm.email.$dirty || submitted) && $parent.esqueciMinhaSenhaForm.email.$invalid">
+						<span class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.required">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Campo Obrigatório
+						</span>
+						<span class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.email">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							E-mail inválido
+						</span>
+					</div>
+					<span class="help-block">Será encaminhado um e-mail com orientações de como recuperar seu acesso ao sistema</span>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" id="ok" name="ok" class="btn btn-primary" accesskey="O" title="Executar a ação deste formulário" ng-click="submitForm()"><u>O</u>K</button>
+	<button type="button" id="reiniciar" name="reiniciar" class="btn btn-warning" ng-click="reiniciar();" accesskey="R" title="Reiniciar os dados deste formulário"><u>R</u>einiciar</button>
+	<button type="button" id="cancelar" name="cancelar" class="btn btn-danger" accesskey="C" title="Cancelar a ação deste formulário" ng-click="cancelar()"><u>C</u>ancelar</button>
+</div>
