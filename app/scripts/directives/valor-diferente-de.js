@@ -1,16 +1,16 @@
 'use strict';
 
 // diretiva para manter campos iguais
-aterwebApp.directive('mesmoValorQue', function() {
+aterwebApp.directive('valorDiferenteDe', function() {
     return {
         require: "ngModel",
         scope: {
-            outroValor: "=mesmoValorQue"
+            outroValor: "=valorDiferenteDe"
         },
         link: function(scope, element, attributes, ngModel) {
            
-            ngModel.$validators.mesmoValorQue = function(valor) {
-                return valor === scope.outroValor;
+            ngModel.$validators.valorDiferenteDe = function(valor) {
+                return valor !== scope.outroValor;
             };
             
             scope.$watch("outroValor", function() {

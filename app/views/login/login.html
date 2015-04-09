@@ -3,7 +3,7 @@
 		<img src="/images/logo-transparente-pequeno.png"/>
 	</p>
 	<form class="form-horizontal" novalidate name="$parent.loginForm" ng-submit="submitForm()">
-		<fieldset>
+		<fieldset style="margin: 15px;">
 
 			<!-- Form Name -->
 			<legend>Login</legend>
@@ -12,16 +12,12 @@
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="usuario" title="Nome do Usuário do Sistema" accesskey="U"><u>U</u>suário *</label>  
 				<div class="col-xs-6">
-					<input id="usuario" name="usuario" type="text" placeholder="Nome do Usuário" class="form-control input-md" required="true" autofocus ng-model="registro.usuario" ng-minlength=3>
+					<input id="usuario" name="usuario" type="text" placeholder="Nome do Usuário" class="form-control input-md" autofocus ng-model="registro.usuario" required="true">
 					<div ng-show="($parent.loginForm.usuario.$dirty || submitted) && $parent.loginForm.usuario.$invalid">
-						<span class="label label-danger" ng-show="$parent.loginForm.usuario.$error.required">
+						<div class="label label-danger" ng-show="$parent.loginForm.usuario.$error.required">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							Campo Obrigatório
-						</span>
-						<span class="label label-danger" ng-show="$parent.loginForm.usuario.$error.minlength">
-							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							Poucos caracteres
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -30,12 +26,12 @@
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="senha" title="Senha de Acesso ao Sistema" accesskey="S"><u>S</u>enha *</label>
 				<div class="col-xs-6">
-					<input id="senha" name="senha" type="password" placeholder="Senha de Acesso" class="form-control input-md" required="true" ng-model="registro.senha">
+					<input id="senha" name="senha" type="password" placeholder="Senha de Acesso" class="form-control input-md" ng-model="registro.senha" required="true">
 					<div ng-show="($parent.loginForm.senha.$dirty || submitted) && $parent.loginForm.senha.$invalid">
-						<span class="label label-danger" ng-show="$parent.loginForm.senha.$error.required">
+						<div class="label label-danger" ng-show="$parent.loginForm.senha.$error.required">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							Campo Obrigatório
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -48,10 +44,10 @@
 						<option value="1">Principal</option>
 					</select>
 					<div ng-show="($parent.loginForm.modulo.$dirty || submitted) && $parent.loginForm.modulo.$invalid">
-						<span class="label label-danger" ng-show="$parent.loginForm.modulo.$error.required">
+						<div class="label label-danger" ng-show="$parent.loginForm.modulo.$error.required">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							Campo Obrigatório
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>

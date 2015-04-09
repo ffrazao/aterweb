@@ -52,8 +52,8 @@
       size: size
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      //$scope.selected = selectedItem;
+    modalInstance.result.then(function () {
+      $('#usuario').focus();
     }, function () {
       //$log.info('Modal dismissed at: ' + new Date());
     });
@@ -71,9 +71,9 @@
       }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      //$scope.selected = selectedItem;
+    modalInstance.result.then(function (registro) {
       $('#usuario').focus();
+      $scope.registro.senha = angular.copy(registro.novaSenha);
     }, function () {
       //$log.info('Modal dismissed at: ' + new Date());
     });

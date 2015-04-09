@@ -33,7 +33,7 @@ aterwebApp.controller('EsqueciMinhaSenhaCtrl', function ($scope, $modalInstance,
       return;
     }
     toastr.success('Foi encaminhado um e-mail com instrucoes para recuperar seu acesso ao sistema');
-    $modalInstance.close(1);
+    $modalInstance.close();
   };
 
   $scope.cancelar = function () {

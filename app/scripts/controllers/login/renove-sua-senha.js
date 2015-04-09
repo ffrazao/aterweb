@@ -35,7 +35,8 @@ aterwebApp.controller('RenoveSuaSenhaCtrl', function ($scope, $modalInstance, to
       return;
     }
     toastr.success('Sua senha foi renovada');
-    $modalInstance.close(1);
+    console.log('retornando ', angular.copy($scope.registro));
+    $modalInstance.close(angular.copy($scope.registro));
   };
 
   $scope.cancelar = function () {

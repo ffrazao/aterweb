@@ -10,14 +10,14 @@
 				<div class="col-xs-6">
 					<input id="email" name="email" type="email" placeholder="usuario@dominio.com.br" class="form-control input-md" required="true" autofocus ng-model="registro.email">
 					<div ng-show="($parent.esqueciMinhaSenhaForm.email.$dirty || submitted) && $parent.esqueciMinhaSenhaForm.email.$invalid">
-						<span class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.required">
+						<div class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.required">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							Campo Obrigatório
-						</span>
-						<span class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.email">
+						</div>
+						<div class="label label-danger" ng-show="$parent.esqueciMinhaSenhaForm.email.$error.email">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							E-mail inválido
-						</span>
+						</div>
 					</div>
 					<span class="help-block">Será encaminhado um e-mail com orientações de como recuperar seu acesso ao sistema</span>
 				</div>
