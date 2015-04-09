@@ -31,11 +31,9 @@
       $scope.submitted = true;
       toastr.error('Verifique os campos marcados', 'Erro');
       //$scope.mensagens.push({ tipo: 'danger', texto: 'Verifique os campos marcados' });
+      return;
     }
-  };
-
-  $scope.esqueciMinhaSenha = function () {
-
+    $scope.renoveSuaSenha();
   };
 
   $scope.mensagens = [
@@ -47,7 +45,7 @@
     $scope.mensagens.splice(index, 1);
   };
 
-  $scope.open = function (size) {
+  $scope.esqueciMinhaSenha = function (size) {
     var modalInstance = $modal.open({
       templateUrl: 'views/login/esqueci-minha-senha.html',
       controller: 'EsqueciMinhaSenhaCtrl',
@@ -61,39 +59,24 @@
     });
   };
 
-});
+  $scope.renoveSuaSenha = function (size) {
+    var modalInstance = $modal.open({
+      templateUrl: 'views/login/renove-sua-senha.html',
+      controller: 'RenoveSuaSenhaCtrl',
+      size: size,
+      resolve: {
+        registroOrig: function () {
+          return $scope.registro;
+        }
+      }
+    });
 
-aterwebApp.controller('EsqueciMinhaSenhaCtrl', function ($scope, $modalInstance, toastr) {
-  $scope.iniciar = function() {
-    $scope.registroOrig = {};
-    $scope.reiniciar();
+    modalInstance.result.then(function (selectedItem) {
+      //$scope.selected = selectedItem;
+      $('#usuario').focus();
+    }, function () {
+      //$log.info('Modal dismissed at: ' + new Date());
+    });
   };
 
-  $scope.reiniciar = function() {
-    $scope.submitted = false;
-    $scope.registro = angular.copy($scope.registroOrig);
-    if ($scope.$parent.esqueciMinhaSenhaForm) {
-      $scope.$parent.esqueciMinhaSenhaForm.$setPristine();
-    }
-    $('#email').focus();
-    console.log('reiniciar');
-  };
-
-  $scope.iniciar();
-
-  // métodos de apoio
-  $scope.submitForm = function () {
-    if (!$scope.$parent.esqueciMinhaSenhaForm.$valid) {
-      $scope.submitted = true;
-      toastr.error('Verifique os campos marcados', 'Erro');
-    }
-  };
-
-  $scope.ok = function () {
-    //$modalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancelar = function () {
-    $modalInstance.dismiss('cancel');
-  };
 });

@@ -21,7 +21,6 @@ aterwebApp.controller('EsqueciMinhaSenhaCtrl', function ($scope, $modalInstance,
       $scope.$parent.esqueciMinhaSenhaForm.$setPristine();
     }
     $('#email').focus();
-    console.log('reiniciar');
   };
 
   $scope.iniciar();
@@ -31,11 +30,10 @@ aterwebApp.controller('EsqueciMinhaSenhaCtrl', function ($scope, $modalInstance,
     if (!$scope.$parent.esqueciMinhaSenhaForm.$valid) {
       $scope.submitted = true;
       toastr.error('Verifique os campos marcados', 'Erro');
+      return;
     }
-  };
-
-  $scope.ok = function () {
-    //$modalInstance.close($scope.selected.item);
+    toastr.success('Foi encaminhado um e-mail com instrucoes para recuperar seu acesso ao sistema');
+    $modalInstance.close(1);
   };
 
   $scope.cancelar = function () {
