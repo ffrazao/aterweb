@@ -18,10 +18,15 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ngTouch',
 	'ui.router',
 	'ui.bootstrap',
-	'toastr'
-	]);
+	'toastr',
+	'ngTable'
+]);
 
-// ajustar o router da aplicação
+aterwebApp.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
+	$rootScope.estado = $state;
+	$rootScope.estadoParams = $stateParams;
+}]);
+
 aterwebApp.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {
@@ -55,27 +60,49 @@ aterwebApp.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 		toastClass: 'toast'
 	});
 
+	// ajustar o router da aplicação
+
 	// For any unmatched url, redirect to /about
 	$urlRouterProvider.otherwise('/');
 	//
 	// Now set up the states
 	$stateProvider
 
-	.state('bem-vindo', {
-		url: '/',
-		templateUrl: 'views/bem-vindo.html'
-	})
-	
-	.state('bem-vindo.lista', {
-		url: '/lista',
-		templateUrl: 'views/bem-vindo.lista.html',
-		controller: 'BemVindoListaCtrl'
-	})
-
 	.state('login', {
 		url: '/login',
 		templateUrl: 'views/login/login.html',
 		controller: 'LoginCtrl'
-	});
+	})
+
+	.state('p', {
+		templateUrl: 'views/principal.html'
+	})
+	
+	.state('p.bem-vindo', {
+		url: '/',
+		templateUrl: 'views/bem-vindo.html'
+	})
+
+	.state('p.modeloCadastro', {
+		url: '/modelo-cadastro',
+		templateUrl: 'views/_modelo-cadastro/_modelo-cadastro.html',
+		controller: 'ModeloCadastroCtrl'
+	})
+
+	.state('p.modeloCadastro.filtro', {
+		url: '/',
+		templateUrl: 'views/_modelo-cadastro/filtro.html'
+	})
+
+	.state('p.modeloCadastro.lista', {
+		url: '/lista',
+		templateUrl: 'views/_modelo-cadastro/lista.html'
+	})
+
+	.state('p.modeloCadastro.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/_modelo-cadastro/formulario.html'
+	})
+	;
 
 });

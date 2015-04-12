@@ -1,0 +1,22 @@
+<div class="modal-header">
+	<h3 class="modal-title">Cadastro Modelo</h3>
+</div>
+<div class="modal-body">
+	<div>
+		<h4></h4>
+		<a ng-click="filtrando = true; listando = false; cadastrando = false;">Filtrar</a>
+		<a ng-click="filtrando = false; listando = true; cadastrando = false;">Listar</a>
+		<a ng-click="filtrando = false; listando = false; cadastrando = true;">Cadastrar</a>
+		<div>
+			<ng-include src="'views/_modelo-cadastro/filtro.html'" ng-show="filtrando"></ng-include>
+			<ng-include src="'views/_modelo-cadastro/lista.html'" ng-show="listando"></ng-include>
+			<ng-include src="'views/_modelo-cadastro/formulario.html'" ng-show="cadastrando"></ng-include>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="submit" id="ok" name="ok" class="btn btn-primary" accesskey="O" title="Executar a ação deste formulário" ng-click="submitForm()"><u>O</u>K</button>
+	<button type="button" id="reiniciar" name="reiniciar" class="btn btn-warning" ng-click="reiniciar();" accesskey="R" title="Reiniciar os dados deste formulário"><u>R</u>einiciar</button>
+	<button type="button" id="cancelar" name="cancelar" class="btn btn-danger" accesskey="C" title="Cancelar a ação deste formulário" ng-click="cancelar()"><u>C</u>ancelar</button>
+</div>
+
