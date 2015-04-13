@@ -1,0 +1,80 @@
+<div class="modal-header">
+	<h3 class="modal-title">Renove sua senha!</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" novalidate name="$parent.renoveSuaSenhaForm">
+		<fieldset>
+
+			<!-- Text Inform-->
+			<div class="form-group">
+				<div class="col-xs-offset-4 col-xs-6">
+					<span class="help-block">E necessario renovar a sua senha de acesso ao sistema</span>
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="usuario" title="Nome do Usuário do Sistema" accesskey="U"><u>U</u>suário *</label>  
+				<div class="col-xs-6">
+					<label class="control-label">{{registro.usuario}}</label>
+				</div>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="novaSenha" title="Nova Senha de Acesso ao Sistema" accesskey="N"><u>N</u>ova Senha *</label>
+				<div class="col-xs-6">
+					<input id="novaSenha" name="novaSenha" type="password" placeholder="Nova Senha de Acesso" class="form-control input-md" required="true" autofocus ng-model="registro.novaSenha" valor-diferente-de="registro.senha" ng-minlength=8 ng-maxlength=20 ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/">
+					<div ng-show="($parent.renoveSuaSenhaForm.novaSenha.$dirty || submitted) && $parent.renoveSuaSenhaForm.novaSenha.$invalid">
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.novaSenha.$error.required">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Campo Obrigatório
+						</div>
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.novaSenha.$error.minlength">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Poucos caracteres
+						</div>
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.novaSenha.$error.maxlength">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Muitos caracteres
+						</div>
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.novaSenha.$error.valorDiferenteDe">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							A nova senha nao pode ser a mesma que a atual
+						</div>
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.novaSenha.$error.pattern">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Insira numero(s) e letra(s) maiusculas e minusculas
+						</div>
+					</div>
+					<span class="help-block">Informe uma senha com no minimo 8 e no maximo 20 caracteres que contenha numero(s) e letra(s) maiusculas e minusculas</span>
+				</div>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="confirmarNovaSenha" title="Confirmar Nova Senha de Acesso ao Sistema" accesskey="N"><u>C</u>onfirmar Nova Senha *</label>
+				<div class="col-xs-6">
+					<input id="confirmarNovaSenha" name="confirmarNovaSenha" type="password" placeholder="Confirmar Nova Senha de Acesso" class="form-control input-md" required="true" ng-model="registro.confirmarNovaSenha" mesmo-valor-que="registro.novaSenha">
+					<div ng-show="($parent.renoveSuaSenhaForm.confirmarNovaSenha.$dirty || submitted) && $parent.renoveSuaSenhaForm.confirmarNovaSenha.$invalid">
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.confirmarNovaSenha.$error.required">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							Campo Obrigatório
+						</div>
+						<div class="label label-danger" ng-show="$parent.renoveSuaSenhaForm.confirmarNovaSenha.$error.mesmoValorQue">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							As senhas não coincidem
+						</div>
+					</div>
+					<span class="help-block">Reescreva a nova senha</span>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="submit" id="ok" name="ok" class="btn btn-primary" accesskey="O" title="Executar a ação deste formulário" ng-click="submitForm()"><u>O</u>K</button>
+	<button type="button" id="reiniciar" name="reiniciar" class="btn btn-warning" ng-click="reiniciar();" accesskey="R" title="Reiniciar os dados deste formulário"><u>R</u>einiciar</button>
+	<button type="button" id="cancelar" name="cancelar" class="btn btn-danger" accesskey="C" title="Cancelar a ação deste formulário" ng-click="cancelar()"><u>C</u>ancelar</button>
+</div>

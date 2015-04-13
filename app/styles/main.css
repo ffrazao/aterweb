@@ -7,6 +7,8 @@
 
 body {
   padding: 0;
+  background: url('/images/fundo.jpg') #daeabd fixed top left; 
+  background-size: cover;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -80,4 +82,43 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+/* validacao */
+
+.ng-invalid {
+  border: 1px solid red;
+}
+
+.ng-valid {
+  border: 1px solid green;
+}
+
+form.ng-invalid {
+  border: 0px;
+}
+
+form.ng-valid {
+  border: 0px;
+}
+
+.margem-superior {
+  margin-top: 2.5cm;
+}
+
+.de-vidro {
+  background-color: rgba(255,255,255, 0.2) !important;
+  border: 1px solid rgba(255,255,255,0.5) !important;
+}
+
+.centralizado {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.caixa-login {
+  min-width:400px;
+  width: 50%;
+  max-width: 500px; 
 }
