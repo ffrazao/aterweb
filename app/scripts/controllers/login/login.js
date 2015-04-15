@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the aterwebApp
  */
- aterwebApp.controller('LoginCtrl', function ($scope, $location, $modal, toastr) {
+ aterwebApp.controller('LoginCtrl', function ($scope, $location, $modal, toastr, $state) {
 
  	$scope.iniciar = function() {
  		$scope.registroOrig = $location.search();
