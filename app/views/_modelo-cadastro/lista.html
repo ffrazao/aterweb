@@ -1,21 +1,19 @@
 Lista
 <table ng-table="tableParams" template-pagination="custom/pager" class="table">
-	<tr ng-repeat="user in $data">
-		<td data-title="'Name of people'">
-			{{user.name}}
+	<tr ng-repeat="usuario in $data">
+		<td data-title="'Nome'">
+			{{usuario.nome}}
 		</td>
-		<td data-title="'Age'">
-			{{user.age}}
+		<td data-title="'Documento'">
+			{{usuario.documento}}
 		</td>
 	</tr>
 </table>
 <script type="text/ng-template" id="custom/pager">
 	<ul class="pager ng-cloak">
-		<li ng-repeat="page in pages"
-		ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
-		ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
-		<a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
-		<a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+		<li ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+		<a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Anterior</a>
+		<a ng-switch-when="next" ng-click="params.page(page.number)" href="">Próximo &raquo;</a>
 	</li>
 	<li> 
 		<div class="btn-group">
