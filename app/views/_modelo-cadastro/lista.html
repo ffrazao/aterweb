@@ -2,15 +2,17 @@ Lista
 <div class="panel panel-default">
 	<!-- Default panel contents -->
 	<div class="panel-heading">Cadastro de </div>
-[{{selecao.items}}] [{{selecao.item}}]
 	<!-- Table -->
 	<form>
-		<table ng-table="tableParams" template-pagination="custom/pager" class="table">
+		<div class="table-responsive">
+		<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
 			<tr ng-repeat="item in $data">
 				<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
-					<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item" />
-					<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item" ng-true-value="{{item}}" ng-false-value="null"/>
-					[{{item}}]
+					<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
+					<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
+				</td>
+				<td width="30" data-title="'#'">
+					{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
 				</td>
 				<td data-title="'Nome'">
 					{{item.nome}}
@@ -20,11 +22,18 @@ Lista
 				</td>
 			</tr>
 		</table>
+		</div>
 	</form>
 </div>
 
 <script type="text/ng-template" id="ng-table/headers/checkbox.html">
-	<input type="checkbox" ng-model="selecao.checked" id="select_all" name="filter-checkbox" value="" />
+	<button class="btn btn-default btn-xs" title="Ir para o Modo Multiseleção" ng-click="selecao.tipo = 'M'" ng-show="selecao.tipo === 'U'">
+		<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+	</button>
+	<button class="btn btn-default btn-xs" title="Ir para o Modo Seleção Única" ng-click="selecao.tipo = 'U'" ng-show="selecao.tipo === 'M'">
+		<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+	</button>
+	<input type="checkbox" ng-model="selecao.checked" id="select_all" name="filter-checkbox" ng-show="selecao.tipo === 'M'" title="Marcar/Desmarcar Todos"/>
 </script>
 
 <script type="text/ng-template" id="custom/pager">
