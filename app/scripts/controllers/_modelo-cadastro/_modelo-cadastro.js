@@ -4,7 +4,7 @@
   $scope.listando = true;
   $scope.cadastrando = false;
 
-  var data = [
+  var lista = [
   {id:  1, nome: "Nome  1", documento: "0123"},
   {id:  2, nome: "Nome  2", documento: "0123"},
   {id:  3, nome: "Nome  3", documento: "0123"},
@@ -22,12 +22,12 @@
   $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
         count: 10           // count per page
-    }, {
-        total: data.length, // length of data
+      }, {
+        total: lista.length, // length of lista
         getData: function($defer, params) {
-            $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+          $defer.resolve(lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
         }
-    });
+      });
 
   $scope.popup = function (size) {
     var modalInstance = $modal.open({
@@ -42,5 +42,61 @@
       //$log.info('Modal dismissed at: ' + new Date());
     });
   };
+
+  var inArray = Array.prototype.indexOf ?
+  function (val, arr) {
+    return arr.indexOf(val)
+  } :
+  function (val, arr) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] === val) return i;
+    }
+    return -1
+  };
+/*  $scope.names = function(column) {
+    var def = $q.defer(),
+    arr = [],
+    names = [];
+    angular.forEach(data, function(item){
+      if (inArray(item.name, arr) === -1) {
+        arr.push(item.name);
+        names.push({
+          'id': item.name,
+          'title': item.name
+        });
+      }
+    });
+    def.resolve(names);
+    return def;
+  };*/
+
+  $scope.selecao = { 'checked': false, items: {}, item: {} };
+
+  // watch for check all checkbox
+  $scope.$watch('selecao.checked', function(value) {
+    angular.forEach(lista, function(item) {
+      if (angular.isDefined(item.id)) {
+        $scope.selecao.items[item.id] = value ? item: null;
+      }
+    });
+  });
+
+  // watch for data selecao
+  $scope.$watch('selecao.items', function(values) {
+    if (!lista) {
+      return;
+    }
+    var checked = 0, unchecked = 0, total = lista.length;
+    angular.forEach(lista, function(item) {
+      checked   += ($scope.selecao.items[item.id]) || 0;
+      unchecked += (!$scope.selecao.items[item.id]) || 0;
+    });
+    if ((unchecked == 0) || (checked == 0)) {
+      $scope.selecao.checked = (checked == total);
+    }
+      // grayed checkbox
+      angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+  }, true);
 
 });

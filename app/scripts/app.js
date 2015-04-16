@@ -22,30 +22,30 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ngTable'
 ]);
 
-aterwebApp.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
-	$rootScope.estado = {atual: {state: $state.current, params: $stateParams}, retornando: false};
+aterwebApp.run(['$rootScope', '$state', '$stateParams', 'toastr', function ($rootScope, $state, $stateParams, toastr) {
+	$rootScope.estado = {retornando: false};
 
 	$rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
 		if ($rootScope.estado.retornando) {
 			$rootScope.estado.retornando = false;
 		} else {
-			if ($rootScope.estado.atual.state !== toState && $rootScope.estado.atual.params !== toParams) {
+			if ($rootScope.estado.atual && $rootScope.estado.atual.state !== toState && $rootScope.estado.atual.params !== toParams) {
 				if (!$rootScope.estado.anterior) {
 					$rootScope.estado.anterior = [];
 				}
 				$rootScope.estado.anterior.push(angular.copy($rootScope.estado.atual));
-				$rootScope.estado.atual = {state: toState, params: toParams};
 			}
+			$rootScope.estado.atual = {state: toState, params: toParams};
 		}
 	});
 
 	$rootScope.retornar = function() {
-		if ($rootScope.estado.anterior.length > 0) {
+		if ($rootScope.estado.anterior && $rootScope.estado.anterior.length > 0) {
 			$rootScope.estado.atual = $rootScope.estado.anterior.pop();
 			$state.go($rootScope.estado.atual.state.name, $rootScope.estado.atual.params);
 			$rootScope.estado.retornando = true;
 		} else {
-			toastr.error('Impossivel retornar');
+			toastr.error('Impossivel retornar', 'Erro');
 		}
 	};
 }]);
