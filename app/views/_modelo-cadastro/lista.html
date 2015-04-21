@@ -1,27 +1,60 @@
 Lista
 <div class="panel panel-default">
 	<!-- Default panel contents -->
-	<div class="panel-heading">Cadastro de </div>
+	<div class="panel-heading">
+		
+
+
+
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Cadastro de Propriedades</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Incluir <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Visualizar</a></li>
+        <li><a href="#">Excluir</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+	</div>
 	<!-- Table -->
 	<form>
 		<div class="table-responsive">
-		<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
-			<tr ng-repeat="item in $data">
-				<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
-					<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
-					<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
-				</td>
-				<td width="30" data-title="'#'">
-					{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
-				</td>
-				<td data-title="'Nome'">
-					{{item.nome}}
-				</td>
-				<td data-title="'Documento'">
-					{{item.documento}}
-				</td>
-			</tr>
-		</table>
+			<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
+				<tr ng-repeat="item in $data">
+					<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+						<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
+						<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
+					</td>
+					<td width="30" data-title="'#'">
+						{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
+					</td>
+					<td data-title="'Nome'">
+						{{item.nome}}
+					</td>
+					<td data-title="'Documento'">
+						{{item.documento}}
+					</td>
+				</tr>
+			</table>
 		</div>
 	</form>
 </div>
