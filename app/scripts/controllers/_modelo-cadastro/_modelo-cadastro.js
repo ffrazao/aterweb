@@ -241,4 +241,44 @@
       angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
   }, true);
 
+
+$scope.primeiro = function() {
+  console.log("primeiro");
+  $scope.tableParams.page(1);
+};
+$scope.anterior = function() {
+  console.log("anterior", Math.max($scope.tableParams.$params.page - 1, 1));
+  $scope.tableParams.page(Math.max($scope.tableParams.$params.page - 1, 1));
+};
+$scope.posterior = function() {
+  console.log("posterior", Math.min($scope.tableParams.$params.page + 1, parseInt(lista.length / $scope.tableParams.$params.count) + 1));
+  $scope.tableParams.page(Math.min($scope.tableParams.$params.page + 1, parseInt(lista.length / $scope.tableParams.$params.count) + 1));
+};
+$scope.ultimo = function() {
+  console.log("ultimo", lista.length, $scope.tableParams.$params.count);
+  $scope.tableParams.page(parseInt(lista.length / $scope.tableParams.$params.count) + 1);
+};
+$scope.filtrar = function() {
+  console.log("filtrar");
+};
+$scope.incluir = function() {
+  console.log("incluir");
+};
+$scope.visualizar = function() {
+  console.log("visualizar");
+};
+$scope.excluir = function() {
+  console.log("excluir");
+};
+$scope.ok = function() {
+  console.log("ok");
+};
+$scope.cancelar = function() {
+  console.log("cancelar");
+};
+$scope.acoes = function() {
+  console.log("acoes");
+};
+
+
 });
