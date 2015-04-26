@@ -3,9 +3,9 @@
 // diretiva para manter campos iguais
 aterwebApp.directive('valorDiferenteDe', function() {
     return {
-        require: "ngModel",
+        require: 'ngModel',
         scope: {
-            outroValor: "=valorDiferenteDe"
+            outroValor: '=valorDiferenteDe'
         },
         link: function(scope, element, attributes, ngModel) {
            
@@ -13,7 +13,7 @@ aterwebApp.directive('valorDiferenteDe', function() {
                 return valor !== scope.outroValor;
             };
             
-            scope.$watch("outroValor", function() {
+            scope.$watch('outroValor', function() {
                 ngModel.$validate();
             });
         }

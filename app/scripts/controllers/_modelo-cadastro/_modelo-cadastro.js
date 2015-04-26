@@ -161,6 +161,10 @@
   {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   {id: 13, nome: "Nome 13, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"}];
 
+  $scope.filtro = {nome: 'Nome'};
+  $scope.lista = angular.copy(lista);
+  $scope.formulario = {id: 21}
+
   $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
         count: 10           // count per page

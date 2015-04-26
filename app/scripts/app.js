@@ -25,7 +25,7 @@ var aterwebApp = angular.module('aterwebApp', [
 aterwebApp.run(['$rootScope', '$state', '$stateParams', 'toastr', function ($rootScope, $state, $stateParams, toastr) {
 	$rootScope.estado = {retornando: false};
 
-	$rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
+	$rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
 		if ($rootScope.estado.retornando) {
 			$rootScope.estado.retornando = false;
 		} else {
