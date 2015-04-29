@@ -1,4 +1,4 @@
- aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, ngTableParams) {
+ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, ngTableParams, toastr) {
 
   $scope.filtrando = false;
   $scope.listando = true;
@@ -282,8 +282,9 @@
   $scope.cancelar = function() {
     console.log("cancelar");
   };
-  $scope.acoes = function() {
-    console.log("acoes");
+  $scope.agir = function(msg) {
+    console.log("agir no controller " + msg);
+    toastr.success('Sucesso!', 'confirmaçao de inclusão');
   };
 
 
