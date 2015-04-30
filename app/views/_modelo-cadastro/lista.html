@@ -1,31 +1,24 @@
-Lista
-<div class="panel panel-default">
-	<!-- Default panel contents -->
-	<div class="panel-heading">
-		<!-- [{{cadastro}}] -->
-		<navegador ng-model="cadastro" on-agir="agir('oba')"></navegador>
-	</div>
+<div class="panel-body">Lista</div>
 
-	<!-- Table -->
-	<div class="table-responsive">
-		<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
-			<tr ng-repeat="item in $data">
-				<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
-					<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
-					<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
-				</td>
-				<td width="30" data-title="'#'">
-					{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
-				</td>
-				<td data-title="'Nome'">
-					{{item.nome}}
-				</td>
-				<td data-title="'Documento'">
-					{{item.documento}}
-				</td>
-			</tr>
-		</table>
-	</div>
+<!-- Table -->
+<div class="table-responsive">
+	<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
+		<tr ng-repeat="item in $data">
+			<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+				<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
+				<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
+			</td>
+			<td width="30" data-title="'#'">
+				{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
+			</td>
+			<td data-title="'Nome'">
+				{{item.nome}}
+			</td>
+			<td data-title="'Documento'">
+				{{item.documento}}
+			</td>
+		</tr>
+	</table>
 </div>
 
 <script type="text/ng-template" id="ng-table/headers/checkbox.html">

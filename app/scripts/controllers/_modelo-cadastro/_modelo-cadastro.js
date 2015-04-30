@@ -1,5 +1,6 @@
- aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, ngTableParams, toastr) {
+ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, ngTableParams, toastr, $state) {
 
+  console.log('estados', $scope.estados);
   $scope.filtrando = false;
   $scope.listando = true;
   $scope.cadastrando = false;
@@ -164,7 +165,8 @@
   $scope.cadastro = {
     filtro : {nome: 'Nome'},
     lista : angular.copy(lista),
-    formulario : {id: 21}
+    formulario : {id: 21},
+    estadoAtual : $scope.estado.atual
   };
 
   $scope.tableParams = new ngTableParams({
@@ -266,12 +268,14 @@
   };
   $scope.filtrar = function() {
     console.log("filtrar");
+    $state.go('^.filtro');
   };
   $scope.incluir = function() {
     console.log("incluir");
   };
   $scope.visualizar = function() {
     console.log("visualizar");
+        $state.go('^.formulario');
   };
   $scope.excluir = function() {
     console.log("excluir");
@@ -285,6 +289,7 @@
   $scope.agir = function(msg) {
     console.log("agir no controller " + msg);
     toastr.success('Sucesso!', 'confirmaçao de inclusão');
+    $state.go('^.lista');
   };
 
 

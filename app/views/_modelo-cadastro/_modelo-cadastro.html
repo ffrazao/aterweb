@@ -1,9 +1,12 @@
-
 <div>
 	<h4>Cadastro Modelo</h4>
-	<a class="brand" ui-sref="p.modeloCadastro.filtro">filtro</a>
-	<a class="brand" ui-sref="p.modeloCadastro.lista">lista</a>
-	<a class="brand" ui-sref="p.modeloCadastro.formulario({ id: 23 })">formulario</a>
-	<div ui-view>
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<!-- [{{cadastro}}] -->
+			<frz-navegador ng-model="cadastro" on-agir="agir('oba')" on-filtrar="filtrar()"></navegador>
+		</div>
+		<div ui-view>
+		</div>
 	</div>
 </div>
