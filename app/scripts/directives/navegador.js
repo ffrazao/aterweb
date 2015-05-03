@@ -7,6 +7,44 @@
 //   }
 // });
 
+aterwebApp.factory('frzNavegadorParams', ['', function(){
+    var frzNavegadorParams = function (params) {
+        var cadastro = params;
+        this.adicionaEstado = function (novoEstado) {
+            cadastro.estadoAtual = novoEstado;
+            cadastro.historicoEstados.push(cadastro.estadoAtual);
+        }
+        this.removeEstado = function () {
+            cadastro.estadoAtual = cadastro.historicoEstados.pop();
+        }
+        this.getEstadoAtual = function() {
+            return cadastro.estadoAtual;
+        }
+        var iniciarBotoes = function() {
+            this.botoes = {
+                agirBotaoVisivel: false,
+                cancelarBotaoVisivel: false,
+                confirmarBotaoVisivel: false,
+                excluirBotaoVisivel: false,
+                filtrarBotaoVisivel: false,
+                incluirBotaoVisivel: false,
+                limparBotaoVisivel: false,
+                navegarBotaoVisivel: false,
+                restaurarBotaoVisivel: false,
+                tamanhoPaginaBotaoVisivel: false,
+                visualizarBotaoVisivel: false,
+                voltarBotaoVisivel: false
+            };
+        };
+
+    };
+    return frzNavegadorParams;
+}])
+
+aterwebApp.controller('frzNavegadorCtrl', ['$scope', function($scope) {
+    
+}]);
+
 // diretiva da barra de navegação de dados
 aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
     return {
@@ -36,6 +74,7 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
         },
         restrict: 'E', 
         replace: false,
+        controller: 'frzNavegadorCtrl',
         link: function(scope, element, attributes) {
             console.log('scope', scope.ngModel);
 
@@ -57,41 +96,6 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
                     voltarBotaoVisivel: false
                 };
             };
-
-/*
-            scope.$watch("historicoEstados.length", function() {
-                var e = scope.historicoEstados[scope.historicoEstados.length-1];
-                if (e === scope.estados.ABRINDO) {
-                    scope.ngModel.estadoAtual = "ABRINDO";
-                } else if (e === scope.estados.FILTRANDO) {
-                    scope.ngModel.estadoAtual = "FILTRANDO";
-                } else if (e === scope.estados.LISTANDO) {
-                    scope.ngModel.estadoAtual = "LISTANDO";
-                } else if (e === scope.estados.VISUALIZANDO) {
-                    scope.ngModel.estadoAtual = "VISUALIZANDO";
-                } else if (e === scope.estados.INCLUINDO) {
-                    scope.ngModel.estadoAtual = "INCLUINDO";
-                } else if (e === scope.estados.EDITANDO) {
-                    scope.ngModel.estadoAtual = "EDITANDO";
-                } else if (e === scope.estados.EXCLUINDO) {
-                    scope.ngModel.estadoAtual = "EXCLUINDO";
-                } else if (e === scope.estados.AGINDO) {
-                    scope.ngModel.estadoAtual = "AGINDO";
-                } else if (e === scope.estados.LIMPANDO) {
-                    scope.ngModel.estadoAtual = "LIMPANDO";
-                } else if (e === scope.estados.RESTAURANDO) {
-                    scope.ngModel.estadoAtual = "RESTAURANDO";
-                } else if (e === scope.estados.NAVEGANDO) {
-                    scope.ngModel.estadoAtual = "NAVEGANDO";
-                } else if (e === scope.estados.VOLTANDO) {
-                    scope.ngModel.estadoAtual = "VOLTANDO";
-                } else if (e === scope.estados.CONFIRMANDO) {
-                    scope.ngModel.estadoAtual = "CONFIRMANDO";
-                } else if (e === scope.estados.CANCELANDO) {
-                    scope.ngModel.estadoAtual = "CANCELANDO";
-                }
-            });
-*/
 
             scope.historicoEstados = [];
 

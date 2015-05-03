@@ -170,10 +170,10 @@
         page: 1,            // show first page
         count: 10           // count per page
       }, {
-        total: $scope.cadastro.lista.length, // length of lista
+        total: $scope.cadastro.lista.length/*, // length of lista
         getData: function($defer, params) {
           $defer.resolve(lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-        }
+        }*/
       });
 
   $scope.popup = function (size) {
@@ -190,6 +190,7 @@
     });
   };
 
+  /*
   var inArray = Array.prototype.indexOf ?
   function (val, arr) {
     return arr.indexOf(val)
@@ -201,7 +202,7 @@
     }
     return -1
   };
-/*  $scope.names = function(column) {
+  $scope.names = function(column) {
     var def = $q.defer(),
     arr = [],
     names = [];
@@ -216,7 +217,8 @@
     });
     def.resolve(names);
     return def;
-  };*/
+  };
+  */
 
   $scope.selecao = { tipo: 'U', checked: false, items: {}, item: {} };
 
@@ -332,7 +334,7 @@
 
  $.ajax('http://viacep.com.br/ws/01001-000/json/', {async: false})
         .success(function (data) {
-          $scope.cadastro.lista = [];
+          // $scope.cadastro.lista = [];
       });
 
   if ($scope.cadastro.lista.length === 0) {
