@@ -1,9 +1,4 @@
- aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, ngTableParams, toastr, $state) {
-
-  console.log('estados', $scope.estados);
-  $scope.filtrando = false;
-  $scope.listando = true;
-  $scope.cadastrando = false;
+ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q) {
 
   var lista = [
   {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
@@ -163,17 +158,19 @@
   {id: 13, nome: "Nome 13, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"}];
 
   $scope.cadastro = {
-    filtro : {nome: 'Nome'},
+    filtro : {nome: 'Pedro'},
     lista : angular.copy(lista),
-    formulario : {id: 21},
-    estadoAtual : $scope.estado.atual
+    registro : {id: 21},
+    folhaAtual : 1,
+    paginaAtual : 1,
+    estadoAtual : function(){}
   };
 
   $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
         count: 10           // count per page
       }, {
-        total: lista.length, // length of lista
+        total: $scope.cadastro.lista.length, // length of lista
         getData: function($defer, params) {
           $defer.resolve(lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
         }
@@ -250,7 +247,7 @@
     }, true);
 
 
-  $scope.primeiro = function() {
+/*  $scope.primeiro = function() {
     console.log("primeiro");
     $scope.tableParams.page(1);
   };
@@ -291,6 +288,110 @@
     toastr.success('Sucesso!', 'confirmaçao de inclusão');
     $state.go('^.lista');
   };
+  */
 
+  $scope.abrir = function () {
+    // $scope.cadastro.estadoInicial = 'i';
+  };
+
+  $scope.agir = function () {
+
+  };
+
+  $scope.cancelarEditar = function () {
+
+  };
+
+  $scope.cancelarExcluir = function () {
+
+  };
+
+  $scope.cancelarIncluir = function () {
+    throw ["A para o"];
+  };
+
+  $scope.cancelarListar = function () {
+    //$scope.cadastro.lista = []; 
+  };
+
+  $scope.confirmarEditar = function () {
+
+  };
+
+  $scope.confirmarExcluir = function () {
+
+  };
+
+  $scope.confirmarIncluir = function () {
+
+  };
+
+  $scope.confirmarListar = function () {
+    // viacep.com.br/ws/01001-000/json/
+    var deferred = $q.defer();
+
+ $.ajax('http://viacep.com.br/ws/01001-000/json/', {async: false})
+        .success(function (data) {
+          $scope.cadastro.lista = [];
+      });
+
+  if ($scope.cadastro.lista.length === 0) {
+    throw "Nenhum registro encontrado";
+  }
+    
+    $state.go('^.lista');
+  };
+
+  $scope.editar = function () {
+
+    $state.go('^.formulario');
+  };
+
+  $scope.excluir = function () {
+
+  };
+
+  $scope.filtrar = function () {
+    $state.go('^.filtro');
+  };
+
+  $scope.incluir = function () {
+    $state.go('^.formulario');
+  };
+
+  $scope.limpar = function () {
+
+  };
+
+  $scope.listar = function () {
+  };
+
+  $scope.navegarPrimeiro = function () {
+
+  };
+
+  $scope.navegarAnterior = function () {
+
+  };
+
+  $scope.navegarPosterior = function () {
+
+  };
+
+  $scope.navegarUltimo = function () {
+
+  };
+
+  $scope.restaurar = function () {
+
+  };
+
+  $scope.visualizar = function () {
+    $state.go('^.formulario');
+  };
+
+  $scope.voltar = function () {
+
+  };
 
 });
