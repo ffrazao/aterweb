@@ -3,10 +3,10 @@
 aterwebApp.factory('frzNavegadorParams', function() {
     var frzNavegadorParams = function () {
 
-        this.config = {scope: null};
+        this.scope = null;
 
         this.mudarEstado = function (novoEstado) {
-            this.config.scope.mudarEstado(novoEstado);
+            this.scope.mudarEstado(novoEstado);
         };
     };
     return frzNavegadorParams;
@@ -14,11 +14,11 @@ aterwebApp.factory('frzNavegadorParams', function() {
 
 aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toastr', function($scope, frzNavegadorParams, toastr) {
 
-    if (!$scope.ngModel.hasOwnProperty("navegador")) {
-        $scope.ngModel.navegador = new frzNavegadorParams();
-        $scope.ngModel.navegador.isNullInstance = true;
+    if (!$scope.ngModel.hasOwnProperty("scope")) {
+        $scope.ngModel = new frzNavegadorParams();
+        $scope.ngModel.isNullInstance = true;
     }
-    $scope.ngModel.navegador.config.scope = $scope;
+    $scope.ngModel.scope = $scope;
 
     var iniciarBotoes = function() {
         $scope.botoes = {
@@ -235,9 +235,9 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
     $scope.historicoEstados = [];
 
     $scope.mudarEstado = function (novoEstado) {
-        for (var estado in $scope.estados) {
-            if ($scope.estados[estado].estado === novoEstado) {
-                try {
+        try {
+            for (var estado in $scope.estados) {
+                if ($scope.estados[estado].estado === novoEstado) {
                     $scope.estados[estado].executar();
                     if ('ABRINDO' === novoEstado) {
                         return;
@@ -257,11 +257,11 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
                         $scope.historicoEstados.push($scope.estados[estado]);
                     }
                     break;
-                } catch (erro) {
-                    toastr.error('Erro ao filtrar!', erro);
-                    console.error('Erro ao filtrar!', erro);
                 }
             }
+        } catch (erro) {
+            toastr.error('Erro ao executar a operação!', erro);
+            console.error('Erro ao executar a operação!', erro);
         }
     };
 
