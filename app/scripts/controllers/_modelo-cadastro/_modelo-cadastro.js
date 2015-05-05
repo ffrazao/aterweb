@@ -1,4 +1,4 @@
- aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q) {
+ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, frzNavegadorParams) {
 
   var lista = [
   {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
@@ -249,6 +249,7 @@
     }, true);
 
 
+
 /*  $scope.primeiro = function() {
     console.log("primeiro");
     $scope.tableParams.page(1);
@@ -309,7 +310,7 @@
   };
 
   $scope.cancelarIncluir = function () {
-    throw ["A para o"];
+    // throw ["A para o"];
   };
 
   $scope.cancelarListar = function () {
@@ -329,6 +330,9 @@
   };
 
   $scope.confirmarListar = function () {
+    $scope.navegador.mudarEstado('INCLUINDO');
+    return;
+
     // viacep.com.br/ws/01001-000/json/
     var deferred = $q.defer();
 
@@ -395,5 +399,7 @@
   $scope.voltar = function () {
 
   };
+
+  $scope.navegador = new frzNavegadorParams($scope);
 
 });
