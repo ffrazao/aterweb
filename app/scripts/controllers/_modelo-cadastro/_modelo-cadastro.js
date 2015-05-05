@@ -161,9 +161,7 @@
     filtro : {nome: 'Pedro'},
     lista : angular.copy(lista),
     registro : {id: 21},
-    folhaAtual : 1,
-    paginaAtual : 1,
-    estadoAtual : function(){}
+    navegador: new frzNavegadorParams()
   };
 
   $scope.tableParams = new ngTableParams({
@@ -294,7 +292,7 @@
   */
 
   $scope.abrir = function () {
-    // $scope.cadastro.estadoInicial = 'i';
+    $scope.cadastro.navegador.mudarEstado('INCLUINDO');
   };
 
   $scope.agir = function () {
@@ -330,24 +328,8 @@
   };
 
   $scope.confirmarListar = function () {
-    $scope.navegador.mudarEstado('INCLUINDO');
-    return;
-
-    // viacep.com.br/ws/01001-000/json/
-    var deferred = $q.defer();
-
- $.ajax('http://viacep.com.br/ws/01001-000/json/', {async: false})
-        .success(function (data) {
-          // $scope.cadastro.lista = [];
-      });
-
-  if ($scope.cadastro.lista.length === 0) {
-    throw "Nenhum registro encontrado";
-  }
-    
-    $state.go('^.lista');
   };
-
+    
   $scope.editar = function () {
 
     $state.go('^.formulario');
@@ -362,7 +344,7 @@
   };
 
   $scope.incluir = function () {
-    $state.go('^.formulario');
+    //$state.go('^.formulario');
   };
 
   $scope.limpar = function () {
@@ -399,7 +381,5 @@
   $scope.voltar = function () {
 
   };
-
-  $scope.navegador = new frzNavegadorParams($scope);
 
 });

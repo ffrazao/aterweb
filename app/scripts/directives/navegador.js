@@ -1,18 +1,24 @@
 'use strict';
 
 aterwebApp.factory('frzNavegadorParams', function() {
-    var frzNavegadorParams = function ($scope) {
+    var frzNavegadorParams = function () {
 
-        this.scope = $scope;
+        this.config = {scope: null};
 
         this.mudarEstado = function (novoEstado) {
-            this.scope.mudarEstado(novoEstado);
+            this.config.scope.mudarEstado(novoEstado);
         };
     };
     return frzNavegadorParams;
 });
 
-aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', function($scope, frzNavegadorParams) {
+aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toastr', function($scope, frzNavegadorParams, toastr) {
+
+    if (!$scope.ngModel.hasOwnProperty("navegador")) {
+        $scope.ngModel.navegador = new frzNavegadorParams();
+        $scope.ngModel.navegador.isNullInstance = true;
+    }
+    $scope.ngModel.navegador.config.scope = $scope;
 
     var iniciarBotoes = function() {
         $scope.botoes = {
@@ -36,171 +42,190 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', funct
     $scope.estados = [
     {
         estado: "ABRINDO",
-        executar: $scope.onAbrir(),
-        mudarEstado: true,
+        executar: $scope.onAbrir,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "FILTRANDO",
-        executar: $scope.onFiltrar(),
+        executar: $scope.onFiltrar,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.confirmar,
-        $scope.botoes.incluir,
-        $scope.botoes.limpar,
-        $scope.botoes.voltar
+            'confirmar',
+            'incluir',
+            'limpar',
+            'voltar'
         ],
         desabilitado: []
     },
     {
         estado: "LISTANDO",
-        executar: $scope.onListar(),
+        executar: $scope.onListar,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.agir,
-        $scope.botoes.excluir,
-        $scope.botoes.filtrar,
-        $scope.botoes.incluir,
-        $scope.botoes.navegar,
-        $scope.botoes.tamanhoPagina,
-        $scope.botoes.visualizar
+            'agir',
+            'excluir',
+            'filtrar',
+            'incluir',
+            'navegar',
+            'tamanhoPagina',
+            'visualizar'
         ],
         desabilitado: []
     },
     {
         estado: "VISUALIZANDO",
-        executar: $scope.onVisualizar(),
+        executar: $scope.onVisualizar,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.agir,
-        $scope.botoes.excluir,
-        $scope.botoes.filtrar,
-        $scope.botoes.incluir,
-        $scope.botoes.navegar,
-        $scope.botoes.voltar
+            'agir',
+            'excluir',
+            'filtrar',
+            'incluir',
+            'navegar',
+            'voltar'
         ],
         desabilitado: []
     },
     {
         estado: "INCLUINDO",
-        executar: $scope.onIncluir(),
+        executar: $scope.onIncluir,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.cancelar,
-        $scope.botoes.confirmar,
-        $scope.botoes.limpar
+            'cancelar',
+            'confirmar',
+            'limpar'
         ],
         desabilitado: []
     },
     {
         estado: "EDITANDO",
-        executar: $scope.onEditar(),
+        executar: $scope.onEditar,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.cancelar,
-        $scope.botoes.confirmar,
-        $scope.botoes.restaurar
+            'cancelar',
+            'confirmar',
+            'restaurar'
         ],
         desabilitado: []
     },
     {
         estado: "EXCLUINDO",
-        executar: $scope.onExcluir(),
+        executar: $scope.onExcluir,
         mudarEstado: true,
         visivel: [
-        $scope.botoes.cancelar,
-        $scope.botoes.confirmar
+            'cancelar',
+            'confirmar'
         ],
         desabilitado: []
     },
     {
         estado: "AGINDO",
-        executar: $scope.onAgir(),
+        executar: $scope.onAgir,
         mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "LIMPANDO",
-        executar: $scope.onLimpar(),
+        executar: $scope.onLimpar,
         mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "RESTAURANDO",
-        executar: $scope.onRestaurar(),
+        executar: $scope.onRestaurar,
         mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "NAVEGANDO",
-        executar: $scope.onNavegar(),
+        executar: $scope.onNavegar,
         mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "VOLTANDO",
-        executar: $scope.onVoltar(),
+        executar: $scope.onVoltar,
+        mudarEstado: true,
+        visivel: [],
+        desabilitado: []
+    },
+    {
+        estado: "CONFIRMANDO",
+        executar: function () {
+            var acao = null;
+            if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "FILTRANDO") {
+                acao = "CONFIRMANDO_FILTRO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "INCLUINDO") {
+                acao = "CONFIRMANDO_INCLUSAO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "EDITANDO") {
+                acao = "CONFIRMANDO_EDICAO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "EXCLUINDO") {
+                acao = "CONFIRMANDO_EXCLUSAO"
+            }
+            $scope.mudarEstado(acao);
+        },
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_FILTRO",
-        executar: $scope.onConfirmarFiltrar(),
+        executar: $scope.onConfirmarFiltrar,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_INCLUSAO",
-        executar: $scope.onConfirmarIncluir(),
+        executar: $scope.onConfirmarIncluir,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_EDICAO",
-        executar: $scope.onConfirmarEditar(),
+        executar: $scope.onConfirmarEditar,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_EXCLUSAO",
-        executar: $scope.onConfirmarExcluir(),
+        executar: $scope.onConfirmarExcluir,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_FILTRO",
-        executar: $scope.onCancelarFiltrar(),
+        executar: $scope.onCancelarFiltrar,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_INCLUSAO",
-        executar: $scope.onCancelarIncluir(),
+        executar: $scope.onCancelarIncluir,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_EDICAO",
-        executar: $scope.onCancelarEditar(),
+        executar: $scope.onCancelarEditar,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_EXCLUSAO",
-        executar: $scope.onCancelarExcluir(),
+        executar: $scope.onCancelarExcluir,
         mudarEstado: true,
         visivel: [],
         desabilitado: []
@@ -211,22 +236,25 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', funct
 
     $scope.mudarEstado = function (novoEstado) {
         for (var estado in $scope.estados) {
-            if ($scope.estados[estado].nome === novoEstado) {
+            if ($scope.estados[estado].estado === novoEstado) {
                 try {
                     $scope.estados[estado].executar();
-
-                    iniciarBotoes();
-                    // tornar botões visiveis
-                    for (botao in $scope.estados[estado].visivel) {
-                        $scope.estados[estado].visivel[botao].visivel = true;
-                    }
-                    // desabilitar botoes
-                    for (botao in $scope.estados[estado].desabilitado) {
-                        $scope.estados[estado].desabilitado[botao].desabilitado = false;
+                    if ('ABRINDO' === novoEstado) {
+                        return;
                     }
 
                     if ($scope.estados[estado].mudarEstado) {
-                        historicoEstados.push($scope.estados[estado]);
+                        iniciarBotoes();
+                        // tornar botões visiveis
+                        for (var botao in $scope.estados[estado].visivel) {
+                            $scope.botoes[$scope.estados[estado].visivel[botao]].visivel = true;
+                        }
+                        // desabilitar botoes
+                        for (var botao in $scope.estados[estado].desabilitado) {
+                            $scope.botoes[$scope.estados[estado].desabilitado[botao]].desabilitado = false;
+                        }
+
+                        $scope.historicoEstados.push($scope.estados[estado]);
                     }
                     break;
                 } catch (erro) {
