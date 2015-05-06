@@ -149,8 +149,8 @@
   */
 
   $scope.abrir = function () {
-    //$scope.navegador.mudarEstado('INCLUINDO');
-    //ajustaTela();
+    $scope.navegador.mudarEstado('FILTRANDO');
+    ajustaTela();
   };
 
   $scope.agir = function () {
