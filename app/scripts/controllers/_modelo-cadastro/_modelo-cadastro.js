@@ -105,8 +105,6 @@
       angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
     }, true);
 
-
-
 /*  $scope.primeiro = function() {
     console.log("primeiro");
     $scope.tableParams.page(1);
@@ -151,94 +149,125 @@
   */
 
   $scope.abrir = function () {
-    $scope.navegador.mudarEstado('INCLUINDO');
+    //$scope.navegador.mudarEstado('INCLUINDO');
+    //ajustaTela();
   };
 
   $scope.agir = function () {
-
+    ajustaTela();
   };
 
   $scope.cancelarEditar = function () {
-
+    ajustaTela();
   };
 
   $scope.cancelarExcluir = function () {
-
+    ajustaTela();
   };
 
   $scope.cancelarIncluir = function () {
-    // throw ["A para o"];
+    ajustaTela();
   };
 
   $scope.cancelarListar = function () {
-    //$scope.lista = []; 
+    $scope.navegador.mudarEstado('LISTANDO');
+    ajustaTela();
   };
 
   $scope.confirmarEditar = function () {
-
+    ajustaTela();
   };
 
   $scope.confirmarExcluir = function () {
-
+    ajustaTela();
   };
 
   $scope.confirmarIncluir = function () {
-
+    $scope.navegador.mudarEstado('FILTRANDO');
+    ajustaTela();
   };
 
   $scope.confirmarListar = function () {
+    $scope.navegador.mudarEstado('LISTANDO');
+    ajustaTela();
   };
-    
-  $scope.editar = function () {
 
-    $state.go('^.formulario');
+  $scope.editar = function () {
+    $scope.navegador.mudarEstado('EDITANDO');
+    ajustaTela();
   };
 
   $scope.excluir = function () {
-
+    $scope.navegador.mudarEstado('EXCLUINDO');
   };
 
   $scope.filtrar = function () {
-    $state.go('^.filtro');
+    ajustaTela();
   };
 
   $scope.incluir = function () {
-    //$state.go('^.formulario');
+    ajustaTela();
   };
 
   $scope.limpar = function () {
-
+    ajustaTela();
   };
 
   $scope.listar = function () {
+
+    ajustaTela();
   };
 
   $scope.navegarPrimeiro = function () {
-
+    ajustaTela();
   };
 
   $scope.navegarAnterior = function () {
-
+    ajustaTela();
   };
 
   $scope.navegarPosterior = function () {
-
+    ajustaTela();
   };
 
   $scope.navegarUltimo = function () {
-
+    ajustaTela();
   };
 
   $scope.restaurar = function () {
-
+    ajustaTela();
   };
 
   $scope.visualizar = function () {
-    $state.go('^.formulario');
+    //$scope.navegador.mudarEstado('VISUALIZANDO');
+    ajustaTela();
   };
 
   $scope.voltar = function () {
+    console.log($scope.navegador.estadoAtual());
+    $scope.navegador.voltar();
+    console.log($scope.navegador.estadoAtual());
+    $scope.navegador.mudarEstado($scope.navegador.estadoAtual());
+    ajustaTela();
+  };
 
+  var ajustaTela = function() {
+    var estadoAtual = $scope.navegador.estadoAtual();
+    estadoAtual = estadoAtual ? estadoAtual.toLowerCase() : estadoAtual;
+    switch (estadoAtual) {
+      case "filtrando":
+      default:
+      $state.go('^.filtro');
+      break;
+      case "visualizando":
+      case "incluindo":
+      case "editando":
+      $state.go('^.formulario');
+      break;
+      case "listando":
+      $state.go('^.lista');
+      break;
+    };
   };
 
 });

@@ -4,10 +4,22 @@ aterwebApp.factory('frzNavegadorParams', function() {
     var frzNavegadorParams = function () {
 
         this.scope = null;
+        var estadoAtual = null;
 
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
+            estadoAtual = this.scope.historicoEstados[this.scope.historicoEstados.length - 1].estado;
         };
+
+        this.estadoAtual = function() {
+            return estadoAtual;
+        };
+
+        this.voltar = function() {
+            this.scope.historicoEstados.pop();
+            estadoAtual = this.scope.historicoEstados[this.scope.historicoEstados.length - 1].estado;
+        };
+
     };
     return frzNavegadorParams;
 });
@@ -151,7 +163,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
     {
         estado: "VOLTANDO",
         executar: $scope.onVoltar,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
@@ -170,63 +182,82 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             }
             $scope.mudarEstado(acao);
         },
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_FILTRO",
         executar: $scope.onConfirmarFiltrar,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_INCLUSAO",
         executar: $scope.onConfirmarIncluir,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_EDICAO",
         executar: $scope.onConfirmarEditar,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CONFIRMANDO_EXCLUSAO",
         executar: $scope.onConfirmarExcluir,
-        mudarEstado: true,
+        mudarEstado: false,
+        visivel: [],
+        desabilitado: []
+    },
+    {
+        estado: "CANCELANDO",
+        executar: function () {
+            var acao = null;
+            if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "FILTRANDO") {
+                acao = "CANCELANDO_FILTRO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "INCLUINDO") {
+                acao = "CANCELANDO_INCLUSAO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "EDITANDO") {
+                acao = "CANCELANDO_EDICAO"
+            } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1].estado === "EXCLUINDO") {
+                acao = "CANCELANDO_EXCLUSAO"
+            }
+            $scope.mudarEstado(acao);
+        },
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_FILTRO",
         executar: $scope.onCancelarFiltrar,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_INCLUSAO",
         executar: $scope.onCancelarIncluir,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_EDICAO",
         executar: $scope.onCancelarEditar,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     },
     {
         estado: "CANCELANDO_EXCLUSAO",
         executar: $scope.onCancelarExcluir,
-        mudarEstado: true,
+        mudarEstado: false,
         visivel: [],
         desabilitado: []
     }
@@ -244,7 +275,9 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
                     }
 
                     if ($scope.estados[estado].mudarEstado) {
+                        // esconder botoes
                         iniciarBotoes();
+
                         // tornar botões visiveis
                         for (var botao in $scope.estados[estado].visivel) {
                             $scope.botoes[$scope.estados[estado].visivel[botao]].visivel = true;
