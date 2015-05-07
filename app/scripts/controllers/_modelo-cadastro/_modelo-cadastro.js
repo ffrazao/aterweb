@@ -202,11 +202,11 @@
   };
 
   $scope.filtrar = function () {
-    ajustaTela();
+    $state.go('^.filtro');
   };
 
   $scope.incluir = function () {
-    ajustaTela();
+    $state.go('^.formulario');
   };
 
   $scope.limpar = function () {
@@ -214,8 +214,7 @@
   };
 
   $scope.listar = function () {
-
-    ajustaTela();
+    $state.go('^.lista');
   };
 
   $scope.navegarPrimeiro = function () {
@@ -239,8 +238,7 @@
   };
 
   $scope.visualizar = function () {
-    //$scope.navegador.mudarEstado('VISUALIZANDO');
-    ajustaTela();
+    $state.go('^.formulario');
   };
 
   $scope.voltar = function () {
@@ -250,6 +248,22 @@
     $scope.navegador.mudarEstado($scope.navegador.estadoAtual());
     ajustaTela();
   };
+
+  $scope.$on("$stateChangeSuccess", function(evt) {
+    if ($state.is('^.filtro')) {
+      if ($scope.navegador.estadoAtual() !== "FILTRANDO") {
+        $scope.navegador.mudarEstado("FILTRANDO");
+      }
+    } else if ($state.is('^.formulario')) {
+      if (($scope.navegador.estadoAtual() !== "VISUALIZANDO") && ($scope.navegador.estadoAtual() !== "INCLUINDO") && ($scope.navegador.estadoAtual() !== "EDITANDO") && ($scope.navegador.estadoAtual() !== "EXCLUINDO")) {
+        $scope.navegador.mudarEstado("VISUALIZANDO");
+      }
+    } else if ($state.is('^.lista')) {
+      if (($scope.navegador.estadoAtual() !== "LISTANDO") && ($scope.navegador.estadoAtual() !== "EXCLUINDO")) {
+        $scope.navegador.mudarEstado("LISTANDO");
+      }
+    }
+  });
 
   var ajustaTela = function() {
     var estadoAtual = $scope.navegador.estadoAtual();
