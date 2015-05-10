@@ -1,32 +1,29 @@
+/* global aterwebApp */
+
 'use strict';
 
-aterwebApp.factory('frzNavegadorParams', function() {
-    var frzNavegadorParams = function () {
-
+aterwebApp.factory('FrzNavegadorParams', function() {
+    var FrzNavegadorParams = function () {
         this.selecao = { tipo: 'U', checked: false, items: {}, item: null, ativo: false };
-
         this.scope = null;
 
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
         };
-
         this.estadoAtual = function() {
             return this.scope.historicoEstados[this.scope.historicoEstados.length - 1];
         };
-
         this.voltar = function() {
             this.scope.historicoEstados.pop();
         };
-
     };
-    return frzNavegadorParams;
+    return FrzNavegadorParams;
 });
 
-aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toastr', function($scope, frzNavegadorParams, toastr) {
+aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toastr', function($scope, FrzNavegadorParams, toastr) {
 
-    if (!$scope.ngModel.hasOwnProperty("scope")) {
-        $scope.ngModel = new frzNavegadorParams();
+    if (!$scope.ngModel.hasOwnProperty('scope')) {
+        $scope.ngModel = new FrzNavegadorParams();
         $scope.ngModel.isNullInstance = true;
     }
     $scope.ngModel.scope = $scope;
@@ -51,13 +48,13 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
     iniciarBotoes();
 
     $scope.estados = {
-        "ABRINDO": {
+        'ABRINDO': {
             executar: $scope.onAbrir,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "FILTRANDO": {
+        'FILTRANDO': {
             executar: $scope.onFiltrar,
             mudarEstado: true,
             visivel: [
@@ -68,7 +65,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "LISTANDO": {
+        'LISTANDO': {
             executar: $scope.onListar,
             mudarEstado: true,
             visivel: [
@@ -82,7 +79,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "VISUALIZANDO": {
+        'VISUALIZANDO': {
             executar: $scope.onVisualizar,
             mudarEstado: true,
             visivel: [
@@ -95,7 +92,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "INCLUINDO": {
+        'INCLUINDO': {
             executar: $scope.onIncluir,
             mudarEstado: true,
             visivel: [
@@ -105,7 +102,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "EDITANDO": {
+        'EDITANDO': {
             executar: $scope.onEditar,
             mudarEstado: true,
             visivel: [
@@ -115,7 +112,7 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "EXCLUINDO": {
+        'EXCLUINDO': {
             executar: $scope.onExcluir,
             mudarEstado: true,
             visivel: [
@@ -124,115 +121,115 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
             ],
             desabilitado: []
         },
-        "AGINDO": {
+        'AGINDO': {
             executar: $scope.onAgir,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "LIMPANDO": {
+        'LIMPANDO': {
             executar: $scope.onLimpar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "RESTAURANDO": {
+        'RESTAURANDO': {
             executar: $scope.onRestaurar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "NAVEGANDO": {
+        'NAVEGANDO': {
             executar: $scope.onNavegar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "VOLTANDO": {
+        'VOLTANDO': {
             executar: $scope.onVoltar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CONFIRMANDO": {
+        'CONFIRMANDO': {
             executar: function () {
                 var acao = null;
-                if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "FILTRANDO") {
-                    acao = "CONFIRMANDO_FILTRO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "INCLUINDO") {
-                    acao = "CONFIRMANDO_INCLUSAO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "EDITANDO") {
-                    acao = "CONFIRMANDO_EDICAO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "EXCLUINDO") {
-                    acao = "CONFIRMANDO_EXCLUSAO"
+                if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'FILTRANDO') {
+                    acao = 'CONFIRMANDO_FILTRO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'INCLUINDO') {
+                    acao = 'CONFIRMANDO_INCLUSAO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'EDITANDO') {
+                    acao = 'CONFIRMANDO_EDICAO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'EXCLUINDO') {
+                    acao = 'CONFIRMANDO_EXCLUSAO';
                 }
-                $scope.mudarEstado(acao);
+                $scope.executarEstado(acao);
             },
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CONFIRMANDO_FILTRO": {
+        'CONFIRMANDO_FILTRO': {
             executar: $scope.onConfirmarFiltrar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CONFIRMANDO_INCLUSAO": {
+        'CONFIRMANDO_INCLUSAO': {
             executar: $scope.onConfirmarIncluir,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CONFIRMANDO_EDICAO": {
+        'CONFIRMANDO_EDICAO': {
             executar: $scope.onConfirmarEditar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CONFIRMANDO_EXCLUSAO": {
+        'CONFIRMANDO_EXCLUSAO': {
             executar: $scope.onConfirmarExcluir,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CANCELANDO": {
+        'CANCELANDO': {
             executar: function () {
                 var acao = null;
-                if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "FILTRANDO") {
-                    acao = "CANCELANDO_FILTRO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "INCLUINDO") {
-                    acao = "CANCELANDO_INCLUSAO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "EDITANDO") {
-                    acao = "CANCELANDO_EDICAO"
-                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === "EXCLUINDO") {
-                    acao = "CANCELANDO_EXCLUSAO"
+                if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'FILTRANDO') {
+                    acao = 'CANCELANDO_FILTRO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'INCLUINDO') {
+                    acao = 'CANCELANDO_INCLUSAO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'EDITANDO') {
+                    acao = 'CANCELANDO_EDICAO';
+                } else if ($scope.historicoEstados[$scope.historicoEstados.length - 1] === 'EXCLUINDO') {
+                    acao = 'CANCELANDO_EXCLUSAO';
                 }
-                $scope.mudarEstado(acao);
+                $scope.executarEstado(acao);
             },
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CANCELANDO_FILTRO": {
+        'CANCELANDO_FILTRO': {
             executar: $scope.onCancelarFiltrar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CANCELANDO_INCLUSAO": {
+        'CANCELANDO_INCLUSAO': {
             executar: $scope.onCancelarIncluir,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CANCELANDO_EDICAO": {
+        'CANCELANDO_EDICAO': {
             executar: $scope.onCancelarEditar,
             mudarEstado: false,
             visivel: [],
             desabilitado: []
         },
-        "CANCELANDO_EXCLUSAO": {
+        'CANCELANDO_EXCLUSAO': {
             executar: $scope.onCancelarExcluir,
             mudarEstado: false,
             visivel: [],
@@ -242,40 +239,38 @@ aterwebApp.controller('frzNavegadorCtrl', ['$scope', 'frzNavegadorParams', 'toas
 
     $scope.historicoEstados = [];
 
-    $scope.mudarEstado = function (novoEstado) {
+    $scope.executarEstado = function (novoEstado) {
         try {
             $scope.estados[novoEstado].executar();
-            if ('ABRINDO' === novoEstado) {
-                return;
-            }
-
-            if ($scope.estados[novoEstado].mudarEstado) {
-                // esconder botoes
-                iniciarBotoes();
-
-                // tornar botões visiveis
-                for (var botao in $scope.estados[novoEstado].visivel) {
-                    $scope.botoes[$scope.estados[novoEstado].visivel[botao]].visivel = true;
-                }
-                // desabilitar botoes
-                for (var botao in $scope.estados[novoEstado].desabilitado) {
-                    $scope.botoes[$scope.estados[novoEstado].desabilitado[botao]].desabilitado = false;
-                }
-
-                $scope.historicoEstados.push(novoEstado);
-            }
         } catch (erro) {
             toastr.error('Erro ao executar a operação!', erro);
             console.error('Erro ao executar a operação!', erro);
         }
     };
 
+    $scope.mudarEstado = function (novoEstado) {
+        if ($scope.estados[novoEstado].mudarEstado) {
+            // esconder botoes
+            iniciarBotoes();
+            // tornar botões visiveis
+            var botao = null;
+            for (botao in $scope.estados[novoEstado].visivel) {
+                $scope.botoes[$scope.estados[novoEstado].visivel[botao]].visivel = true;
+            }
+            // desabilitar botoes
+            for (botao in $scope.estados[novoEstado].desabilitado) {
+                $scope.botoes[$scope.estados[novoEstado].desabilitado[botao]].desabilitado = false;
+            }
+            $scope.historicoEstados.push(novoEstado);
+        }
+    };
+
 }]);
 
 // diretiva da barra de navegação de dados
-aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
+aterwebApp.directive('frzNavegador', function() {
     return {
-        require: ['^ngModel'/*, '^frzNavegadorEstado'*/],
+        require: ['^ngModel'],
         scope: {
             ngModel: '=',
             onAbrir: '&',
@@ -301,24 +296,24 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
         },
         restrict: 'E', 
         replace: true,
-        controller: 'frzNavegadorCtrl',
+        controller: 'FrzNavegadorCtrl',
         link: function(scope, element, attributes) {
             scope.exibeTextoBotao = angular.isUndefined(attributes.exibeTextoBotao) || (attributes.exibeTextoBotao.toLowerCase() === 'true');
             // executar o estado inicial do navegador
-            scope.mudarEstado("ABRINDO");
+            scope.estados.ABRINDO.executar();
         },
         template: 
         '<div class="btn-toolbar pull-right" role="toolbar" aria-label="Barra de Ferramentas">' +
         '  <div class="btn-group" role="group">' +
-        '    <button type="button" class="btn btn-sm btn-success" title="OK" ng-click="mudarEstado(' + '\'' + 'CONFIRMANDO' + '\'' + ')" ng-show="botoes.confirmar.visivel" ng-disabled="botoes.confirmar.desabilitado"><i class="glyphicon glyphicon-ok"></i><small ng-show="exibeTextoBotao">OK</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="mudarEstado(' + '\'' + 'LIMPANDO' + '\'' + ')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Restaurar" ng-click="mudarEstado(' + '\'' + 'RESTAURANDO' + '\'' + ')" ng-show="botoes.restaurar.visivel" ng-disabled="botoes.restaurar.desabilitado"><i class="glyphicon glyphicon-repeat"></i><small ng-show="exibeTextoBotao">Restaurar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-danger " title="Cancelar" ng-click="mudarEstado(' + '\'' + 'CANCELANDO' + '\'' + ')" ng-show="botoes.cancelar.visivel" ng-disabled="botoes.cancelar.desabilitado"><i class="glyphicon glyphicon-remove"></i><small ng-show="exibeTextoBotao">Cancelar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="mudarEstado(' + '\'' + 'VOLTANDO' + '\'' + ')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-success" title="OK" ng-click="executarEstado(' + '\'' + 'CONFIRMANDO' + '\'' + ')" ng-show="botoes.confirmar.visivel" ng-disabled="botoes.confirmar.desabilitado"><i class="glyphicon glyphicon-ok"></i><small ng-show="exibeTextoBotao">OK</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="executarEstado(' + '\'' + 'LIMPANDO' + '\'' + ')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Restaurar" ng-click="executarEstado(' + '\'' + 'RESTAURANDO' + '\'' + ')" ng-show="botoes.restaurar.visivel" ng-disabled="botoes.restaurar.desabilitado"><i class="glyphicon glyphicon-repeat"></i><small ng-show="exibeTextoBotao">Restaurar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-danger " title="Cancelar" ng-click="executarEstado(' + '\'' + 'CANCELANDO' + '\'' + ')" ng-show="botoes.cancelar.visivel" ng-disabled="botoes.cancelar.desabilitado"><i class="glyphicon glyphicon-remove"></i><small ng-show="exibeTextoBotao">Cancelar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(' + '\'' + 'VOLTANDO' + '\'' + ')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.navegar.visivel" ng-disabled="botoes.navegar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="mudarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="mudarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
         '    <div class="btn-group" ng-show="botoes.tamanhoPagina.visivel" ng-disabled="botoes.tamanhoPagina.desabilitado">' +
         '      <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Tamanho da Página">' +
         '        <span ng-init="tamanhoPagina = 10">{{tamanhoPagina}}</span><span class="caret"></span>' +
@@ -330,20 +325,20 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
         '        <li><a ng-click="tamanhoPagina = 100">100</a></li>' +
         '      </ul>' +
         '    </div>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="mudarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="mudarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.filtrar.visivel" ng-disabled="botoes.filtrar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="mudarEstado(' + '\'' + 'FILTRANDO' + '\'' + ')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="executarEstado(' + '\'' + 'FILTRANDO' + '\'' + ')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.incluir.visivel" ng-disabled="botoes.incluir.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-success" title="Incluir" ng-click="mudarEstado(' + '\'' + 'INCLUINDO' + '\'' + ')"><i class="glyphicon glyphicon-plus"></i><small ng-show="exibeTextoBotao">Incluir</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-success" title="Incluir" ng-click="executarEstado(' + '\'' + 'INCLUINDO' + '\'' + ')"><i class="glyphicon glyphicon-plus"></i><small ng-show="exibeTextoBotao">Incluir</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.visualizar.visivel && ngModel.selecao.ativo" ng-disabled="botoes.visualizar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="mudarEstado(' + '\'' + 'VISUALIZANDO' + '\'' + ')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="executarEstado(' + '\'' + 'VISUALIZANDO' + '\'' + ')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.excluir.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="mudarEstado(' + '\'' + 'EXCLUINDO' + '\'' + ')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="executarEstado(' + '\'' + 'EXCLUINDO' + '\'' + ')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.agir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Ações">' +

@@ -16,10 +16,10 @@ aterwebApp.directive('frzSeletor', function() {
 		'</span>',
 		restrict: 'E',
 		require: ['^ngModel', '?dados'],
-        scope: {
-            ngModel: '=',
-            dados: '=',
-        },
+		scope: {
+			ngModel: '=',
+			dados: '=',
+		},
 		controller: function($scope) {
 			$scope.marcarElementos = function(checked) {
 				angular.forEach($scope.dados, function(item) {
@@ -30,7 +30,7 @@ aterwebApp.directive('frzSeletor', function() {
 			};
 		},
 		link: function (scope, element, attributes) {
-			scope.$watch('ngModel.selecao.tipo', function(values) {
+			scope.$watch('ngModel.selecao.tipo', function() {
 				if (scope.ngModel.selecao.tipo === 'U') {
 					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item.id);
 				} else if (scope.ngModel.selecao.tipo === 'M') {
@@ -38,13 +38,13 @@ aterwebApp.directive('frzSeletor', function() {
 				}
 			}, true);
 
-			scope.$watch('ngModel.selecao.item', function(values) {
+			scope.$watch('ngModel.selecao.item', function() {
 				if (scope.ngModel.selecao.tipo === 'U') {
 					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item.id);
 				}
 			}, true);
 
-			scope.$watch('ngModel.selecao.items', function(values) {
+			scope.$watch('ngModel.selecao.items', function() {
 				if (!scope.dados) {
 					return;
 				}
@@ -64,7 +64,7 @@ aterwebApp.directive('frzSeletor', function() {
 				}
 
 				// grayed checkbox
-				element.find('input[type=checkbox]').prop("indeterminate", (marcado !== 0 && desmarcado !== 0));
+				element.find('input[type=checkbox]').prop('indeterminate', (marcado !== 0 && desmarcado !== 0));
 			}, true);
 		},
 	};

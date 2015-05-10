@@ -2,7 +2,7 @@
 
 'use strict';
 
- aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, frzNavegadorParams) {
+aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams) {
 
   $scope.lista = [
   {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Abobora"}, {id:  2, nome: "Abacate"}, ]},
@@ -24,9 +24,9 @@
   {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   ];
 
-  $scope.navegador = new frzNavegadorParams();
+  $scope.navegador = new FrzNavegadorParams();
 
-  $scope.subNavegador = new frzNavegadorParams();
+  $scope.subNavegador = new FrzNavegadorParams();
 
   $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
@@ -83,34 +83,6 @@
   };
   */
 
-  // $scope.selecao = { tipo: 'U', checked: false, items: {}, item: {} };
-
-  // watch for check all checkbox
-  // $scope.$watch('selecao.checked', function(value) {
-  //   angular.forEach($scope.lista, function(item) {
-  //     if (angular.isDefined(item.id)) {
-  //       $scope.selecao.items[item.id] = value;
-  //     }
-  //   });
-  // });
-
-  // watch for data selecao
-  // $scope.$watch('selecao.items', function(values) {
-  //   if (!$scope.lista) {
-  //     return;
-  //   }
-  //   var checked = 0, unchecked = 0, total = $scope.lista.length;
-  //   angular.forEach($scope.lista, function(item) {
-  //     checked   += ($scope.selecao.items[item.id]) || 0;
-  //     unchecked += (!$scope.selecao.items[item.id]) || 0;
-  //   });
-  //   if ((unchecked == 0) || (checked == 0)) {
-  //     $scope.selecao.checked = (checked == total);
-  //   }
-  //     // grayed checkbox
-  //     angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
-  //   }, true);
-
 /*  $scope.primeiro = function() {
     console.log("primeiro");
     $scope.tableParams.page(1);
@@ -126,31 +98,6 @@
   $scope.ultimo = function() {
     console.log("ultimo", lista.length, $scope.tableParams.$params.count);
     $scope.tableParams.page(parseInt(lista.length / $scope.tableParams.$params.count) + 1);
-  };
-  $scope.filtrar = function() {
-    console.log("filtrar");
-    $state.go('^.filtro');
-  };
-  $scope.incluir = function() {
-    console.log("incluir");
-  };
-  $scope.visualizar = function() {
-    console.log("visualizar");
-        $state.go('^.formulario');
-  };
-  $scope.excluir = function() {
-    console.log("excluir");
-  };
-  $scope.ok = function() {
-    console.log("ok");
-  };
-  $scope.cancelar = function() {
-    console.log("cancelar");
-  };
-  $scope.agir = function(msg) {
-    console.log("agir no controller " + msg);
-    toastr.success('Sucesso!', 'confirmaçao de inclusão');
-    $state.go('^.lista');
   };
   */
 
@@ -216,6 +163,7 @@
   };
 
   $scope.incluir = function () {
+    $scope.navegador.mudarEstado('INCLUINDO');
     $state.go('^.formulario');
   };
 
