@@ -1,9 +1,13 @@
+/* global aterwebApp */
+
+'use strict';
+
  aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, frzNavegadorParams) {
 
-  var lista = [
-  {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  2, nome: "Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  3, nome: "Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+  $scope.lista = [
+  {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Abobora"}, {id:  2, nome: "Abacate"}, ]},
+  {id:  2, nome: "Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Melão"}, {id:  2, nome: "Melancia"}, ]},
+  {id:  3, nome: "Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Arroz"}, {id:  2, nome: "Feijão"}, ]},
   {id:  4, nome: "Nome  4, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   {id:  5, nome: "Nome  5, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   {id:  6, nome: "Nome  6, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
@@ -22,15 +26,17 @@
 
   $scope.navegador = new frzNavegadorParams();
 
+  $scope.subNavegador = new frzNavegadorParams();
+
   $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
         count: 10           // count per page
       }, {
-        //total: $scope.cadastro.lista.length
-        /*, // length of lista
+        total: $scope.lista.length
+        , // length of lista
         getData: function($defer, params) {
-          $defer.resolve(lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-        }*/
+          $defer.resolve($scope.lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        }
       });
 
   $scope.popup = function (size) {
@@ -77,33 +83,33 @@
   };
   */
 
-  $scope.selecao = { tipo: 'U', checked: false, items: {}, item: {} };
+  // $scope.selecao = { tipo: 'U', checked: false, items: {}, item: {} };
 
   // watch for check all checkbox
-  $scope.$watch('selecao.checked', function(value) {
-    angular.forEach(lista, function(item) {
-      if (angular.isDefined(item.id)) {
-        $scope.selecao.items[item.id] = value;
-      }
-    });
-  });
+  // $scope.$watch('selecao.checked', function(value) {
+  //   angular.forEach($scope.lista, function(item) {
+  //     if (angular.isDefined(item.id)) {
+  //       $scope.selecao.items[item.id] = value;
+  //     }
+  //   });
+  // });
 
   // watch for data selecao
-  $scope.$watch('selecao.items', function(values) {
-    if (!lista) {
-      return;
-    }
-    var checked = 0, unchecked = 0, total = lista.length;
-    angular.forEach(lista, function(item) {
-      checked   += ($scope.selecao.items[item.id]) || 0;
-      unchecked += (!$scope.selecao.items[item.id]) || 0;
-    });
-    if ((unchecked == 0) || (checked == 0)) {
-      $scope.selecao.checked = (checked == total);
-    }
-      // grayed checkbox
-      angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
-    }, true);
+  // $scope.$watch('selecao.items', function(values) {
+  //   if (!$scope.lista) {
+  //     return;
+  //   }
+  //   var checked = 0, unchecked = 0, total = $scope.lista.length;
+  //   angular.forEach($scope.lista, function(item) {
+  //     checked   += ($scope.selecao.items[item.id]) || 0;
+  //     unchecked += (!$scope.selecao.items[item.id]) || 0;
+  //   });
+  //   if ((unchecked == 0) || (checked == 0)) {
+  //     $scope.selecao.checked = (checked == total);
+  //   }
+  //     // grayed checkbox
+  //     angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+  //   }, true);
 
 /*  $scope.primeiro = function() {
     console.log("primeiro");
@@ -147,6 +153,10 @@
     $state.go('^.lista');
   };
   */
+
+  $scope.abrirSub = function () {
+    $scope.subNavegador.mudarEstado('LISTANDO');
+  };
 
   $scope.abrir = function () {
     $scope.navegador.mudarEstado('FILTRANDO');

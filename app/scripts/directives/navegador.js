@@ -3,6 +3,8 @@
 aterwebApp.factory('frzNavegadorParams', function() {
     var frzNavegadorParams = function () {
 
+        this.selecao = { tipo: 'U', checked: false, items: {}, item: null, ativo: false };
+
         this.scope = null;
 
         this.mudarEstado = function (novoEstado) {
@@ -301,10 +303,7 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
         replace: true,
         controller: 'frzNavegadorCtrl',
         link: function(scope, element, attributes) {
-            console.log('scope', scope.ngModel);
-
             scope.exibeTextoBotao = angular.isUndefined(attributes.exibeTextoBotao) || (attributes.exibeTextoBotao.toLowerCase() === 'true');
-
             // executar o estado inicial do navegador
             scope.mudarEstado("ABRINDO");
         },
@@ -340,13 +339,13 @@ aterwebApp.directive('frzNavegador', function($rootScope, toastr) {
         '  <div class="btn-group" role="group" ng-show="botoes.incluir.visivel" ng-disabled="botoes.incluir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-success" title="Incluir" ng-click="mudarEstado(' + '\'' + 'INCLUINDO' + '\'' + ')"><i class="glyphicon glyphicon-plus"></i><small ng-show="exibeTextoBotao">Incluir</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.visualizar.visivel" ng-disabled="botoes.visualizar.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botoes.visualizar.visivel && ngModel.selecao.ativo" ng-disabled="botoes.visualizar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="mudarEstado(' + '\'' + 'VISUALIZANDO' + '\'' + ')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel" ng-disabled="botoes.excluir.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.excluir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="mudarEstado(' + '\'' + 'EXCLUINDO' + '\'' + ')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel" ng-disabled="botoes.agir.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.agir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Ações">' +
         '      <i class="glyphicon glyphicon-menu-hamburger"></i><small ng-show="exibeTextoBotao">Ações</small><span class="caret"></span>' +
         '    </button>' +

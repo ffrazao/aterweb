@@ -5,6 +5,7 @@
 		[Estado {{navegador.estadoAtual()}}]
 		<div class="panel-heading container">
 			<!-- [{{cadastro}}] -->
+			<label ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{lista.length}}</label>
 			<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
 				on-abrir = "abrir()"
 				on-agir = "agir()"
@@ -29,7 +30,7 @@
 				on-restaurar = "restaurar()"
 				on-visualizar = "visualizar()"
 				on-voltar = "voltar()"
-				></navegador>
+				></frz-navegador>
 		</div>
 		<div ui-view>
 		</div>

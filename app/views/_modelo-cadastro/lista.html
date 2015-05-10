@@ -2,12 +2,12 @@
 
 <!-- Table -->
 <div class="table-responsive">
-	/<frz-seletor></frz-seletor>/
+	<frz-seletor ng-model="navegador" dados="lista"></frz-seletor>
 	<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
-		<tr ng-repeat="item in cadastro.lista">
-			<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
-				<input type="radio" ng-model="selecao.item" name="selecionado" ng-value="item"  ng-show="selecao.tipo === 'U'" />
-				<input type="checkbox" ng-model="selecao.items[item.id]" ng-click = "selecao.item = selecao.items[item.id] ? item : selecao.item"  ng-show="selecao.tipo === 'M'" />
+		<tr ng-repeat="item in lista">
+			<td width="30" style="text-align: left">
+				<input type="radio" ng-model="navegador.selecao.item" ng-value="item" ng-show="navegador.selecao.tipo === 'U'" name="selecionado"/>
+				<input type="checkbox" ng-model="navegador.selecao.items[item.id]" ng-show="navegador.selecao.tipo === 'M'" ng-click = "navegador.selecao.item = navegador.selecao.items[item.id] ? item : navegador.selecao.item" />
 			</td>
 			<td width="30" data-title="'#'">
 				{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
@@ -22,6 +22,31 @@
 	</table>
 </div>
 
+<frz-navegador ng-model="subNavegador" exibe-texto-botao="false"
+				on-abrir = "abrirSub()"
+></frz-navegador>
+
+<table ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item">
+	<tr>
+		<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.filhos"></frz-seletor></td>
+		<td>ID</td>
+		<td>Nome</td>
+	</tr>
+	<tr ng-repeat="item in navegador.selecao.item.filhos" ng-click="">
+		<td width="30" style="text-align: left">
+			<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'" name="selecionadoSub"/>
+			<input type="checkbox" ng-model="subNavegador.selecao.items[item.id]" ng-show="subNavegador.selecao.tipo === 'M'" ng-click = "subNavegador.selecao.item = subNavegador.selecao.items[item.id] ? item : subNavegador.selecao.item" />
+		</td>
+		<td>
+			{{item.nome}}
+		</td>
+		<td>
+			{{item.documento}}
+		</td>
+	</tr>
+</table>
+
+<!-- 
 <script type="text/ng-template" id="ng-table/headers/checkbox.html">
 	<button class="btn btn-default btn-xs" title="Multiseleção" ng-click="selecao.tipo = 'M'" ng-show="selecao.tipo === 'U'">
 		<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -31,6 +56,7 @@
 	</button>
 	<input type="checkbox" ng-model="selecao.checked" id="select_all" name="filter-checkbox" ng-show="selecao.tipo === 'M'" title="Marcar/Desmarcar Todos"/>
 </script>
+ -->
 
 <script type="text/ng-template" id="custom/pager">
 	<ul class="pager ng-cloak">
