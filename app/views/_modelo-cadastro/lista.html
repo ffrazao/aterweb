@@ -2,20 +2,33 @@
 
 <!-- Table -->
 <div class="table-responsive">
-	<frz-seletor ng-model="navegador" dados="lista"></frz-seletor>
-	<table ng-table="tableParams" template-pagination="custom/pager" class="table table-hover table-striped" pagination-top pagination-bottom>
-		<tr ng-repeat="item in lista">
-			<td width="30" style="text-align: left">
+	<table class="table table-hover table-striped table-responsive">
+		<tr>
+			<td>
+				<frz-seletor ng-model="navegador" dados="lista"></frz-seletor>
+			</td>
+			<td width="30">
+				#
+			</td>
+			<td>
+				Nome
+			</td>
+			<td>
+				Documento
+			</td>
+		</tr>
+		<tr ng-repeat="item in lista | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
+			<td>
 				<input type="radio" ng-model="navegador.selecao.item" ng-value="item" ng-show="navegador.selecao.tipo === 'U'" name="selecionado"/>
 				<input type="checkbox" ng-model="navegador.selecao.items[item.id]" ng-show="navegador.selecao.tipo === 'M'" ng-click = "navegador.selecao.item = navegador.selecao.items[item.id] ? item : navegador.selecao.item" />
 			</td>
-			<td width="30" data-title="'#'">
-				{{(((tableParams.$params.page-1)*tableParams.$params.count) + $index) + 1}}
+			<td>
+				{{$index + 1 + ((navegador.paginaAtual-1)*navegador.tamanhoPagina)}}
 			</td>
-			<td data-title="'Nome'">
+			<td>
 				{{item.nome}}
 			</td>
-			<td data-title="'Documento'">
+			<td>
 				{{item.documento}}
 			</td>
 		</tr>
@@ -24,19 +37,22 @@
 
 <div class="container-fluid">
 	<frz-navegador ng-model="subNavegador" exibe-texto-botao="false"
-	on-abrir = "abrirSub()"
-	></frz-navegador>
+	on-abrir="abrirSub()" dados="navegador.selecao.item.filhos"></frz-navegador>
 
-	<table class="table-responsive" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item">
+	<table class="table table-hover table-striped table-responsive" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item">
 		<tr>
 			<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.filhos"></frz-seletor></td>
+			<td>#</td>
 			<td>ID</td>
 			<td>Nome</td>
 		</tr>
-		<tr ng-repeat="item in navegador.selecao.item.filhos" ng-click="">
-			<td width="30" style="text-align: left">
+		<tr ng-repeat="item in navegador.selecao.item.filhos | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
+			<td>
 				<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'" name="selecionadoSub"/>
 				<input type="checkbox" ng-model="subNavegador.selecao.items[item.id]" ng-show="subNavegador.selecao.tipo === 'M'" ng-click = "subNavegador.selecao.item = subNavegador.selecao.items[item.id] ? item : subNavegador.selecao.item" />
+			</td>
+			<td>
+				{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}
 			</td>
 			<td>
 				{{item.id}}
@@ -47,20 +63,3 @@
 		</tr>
 	</table>
 </div>
-
-<script type="text/ng-template" id="custom/pager">
-	<ul class="pager ng-cloak">
-		<li ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
-			<a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Anterior</a>
-			<a ng-switch-when="next" ng-click="params.page(page.number)" href="">Próximo &raquo;</a>
-		</li>
-		<li> 
-			<div class="btn-group">
-				<button type="button" class="btn btn-default" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)">10</button>
-				<button type="button" class="btn btn-default" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)">25</button>
-				<button type="button" class="btn btn-default" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)">50</button>
-				<button type="button" class="btn btn-default" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)">100</button>
-			</div>
-		</li>
-	</ul>
-</script>

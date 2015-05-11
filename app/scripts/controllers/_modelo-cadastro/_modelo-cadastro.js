@@ -199,6 +199,14 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     $state.go('^.formulario');
   };
 
+  $scope.proximaPagina = function () {
+    console.log('proxima pagina');
+  };
+
+  $scope.ultimaPagina = function () {
+    console.log('ultima pagina');
+  };
+
   $scope.voltar = function () {
     console.log($scope.navegador.estadoAtual());
     $scope.navegador.voltar();

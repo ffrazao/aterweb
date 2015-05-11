@@ -5,6 +5,7 @@
 			<small>{{navegador.estadoAtual().toLowerCase()}}</small>
 			<small ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{lista.length}}</small>
 			<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
+			dados="lista"
 			on-abrir = "abrir()"
 			on-agir = "agir()"
 			on-cancelar-editar = "cancelarEditar()"
@@ -28,6 +29,8 @@
 			on-restaurar = "restaurar()"
 			on-visualizar = "visualizar()"
 			on-voltar = "voltar()"
+			on-proxima-pagina="proximaPagina()"
+			on-ultima-pagina="ultimaPagina()"
 			></frz-navegador>
 		</div>
 		<div ui-view>

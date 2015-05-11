@@ -7,6 +7,9 @@ aterwebApp.factory('FrzNavegadorParams', function() {
         this.selecao = { tipo: 'U', checked: false, items: {}, item: null, ativo: false };
         this.scope = null;
 
+        this.paginaAtual = 1;
+        this.tamanhoPagina = 1;
+
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
         };
@@ -18,6 +21,16 @@ aterwebApp.factory('FrzNavegadorParams', function() {
         };
     };
     return FrzNavegadorParams;
+});
+
+aterwebApp.filter('pagina', function() {
+    return function(lista, pagina, tamanho) {
+        if (!angular.isObject(lista)) {
+            return;
+        }
+        pagina = parseInt(pagina, 10) * parseInt(tamanho, 10);
+        return lista.slice(pagina - tamanho, pagina);
+    };
 });
 
 aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toastr', function($scope, FrzNavegadorParams, toastr) {
@@ -265,14 +278,39 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         }
     };
 
+    $scope.navegar = function (novaPagina) {
+        $scope.executarEstado('NAVEGANDO');
+        var ultimaPagina = $scope.ultimaPagina();
+        if (angular.isDefined(novaPagina)) {
+            novaPagina = parseInt(novaPagina, 10);
+            novaPagina = (novaPagina < 1) ? 1 : novaPagina;
+            if (novaPagina > ultimaPagina) {
+                $scope.onProximaPagina();
+                novaPagina = ultimaPagina;
+            }
+        } else {
+            novaPagina = ultimaPagina;
+            $scope.onUltimaPagina();
+        }
+        $scope.ngModel.paginaAtual = novaPagina;
+    };
+
+    $scope.ultimaPagina = function() {
+        if (!$scope.dados) {
+            return 0;
+        }
+        return parseInt($scope.dados.length / $scope.ngModel.tamanhoPagina, 10) + 1;
+    }
+
 }]);
 
 // diretiva da barra de navegação de dados
 aterwebApp.directive('frzNavegador', function() {
     return {
-        require: ['^ngModel'],
+        require: ['^ngModel', '?dados'],
         scope: {
             ngModel: '=',
+            dados: '=',
             onAbrir: '&',
             onAgir: '&',
             onCancelarEditar: '&',
@@ -292,7 +330,9 @@ aterwebApp.directive('frzNavegador', function() {
             onNavegar: '&',
             onRestaurar: '&',
             onVisualizar: '&',
-            onVoltar: '&'
+            onVoltar: '&',
+            onProximaPagina: '&',
+            onUltimaPagina: '&',
         },
         restrict: 'E', 
         replace: true,
@@ -312,21 +352,21 @@ aterwebApp.directive('frzNavegador', function() {
         '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(' + '\'' + 'VOLTANDO' + '\'' + ')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.navegar.visivel" ng-disabled="botoes.navegar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="navegar(1)"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="navegar(ngModel.paginaAtual - 1)"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
         '    <div class="btn-group" ng-show="botoes.tamanhoPagina.visivel" ng-disabled="botoes.tamanhoPagina.desabilitado">' +
         '      <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Tamanho da Página">' +
-        '        <span ng-init="tamanhoPagina = 10">{{tamanhoPagina}}</span><span class="caret"></span>' +
+        '        <span>{{ngModel.tamanhoPagina}}</span><span class="caret"></span>' +
         '      </button>' +
         '      <ul class="dropdown-menu" role="menu">' +
-        '        <li><a ng-click="tamanhoPagina = 10">10</a></li>' +
-        '        <li><a ng-click="tamanhoPagina = 25">25</a></li>' +
-        '        <li><a ng-click="tamanhoPagina = 50">50</a></li>' +
-        '        <li><a ng-click="tamanhoPagina = 100">100</a></li>' +
+        '        <li><a ng-click="ngModel.tamanhoPagina = 10">10</a></li>' +
+        '        <li><a ng-click="ngModel.tamanhoPagina = 25">25</a></li>' +
+        '        <li><a ng-click="ngModel.tamanhoPagina = 50">50</a></li>' +
+        '        <li><a ng-click="ngModel.tamanhoPagina = 100">100</a></li>' +
         '      </ul>' +
         '    </div>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="executarEstado(' + '\'' + 'NAVEGANDO' + '\'' + ')"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="navegar(ngModel.paginaAtual + 1)"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="navegar()"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.filtrar.visivel" ng-disabled="botoes.filtrar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="executarEstado(' + '\'' + 'FILTRANDO' + '\'' + ')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
