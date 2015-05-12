@@ -1,3 +1,5 @@
+/* global aterwebApp */
+
 'use strict';
 
 // necessário registrar o listener das chamadas XHR na configuração da aplicação

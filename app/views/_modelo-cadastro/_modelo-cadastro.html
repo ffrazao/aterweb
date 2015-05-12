@@ -6,6 +6,7 @@
 			<small ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{lista.length}}</small>
 			<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
 			dados="lista"
+			acoes-especiais="acoesEspeciais"
 			on-abrir = "abrir()"
 			on-agir = "agir()"
 			on-cancelar-editar = "cancelarEditar()"

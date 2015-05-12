@@ -299,7 +299,25 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (!$scope.dados) {
             return 0;
         }
-        return parseInt($scope.dados.length / $scope.ngModel.tamanhoPagina, 10) + 1;
+        var pagina = parseInt($scope.dados.length / $scope.ngModel.tamanhoPagina, 10);
+        if ($scope.dados.length % $scope.ngModel.tamanhoPagina > 0) {
+            pagina++;
+        }
+        return pagina;
+    }
+
+    $scope.temAcoesEspeciais = function() {
+        if ($scope.acoesEspeciais && $scope.acoesEspeciais.length) {
+            var e = $scope.ngModel.estadoAtual();
+            for (var acao in $scope.acoesEspeciais) {
+                for (var est in $scope.acoesEspeciais[acao].estado) {
+                    if ($scope.acoesEspeciais[acao].estado[est] === e) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }]);
@@ -307,10 +325,11 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
 // diretiva da barra de navegação de dados
 aterwebApp.directive('frzNavegador', function() {
     return {
-        require: ['^ngModel', '?dados'],
+        require: ['^ngModel', '?dados', '?acoesEspeciais'],
         scope: {
             ngModel: '=',
             dados: '=',
+            acoesEspeciais: '=',
             onAbrir: '&',
             onAgir: '&',
             onCancelarEditar: '&',
@@ -341,6 +360,10 @@ aterwebApp.directive('frzNavegador', function() {
             scope.exibeTextoBotao = angular.isUndefined(attributes.exibeTextoBotao) || (attributes.exibeTextoBotao.toLowerCase() === 'true');
             // executar o estado inicial do navegador
             scope.estados.ABRINDO.executar();
+            scope.acaoEspecial = function(item) {
+                scope.onAgir();
+                item.acao();
+            };
         },
         template: 
         '<div class="btn-toolbar pull-right" role="toolbar" aria-label="Barra de Ferramentas">' +
@@ -380,13 +403,12 @@ aterwebApp.directive('frzNavegador', function() {
         '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.excluir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="executarEstado(' + '\'' + 'EXCLUINDO' + '\'' + ')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.agir.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.ativo && temAcoesEspeciais()" ng-disabled="botoes.agir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Ações">' +
         '      <i class="glyphicon glyphicon-menu-hamburger"></i><small ng-show="exibeTextoBotao">Ações</small><span class="caret"></span>' +
         '    </button>' +
         '    <ul class="dropdown-menu pull-right" role="menu">' +
-        '      <li><a>Dropdown link</a></li>' +
-        '      <li><a>Dropdown link</a></li>' +
+        '      <li ng-repeat="item in acoesEspeciais | filter: { estado: ngModel.estadoAtual() }"><a ng-click="acaoEspecial(item)">{{ngModel.estadoAtual()}} - {{item.descricao}}</a></li>' +
         '    </ul>' +
         '  </div>' +
         '</div>' 

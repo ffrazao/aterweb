@@ -1,9 +1,9 @@
 <div class="panel-body">Formulário ({{estado.atual.params}})
-	<form name="formulario">
+	<form name="form.formulario">
+		//{{form.formulario}}//{{form.formulario.$dirty}}//
 		<fieldset>
-			Id <input ng-model="cadastro.registro.id">
-			Matricula <input ng-model="cadastro.registro.matricula">
-			Cargo <input ng-model="cadastro.registro.cargo">
+			Nome <input ng-model="cadastro.registro.nome">
+			Documento <input ng-model="cadastro.registro.documento">
 		</fieldset>
 	</form>
 </div>

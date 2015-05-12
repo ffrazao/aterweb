@@ -1,3 +1,5 @@
+/* global aterwebApp */
+
 'use strict';
 
 // diretiva para manter campos iguais
