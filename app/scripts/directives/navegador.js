@@ -319,6 +319,10 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         }
         return false;
     }
+    $scope.botaoNavegarVisivel = function () {
+        var e = $scope.ngModel.estadoAtual();
+        return $scope.botoes.navegar.visivel && (e !== 'VISUALIZANDO' || (e === 'VISUALIZANDO' && $scope.ngModel.selecao.tipo === 'M'));
+    };
 
 }]);
 
@@ -368,13 +372,13 @@ aterwebApp.directive('frzNavegador', function() {
         template: 
         '<div class="btn-toolbar pull-right" role="toolbar" aria-label="Barra de Ferramentas">' +
         '  <div class="btn-group" role="group">' +
-        '    <button type="button" class="btn btn-sm btn-success" title="OK" ng-click="executarEstado(' + '\'' + 'CONFIRMANDO' + '\'' + ')" ng-show="botoes.confirmar.visivel" ng-disabled="botoes.confirmar.desabilitado"><i class="glyphicon glyphicon-ok"></i><small ng-show="exibeTextoBotao">OK</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="executarEstado(' + '\'' + 'LIMPANDO' + '\'' + ')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Restaurar" ng-click="executarEstado(' + '\'' + 'RESTAURANDO' + '\'' + ')" ng-show="botoes.restaurar.visivel" ng-disabled="botoes.restaurar.desabilitado"><i class="glyphicon glyphicon-repeat"></i><small ng-show="exibeTextoBotao">Restaurar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-danger " title="Cancelar" ng-click="executarEstado(' + '\'' + 'CANCELANDO' + '\'' + ')" ng-show="botoes.cancelar.visivel" ng-disabled="botoes.cancelar.desabilitado"><i class="glyphicon glyphicon-remove"></i><small ng-show="exibeTextoBotao">Cancelar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(' + '\'' + 'VOLTANDO' + '\'' + ')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-success" title="OK" ng-click="executarEstado(\'CONFIRMANDO\')" ng-show="botoes.confirmar.visivel" ng-disabled="botoes.confirmar.desabilitado"><i class="glyphicon glyphicon-ok"></i><small ng-show="exibeTextoBotao">OK</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="executarEstado(\'LIMPANDO\')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Restaurar" ng-click="executarEstado(\'RESTAURANDO\')" ng-show="botoes.restaurar.visivel" ng-disabled="botoes.restaurar.desabilitado"><i class="glyphicon glyphicon-repeat"></i><small ng-show="exibeTextoBotao">Restaurar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-danger " title="Cancelar" ng-click="executarEstado(\'CANCELANDO\')" ng-show="botoes.cancelar.visivel" ng-disabled="botoes.cancelar.desabilitado"><i class="glyphicon glyphicon-remove"></i><small ng-show="exibeTextoBotao">Cancelar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(\'VOLTANDO\')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.navegar.visivel" ng-disabled="botoes.navegar.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botaoNavegarVisivel()" ng-disabled="botoes.navegar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="navegar(1)"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
         '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="navegar(ngModel.paginaAtual - 1)"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
         '    <div class="btn-group" ng-show="botoes.tamanhoPagina.visivel" ng-disabled="botoes.tamanhoPagina.desabilitado">' +
@@ -392,16 +396,16 @@ aterwebApp.directive('frzNavegador', function() {
         '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="navegar()"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.filtrar.visivel" ng-disabled="botoes.filtrar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="executarEstado(' + '\'' + 'FILTRANDO' + '\'' + ')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="executarEstado(\'FILTRANDO\')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.incluir.visivel" ng-disabled="botoes.incluir.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-success" title="Incluir" ng-click="executarEstado(' + '\'' + 'INCLUINDO' + '\'' + ')"><i class="glyphicon glyphicon-plus"></i><small ng-show="exibeTextoBotao">Incluir</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-success" title="Incluir" ng-click="executarEstado(\'INCLUINDO\')"><i class="glyphicon glyphicon-plus"></i><small ng-show="exibeTextoBotao">Incluir</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.visualizar.visivel && ngModel.selecao.ativo" ng-disabled="botoes.visualizar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="executarEstado(' + '\'' + 'VISUALIZANDO' + '\'' + ')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="executarEstado(\'VISUALIZANDO\')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.ativo" ng-disabled="botoes.excluir.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="executarEstado(' + '\'' + 'EXCLUINDO' + '\'' + ')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="executarEstado(\'EXCLUINDO\')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.ativo && temAcoesEspeciais()" ng-disabled="botoes.agir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Ações">' +
