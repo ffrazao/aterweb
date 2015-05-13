@@ -22,17 +22,16 @@ aterwebApp.directive('frzSeletor', function() {
 		},
 		controller: function($scope) {
 			$scope.marcarElementos = function(checked) {
+				var pos = 0;
 				angular.forEach($scope.dados, function(item) {
-					if (angular.isDefined(item.id)) {
-						$scope.ngModel.selecao.items[item.id] = checked;
-					}
+					$scope.ngModel.selecao.items[pos++] = checked ? item : null;
 				});
 			};
 		},
 		link: function (scope, element, attributes) {
 			scope.$watch('ngModel.selecao.tipo', function() {
 				if (scope.ngModel.selecao.tipo === 'U') {
-					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item.id);
+					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item) && scope.ngModel.selecao.item;
 				} else if (scope.ngModel.selecao.tipo === 'M') {
 					scope.ngModel.selecao.ativo = scope.ngModel.selecao.marcado > 0;				
 				}
@@ -40,19 +39,24 @@ aterwebApp.directive('frzSeletor', function() {
 
 			scope.$watch('ngModel.selecao.item', function() {
 				if (scope.ngModel.selecao.tipo === 'U') {
-					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item.id);
+					scope.ngModel.selecao.ativo = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item) && scope.ngModel.selecao.item;
 				}
 			}, true);
 
 			scope.$watch('ngModel.selecao.items', function() {
-				if (!scope.dados) {
+				if (!scope.ngModel.selecao.items) {
 					return;
 				}
 				var marcado = 0, desmarcado = 0, total = scope.dados.length;
-				angular.forEach(scope.dados, function(item) {
-					marcado   += (scope.ngModel.selecao.items[item.id]) || 0;
-					desmarcado += (!scope.ngModel.selecao.items[item.id]) || 0;
-				});
+				out: for (var item in scope.dados) {
+					for (var sel in scope.ngModel.selecao.items) {
+						if (angular.equals(scope.dados[item], scope.ngModel.selecao.items[sel])) {
+							marcado ++;
+							continue out;
+						}
+					}
+					desmarcado ++;
+				}
 				if ((desmarcado === 0) || (marcado === 0)) {
 					scope.ngModel.selecao.checked = (marcado === total);
 				}

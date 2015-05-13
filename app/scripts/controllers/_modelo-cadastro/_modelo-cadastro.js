@@ -141,6 +141,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
 
   $scope.confirmarEditar = function () {
       $scope.navegador.mudarEstado('VISUALIZANDO');
+      $scope.form.formulario.$setPristine();
       ajustaTela();
   };
 
@@ -215,9 +216,9 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
 
   $scope.visualizar = function () {
     if ($scope.navegador.estadoAtual() === 'LISTANDO' && $scope.navegador.selecao.tipo === 'M') {
-      for (var i = 0; i < $scope.navegador.selecao.items.length; i++) {
+      for (var i in $scope.navegador.selecao.items) {
         if (angular.isDefined($scope.navegador.selecao.items[i]) && $scope.navegador.selecao.items[i]) {
-          $scope.navegador.folhaAtual = i;
+          $scope.navegador.folhaAtual = parseInt(i);
           break;
         }
       }
@@ -225,7 +226,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     if ($scope.navegador.selecao.tipo === 'U') {
       $scope.cadastro.registro = angular.copy($scope.navegador.selecao.item);
     } else {
-      $scope.cadastro.registro = angular.copy($scope.cadastro.lista[$scope.navegador.folhaAtual - 1]);
+      $scope.cadastro.registro = angular.copy($scope.navegador.selecao.items[$scope.navegador.folhaAtual]);
     }
     $state.go('^.formulario', {id: $scope.cadastro.registro.id});
     $scope.navegador.mudarEstado("VISUALIZANDO");

@@ -20,7 +20,7 @@
 		<tr ng-repeat="item in cadastro.lista | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
 			<td>
 				<input type="radio" ng-model="navegador.selecao.item" ng-value="item" ng-show="navegador.selecao.tipo === 'U'" name="selecionado"/>
-				<input type="checkbox" ng-model="navegador.selecao.items[item.id]" ng-show="navegador.selecao.tipo === 'M'" ng-click = "navegador.selecao.item = navegador.selecao.items[item.id] ? item : navegador.selecao.item" />
+				<input type="checkbox" ng-model="navegador.selecao.items[$index]" ng-show="navegador.selecao.tipo === 'M'" ng-click = "navegador.selecao.item = navegador.selecao.items[$index] ? item : navegador.selecao.item" ng-true-value="{{item}}" ng-false-value="null"/>
 			</td>
 			<td>
 				{{$index + 1 + ((navegador.paginaAtual-1)*navegador.tamanhoPagina)}}
@@ -49,7 +49,7 @@
 		<tr ng-repeat="item in navegador.selecao.item.filhos | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
 			<td>
 				<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'" name="selecionadoSub"/>
-				<input type="checkbox" ng-model="subNavegador.selecao.items[item.id]" ng-show="subNavegador.selecao.tipo === 'M'" ng-click = "subNavegador.selecao.item = subNavegador.selecao.items[item.id] ? item : subNavegador.selecao.item" />
+				<input type="checkbox" ng-model="subNavegador.selecao.items[$index]" ng-show="subNavegador.selecao.tipo === 'M'" ng-click = "subNavegador.selecao.item = subNavegador.selecao.items[$index] ? item : subNavegador.selecao.item" ng-true-value="{{item}}" ng-false-value="null"/>
 			</td>
 			<td>
 				{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}

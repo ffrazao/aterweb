@@ -9,7 +9,7 @@ aterwebApp.factory('FrzNavegadorParams', function() {
 
         this.tamanhoPagina = 10;
         this.paginaAtual = 1;
-        this.folhaAtual = 1;
+        this.folhaAtual = 0;
 
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
@@ -341,7 +341,13 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar(1);
         } else if (e === 'VISUALIZANDO') {
-            $scope.folhear(1);
+            for (var v = 0; v < $scope.ngModel.selecao.items.length; v++) {
+                if (angular.isDefined($scope.ngModel.selecao.items[v]) && $scope.ngModel.selecao.items[v]) {
+                    $scope.ngModel.folhaAtual = parseInt(v);
+                    break;
+                }
+            };
+            $scope.onVisualizar();
         }
     };
 
@@ -350,17 +356,13 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar($scope.ngModel.paginaAtual - 1);
         } else if (e === 'VISUALIZANDO') {
-            angular.forEach($scope.ngModel.selecao, function(k,v) {
-                if (v) {
-                    return k;
-                }
-            });
-            for (var pos = $scope.ngModel.folhaAtual - 2; pos >= 0; pos--) {
-                if ($scope.ngModel.selecao.items[pos]) {
-                    $scope.folhear(pos);
+            for (var v = parseInt($scope.ngModel.folhaAtual) - 1; v >= 0; v--) {
+                if (angular.isDefined($scope.ngModel.selecao.items[v]) && $scope.ngModel.selecao.items[v]) {
+                    $scope.ngModel.folhaAtual = parseInt(v);
                     break;
                 }
-            }
+            };
+            $scope.onVisualizar();
         }
     };
 
@@ -369,15 +371,13 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar($scope.ngModel.paginaAtual + 1);
         } else if (e === 'VISUALIZANDO') {
-            for (var v = 0; v < $scope.ngModel.selecao.items.length; v++) {
-                console.log(v, $scope.ngModel.selecao.items[v]);
+            for (var v = parseInt($scope.ngModel.folhaAtual) + 1; v < $scope.ngModel.selecao.items.length; v++) {
+                if (angular.isDefined($scope.ngModel.selecao.items[v]) && $scope.ngModel.selecao.items[v]) {
+                    $scope.ngModel.folhaAtual = parseInt(v);
+                    break;
+                }
             };
-            // for (var pos = $scope.ngModel.folhaAtual; pos < $scope.ngModel.selecao.items.length; pos++) {
-            //     if ($scope.ngModel.selecao.items[pos]) {
-            //         $scope.folhear(pos);
-            //         break;
-            //     }
-            // }
+            $scope.onVisualizar();
         }
     };
 
@@ -386,12 +386,13 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar();
         } else if (e === 'VISUALIZANDO') {
-            for (var pos = $scope.ngModel.selecao.items.length - 1; pos > 0; pos--) {
-                if ($scope.ngModel.selecao.items[pos]) {
-                    $scope.folhear(pos);
+            for (var v = $scope.ngModel.selecao.items.length - 1; v >= 0; v--) {
+                if (angular.isDefined($scope.ngModel.selecao.items[v]) && $scope.ngModel.selecao.items[v]) {
+                    $scope.ngModel.folhaAtual = parseInt(v);
                     break;
                 }
-            }
+            };
+            $scope.onVisualizar();
         }
     };
 
@@ -442,7 +443,7 @@ aterwebApp.directive('frzNavegador', function() {
             };
         },
         template: 
-        '<div class="btn-toolbar pull-right" role="toolbar" aria-label="Barra de Ferramentas">' +
+        '<div class="btn-toolbar pull-right" role="toolbar" aria-label="Barra de Ferramentas" style=".ng-valid {border: 0px;} ">' +
         '  <div class="btn-group" role="group">' +
         '    <button type="button" class="btn btn-sm btn-success" title="OK" ng-click="executarEstado(\'CONFIRMANDO\')" ng-show="botoes.confirmar.visivel" ng-disabled="botoes.confirmar.desabilitado"><i class="glyphicon glyphicon-ok"></i><small ng-show="exibeTextoBotao">OK</small></button>' +
         '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="executarEstado(\'LIMPANDO\')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
@@ -486,6 +487,9 @@ aterwebApp.directive('frzNavegador', function() {
         '    <ul class="dropdown-menu pull-right" role="menu">' +
         '      <li ng-repeat="item in acoesEspeciais | filter: { estado: ngModel.estadoAtual() }"><a ng-click="acaoEspecial(item)">{{ngModel.estadoAtual()}} - {{item.descricao}}</a></li>' +
         '    </ul>' +
+        '  </div>' +
+        '  <div class="btn-group" role="group">' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Ajuda"><b>?</b><small ng-show="exibeTextoBotao">ajuda</small></button>' +
         '  </div>' +
         '</div>' 
     };

@@ -90,9 +90,9 @@ body {
   border: 1px solid red;
 }
 
-.ng-valid {
+/*.ng-valid {
   border: 1px solid green;
-}
+}*/
 
 form.ng-invalid {
   border: 0px;
