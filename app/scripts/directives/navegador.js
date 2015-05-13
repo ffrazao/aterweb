@@ -4,11 +4,12 @@
 
 aterwebApp.factory('FrzNavegadorParams', function() {
     var FrzNavegadorParams = function () {
-        this.selecao = { tipo: 'U', checked: false, items: {}, item: null, ativo: false };
+        this.selecao = { tipo: 'U', checked: false, items: [], item: null, ativo: false };
         this.scope = null;
 
+        this.tamanhoPagina = 10;
         this.paginaAtual = 1;
-        this.tamanhoPagina = 1;
+        this.folhaAtual = 1;
 
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
@@ -303,20 +304,7 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
 
     $scope.folhear = function (novaFolha) {
         $scope.executarEstado('FOLHEANDO');
-        console.log('items', $scope.ngModel.selecao.items);return;
-        var ultimaFolha = $scope.ultimaFolha();
-        if (angular.isDefined(novaFolha)) {
-            novaFolha = parseInt(novaFolha, 10);
-            novaFolha = (novaFolha < 1) ? 1 : novaFolha;
-            if (novaFolha > ultimaFolha) {
-                $scope.onProximaFolha();
-                novaFolha = ultimaFolha;
-            }
-        } else {
-            novaFolha = ultimaFolha;
-            $scope.onUltimaFolha();
-        }
-        $scope.ngModel.folhaAtual = novaFolha;
+        $scope.onVisualizar();
     };
 
     $scope.ultimaPagina = function() {
@@ -362,7 +350,17 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar($scope.ngModel.paginaAtual - 1);
         } else if (e === 'VISUALIZANDO') {
-            $scope.folhear(1);
+            angular.forEach($scope.ngModel.selecao, function(k,v) {
+                if (v) {
+                    return k;
+                }
+            });
+            for (var pos = $scope.ngModel.folhaAtual - 2; pos >= 0; pos--) {
+                if ($scope.ngModel.selecao.items[pos]) {
+                    $scope.folhear(pos);
+                    break;
+                }
+            }
         }
     };
 
@@ -371,7 +369,15 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar($scope.ngModel.paginaAtual + 1);
         } else if (e === 'VISUALIZANDO') {
-            $scope.folhear(1);
+            for (var v = 0; v < $scope.ngModel.selecao.items.length; v++) {
+                console.log(v, $scope.ngModel.selecao.items[v]);
+            };
+            // for (var pos = $scope.ngModel.folhaAtual; pos < $scope.ngModel.selecao.items.length; pos++) {
+            //     if ($scope.ngModel.selecao.items[pos]) {
+            //         $scope.folhear(pos);
+            //         break;
+            //     }
+            // }
         }
     };
 
@@ -380,7 +386,12 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         if (e === 'LISTANDO') {
             $scope.navegar();
         } else if (e === 'VISUALIZANDO') {
-            $scope.folhear();
+            for (var pos = $scope.ngModel.selecao.items.length - 1; pos > 0; pos--) {
+                if ($scope.ngModel.selecao.items[pos]) {
+                    $scope.folhear(pos);
+                    break;
+                }
+            }
         }
     };
 

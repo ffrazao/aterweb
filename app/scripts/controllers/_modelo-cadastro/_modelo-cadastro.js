@@ -4,7 +4,7 @@
 
 aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams) {
 
-  $scope.lista = [
+  $scope.cadastro = {lista : [
   {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Abobora"}, {id:  2, nome: "Abacate"}, ]},
   {id:  2, nome: "Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Melão"}, {id:  2, nome: "Melancia"}, ]},
   {id:  3, nome: "Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Arroz"}, {id:  2, nome: "Feijão"}, ]},
@@ -22,22 +22,11 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
   {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  ];
+  ]};
 
   $scope.navegador = new FrzNavegadorParams();
 
   $scope.subNavegador = new FrzNavegadorParams();
-
-  $scope.tableParams = new ngTableParams({
-        page: 1,            // show first page
-        count: 10           // count per page
-      }, {
-        total: $scope.lista.length
-        , // length of lista
-        getData: function($defer, params) {
-          $defer.resolve($scope.lista.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-        }
-      });
 
   $scope.popup = function (size) {
     var modalInstance = $modal.open({
@@ -225,8 +214,21 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.visualizar = function () {
-    $scope.cadastro = {registro: angular.copy($scope.navegador.selecao.item)};
+    if ($scope.navegador.estadoAtual() === 'LISTANDO' && $scope.navegador.selecao.tipo === 'M') {
+      for (var i = 0; i < $scope.navegador.selecao.items.length; i++) {
+        if (angular.isDefined($scope.navegador.selecao.items[i]) && $scope.navegador.selecao.items[i]) {
+          $scope.navegador.folhaAtual = i;
+          break;
+        }
+      }
+    }
+    if ($scope.navegador.selecao.tipo === 'U') {
+      $scope.cadastro.registro = angular.copy($scope.navegador.selecao.item);
+    } else {
+      $scope.cadastro.registro = angular.copy($scope.cadastro.lista[$scope.navegador.folhaAtual - 1]);
+    }
     $state.go('^.formulario', {id: $scope.cadastro.registro.id});
+    $scope.navegador.mudarEstado("VISUALIZANDO");
   };
 
   $scope.proximaPagina = function () {

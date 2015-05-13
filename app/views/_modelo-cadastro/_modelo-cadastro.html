@@ -3,9 +3,9 @@
 	<div class="panel panel-default">
 		<div class="panel-heading container-fluid">
 			<small>{{navegador.estadoAtual().toLowerCase()}}</small>
-			<small ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{lista.length}}</small>
+			<small ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{cadastro.lista.length}}</small>
 			<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
-			dados="lista"
+			dados="cadastro.lista"
 			acoes-especiais="acoesEspeciais"
 			on-abrir = "abrir()"
 			on-agir = "agir()"

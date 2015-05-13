@@ -5,7 +5,7 @@
 	<table class="table table-hover table-striped table-responsive">
 		<tr>
 			<td>
-				<frz-seletor ng-model="navegador" dados="lista"></frz-seletor>
+				<frz-seletor ng-model="navegador" dados="cadastro.lista"></frz-seletor>
 			</td>
 			<td width="30">
 				#
@@ -17,7 +17,7 @@
 				Documento
 			</td>
 		</tr>
-		<tr ng-repeat="item in lista | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
+		<tr ng-repeat="item in cadastro.lista | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
 			<td>
 				<input type="radio" ng-model="navegador.selecao.item" ng-value="item" ng-show="navegador.selecao.tipo === 'U'" name="selecionado"/>
 				<input type="checkbox" ng-model="navegador.selecao.items[item.id]" ng-show="navegador.selecao.tipo === 'M'" ng-click = "navegador.selecao.item = navegador.selecao.items[item.id] ? item : navegador.selecao.item" />
