@@ -158,6 +158,12 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             visivel: [],
             desabilitado: []
         },
+        'FOLHEANDO': {
+            executar: $scope.onFolhear,
+            mudarEstado: false,
+            visivel: [],
+            desabilitado: []
+        },
         'VOLTANDO': {
             executar: $scope.onVoltar,
             mudarEstado: false,
@@ -295,6 +301,24 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         $scope.ngModel.paginaAtual = novaPagina;
     };
 
+    $scope.folhear = function (novaFolha) {
+        $scope.executarEstado('FOLHEANDO');
+        console.log('items', $scope.ngModel.selecao.items);return;
+        var ultimaFolha = $scope.ultimaFolha();
+        if (angular.isDefined(novaFolha)) {
+            novaFolha = parseInt(novaFolha, 10);
+            novaFolha = (novaFolha < 1) ? 1 : novaFolha;
+            if (novaFolha > ultimaFolha) {
+                $scope.onProximaFolha();
+                novaFolha = ultimaFolha;
+            }
+        } else {
+            novaFolha = ultimaFolha;
+            $scope.onUltimaFolha();
+        }
+        $scope.ngModel.folhaAtual = novaFolha;
+    };
+
     $scope.ultimaPagina = function() {
         if (!$scope.dados) {
             return 0;
@@ -324,6 +348,42 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         return $scope.botoes.navegar.visivel && (e !== 'VISUALIZANDO' || (e === 'VISUALIZANDO' && $scope.ngModel.selecao.tipo === 'M'));
     };
 
+    $scope.primeiro = function() {
+        var e = $scope.ngModel.estadoAtual();
+        if (e === 'LISTANDO') {
+            $scope.navegar(1);
+        } else if (e === 'VISUALIZANDO') {
+            $scope.folhear(1);
+        }
+    };
+
+    $scope.anterior = function() {
+        var e = $scope.ngModel.estadoAtual();
+        if (e === 'LISTANDO') {
+            $scope.navegar($scope.ngModel.paginaAtual - 1);
+        } else if (e === 'VISUALIZANDO') {
+            $scope.folhear(1);
+        }
+    };
+
+    $scope.proximo = function() {
+        var e = $scope.ngModel.estadoAtual();
+        if (e === 'LISTANDO') {
+            $scope.navegar($scope.ngModel.paginaAtual + 1);
+        } else if (e === 'VISUALIZANDO') {
+            $scope.folhear(1);
+        }
+    };
+
+    $scope.ultimo = function() {
+        var e = $scope.ngModel.estadoAtual();
+        if (e === 'LISTANDO') {
+            $scope.navegar();
+        } else if (e === 'VISUALIZANDO') {
+            $scope.folhear();
+        }
+    };
+
 }]);
 
 // diretiva da barra de navegação de dados
@@ -351,6 +411,7 @@ aterwebApp.directive('frzNavegador', function() {
             onLimpar: '&',
             onListar: '&',
             onNavegar: '&',
+            onFolhear: '&',
             onRestaurar: '&',
             onVisualizar: '&',
             onVoltar: '&',
@@ -379,8 +440,8 @@ aterwebApp.directive('frzNavegador', function() {
         '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(\'VOLTANDO\')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botaoNavegarVisivel()" ng-disabled="botoes.navegar.desabilitado">' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="navegar(1)"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="navegar(ngModel.paginaAtual - 1)"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="primeiro()"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Anterior" ng-click="anterior()"><i class="glyphicon glyphicon-backward"></i><small class="sr-only">Anterior</small></button>' +
         '    <div class="btn-group" ng-show="botoes.tamanhoPagina.visivel" ng-disabled="botoes.tamanhoPagina.desabilitado">' +
         '      <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Tamanho da Página">' +
         '        <span>{{ngModel.tamanhoPagina}}</span><span class="caret"></span>' +
@@ -392,8 +453,8 @@ aterwebApp.directive('frzNavegador', function() {
         '        <li><a ng-click="ngModel.tamanhoPagina = 100">100</a></li>' +
         '      </ul>' +
         '    </div>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="navegar(ngModel.paginaAtual + 1)"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="navegar()"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Posterior" ng-click="proximo()"><i class="glyphicon glyphicon-forward"></i><small class="sr-only">Posterior</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-default" title="Último" ng-click="ultimo()"><i class="glyphicon glyphicon-step-forward"></i><small class="sr-only">Último</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.filtrar.visivel" ng-disabled="botoes.filtrar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-primary" title="Filtrar" ng-click="executarEstado(\'FILTRANDO\')"><i class="glyphicon glyphicon-filter"></i><small ng-show="exibeTextoBotao">filtrar</small></button>' +
