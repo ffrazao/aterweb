@@ -4,25 +4,7 @@
 
 aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams) {
 
-  $scope.cadastro = {lista : [
-  {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Abobora"}, {id:  2, nome: "Abacate"}, ]},
-  {id:  2, nome: "Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Melão"}, {id:  2, nome: "Melancia"}, ]},
-  {id:  3, nome: "Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Arroz"}, {id:  2, nome: "Feijão"}, ]},
-  {id:  4, nome: "Nome  4, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  5, nome: "Nome  5, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  6, nome: "Nome  6, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  7, nome: "Nome  7, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  8, nome: "Nome  8, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id:  9, nome: "Nome  9, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 10, nome: "Nome 10, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 11, nome: "Nome 11, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
-  ]};
+  $scope.cadastro = {filtro: null, lista : null, formulario: null};
 
   $scope.navegador = new FrzNavegadorParams();
 
@@ -121,41 +103,48 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.cancelarEditar = function () {
-      $scope.navegador.mudarEstado('VISUALIZANDO');
-      $scope.form.formulario.$setPristine();
-      ajustaTela();
+    $scope.restaurar();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.cancelarExcluir = function () {
-    ajustaTela();
+    $scope.restaurar();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.cancelarIncluir = function () {
-    ajustaTela();
+    $scope.restaurar();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.cancelarListar = function () {
-    $scope.navegador.mudarEstado('LISTANDO');
-    ajustaTela();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.confirmarEditar = function () {
-      $scope.navegador.mudarEstado('VISUALIZANDO');
-      $scope.form.formulario.$setPristine();
-      ajustaTela();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.confirmarExcluir = function () {
-    ajustaTela();
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.confirmarIncluir = function () {
-    $scope.navegador.mudarEstado('FILTRANDO');
-    ajustaTela();
+    $scope.cadastro.lista.push($scope.cadastro.registro);
+    
+    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    $scope.voltar();
   };
 
   $scope.confirmarListar = function () {
     $scope.navegador.mudarEstado('LISTANDO');
+    $scope.navegador.executarEstado('LISTANDO');
     ajustaTela();
   };
 
@@ -166,8 +155,8 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
 
   $scope.form = {};
 
-  $scope.$watch("form.formulario.$dirty", function() {
-    if ($scope.form.formulario && $scope.form.formulario.$dirty && $scope.navegador.estadoAtual() === "VISUALIZANDO") {
+  $scope.$watch('form.formulario.$dirty', function() {
+    if ($scope.form.formulario && $scope.form.formulario.$dirty && $scope.navegador.estadoAtual() === 'VISUALIZANDO') {
       $scope.navegador.mudarEstado('EDITANDO');
       ajustaTela();
     }
@@ -182,16 +171,42 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.incluir = function () {
+    $scope.cadastro.registro = {};
     $scope.navegador.mudarEstado('INCLUINDO');
     $state.go('^.formulario');
   };
 
   $scope.limpar = function () {
-    ajustaTela();
+    var e = $scope.navegador.estadoAtual();
+    if (e === 'FILTRANDO') {
+      $scope.cadastro.filtro = {};
+    } else {
+      $scope.cadastro.registro = {};
+    }
   };
 
   $scope.listar = function () {
+    $scope.cadastro.lista = [
+        {id:  1, nome: "Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Abobora"}, {id:  2, nome: "Abacate"}, ]},
+        {id:  2, nome: "Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Melão"}, {id:  2, nome: "Melancia"}, ]},
+        {id:  3, nome: "Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123", filhos: [{id:  1, nome: "Arroz"}, {id:  2, nome: "Feijão"}, ]},
+        {id:  4, nome: "Nome  4, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id:  5, nome: "Nome  5, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id:  6, nome: "Nome  6, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id:  7, nome: "Nome  7, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id:  8, nome: "Nome  8, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id:  9, nome: "Nome  9, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 10, nome: "Nome 10, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 11, nome: "Nome 11, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        {id: 12, nome: "Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE", documento: "0123"},
+        ];
     $state.go('^.lista');
+    ajustaTela();
   };
 
   $scope.navegarPrimeiro = function () {
@@ -211,7 +226,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.restaurar = function () {
-    ajustaTela();
+    $scope.cadastro.registro = angular.copy($scope.cadastro.original);
   };
 
   $scope.visualizar = function () {
@@ -228,6 +243,8 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     } else {
       $scope.cadastro.registro = angular.copy($scope.navegador.selecao.items[$scope.navegador.folhaAtual]);
     }
+    $scope.cadastro.original = angular.copy($scope.cadastro.registro);
+
     $state.go('^.formulario', {id: $scope.cadastro.registro.id});
     $scope.navegador.mudarEstado("VISUALIZANDO");
   };
@@ -241,9 +258,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.voltar = function () {
-    console.log($scope.navegador.estadoAtual());
     $scope.navegador.voltar();
-    console.log($scope.navegador.estadoAtual());
     $scope.navegador.mudarEstado($scope.navegador.estadoAtual());
     ajustaTela();
   };

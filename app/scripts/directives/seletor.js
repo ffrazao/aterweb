@@ -47,7 +47,7 @@ aterwebApp.directive('frzSeletor', function() {
 				if (!scope.ngModel.selecao.items) {
 					return;
 				}
-				var marcado = 0, desmarcado = 0, total = scope.dados.length;
+				var marcado = 0, desmarcado = 0, total = scope.dados ? scope.dados.length : 0;
 				out: for (var item in scope.dados) {
 					for (var sel in scope.ngModel.selecao.items) {
 						if (angular.equals(scope.dados[item], scope.ngModel.selecao.items[sel])) {

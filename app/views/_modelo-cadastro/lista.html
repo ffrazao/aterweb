@@ -35,11 +35,11 @@
 	</table>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item && navegador.selecao.item.filhos && navegador.selecao.item.filhos.length">
 	<frz-navegador ng-model="subNavegador" exibe-texto-botao="false"
 	on-abrir="abrirSub()" dados="navegador.selecao.item.filhos"></frz-navegador>
 
-	<table class="table table-hover table-striped table-responsive" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item">
+	<table class="table table-hover table-striped table-responsive">
 		<tr>
 			<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.filhos"></frz-seletor></td>
 			<td>#</td>

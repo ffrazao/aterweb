@@ -13,6 +13,7 @@ aterwebApp.factory('FrzNavegadorParams', function() {
 
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
+            this.scope.executarEstado(novoEstado);
         };
         this.estadoAtual = function() {
             return this.scope.historicoEstados[this.scope.historicoEstados.length - 1];
@@ -281,8 +282,11 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             for (botao in $scope.estados[novoEstado].desabilitado) {
                 $scope.botoes[$scope.estados[novoEstado].desabilitado[botao]].desabilitado = false;
             }
-            $scope.historicoEstados.push(novoEstado);
+            if (novoEstado !== $scope.ngModel.estadoAtual()) {
+                $scope.historicoEstados.push(novoEstado);
+            }
         }
+        console.log($scope.historicoEstados, $scope.ngModel.estadoAtual());
     };
 
     $scope.navegar = function (novaPagina) {
@@ -316,7 +320,7 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             pagina++;
         }
         return pagina;
-    }
+    };
 
     $scope.temAcoesEspeciais = function() {
         if ($scope.acoesEspeciais && $scope.acoesEspeciais.length) {
@@ -330,10 +334,15 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             }
         }
         return false;
-    }
+    };
+
     $scope.botaoNavegarVisivel = function () {
         var e = $scope.ngModel.estadoAtual();
         return $scope.botoes.navegar.visivel && (e !== 'VISUALIZANDO' || (e === 'VISUALIZANDO' && $scope.ngModel.selecao.tipo === 'M'));
+    };
+
+    $scope.botaoVoltarVisivel = function () {
+        return $scope.botoes.voltar.visivel && $scope.historicoEstados.length > 1;
     };
 
     $scope.primeiro = function() {
@@ -449,7 +458,7 @@ aterwebApp.directive('frzNavegador', function() {
         '    <button type="button" class="btn btn-sm btn-default" title="Limpar" ng-click="executarEstado(\'LIMPANDO\')" ng-show="botoes.limpar.visivel" ng-disabled="botoes.limpar.desabilitado"><i class="glyphicon glyphicon-trash"></i><small ng-show="exibeTextoBotao">Limpar</small></button>' +
         '    <button type="button" class="btn btn-sm btn-default" title="Restaurar" ng-click="executarEstado(\'RESTAURANDO\')" ng-show="botoes.restaurar.visivel" ng-disabled="botoes.restaurar.desabilitado"><i class="glyphicon glyphicon-repeat"></i><small ng-show="exibeTextoBotao">Restaurar</small></button>' +
         '    <button type="button" class="btn btn-sm btn-danger " title="Cancelar" ng-click="executarEstado(\'CANCELANDO\')" ng-show="botoes.cancelar.visivel" ng-disabled="botoes.cancelar.desabilitado"><i class="glyphicon glyphicon-remove"></i><small ng-show="exibeTextoBotao">Cancelar</small></button>' +
-        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(\'VOLTANDO\')" ng-show="botoes.voltar.visivel" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
+        '    <button type="button" class="btn btn-sm btn-info" title="Voltar" ng-click="executarEstado(\'VOLTANDO\')" ng-show="botaoVoltarVisivel()" ng-disabled="botoes.voltar.desabilitado"><i class="glyphicon glyphicon-share-alt"></i><small ng-show="exibeTextoBotao">Voltar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botaoNavegarVisivel()" ng-disabled="botoes.navegar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default" title="Primeiro" ng-click="primeiro()"><i class="glyphicon glyphicon-step-backward"></i><small class="sr-only">Primeiro</small></button>' +
