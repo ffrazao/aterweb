@@ -96,9 +96,8 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     $scope.voltar();
   };
 
-  $scope.confirmarListar = function () {
+  $scope.confirmarFiltrar = function () {
     $scope.navegador.mudarEstado('LISTANDO');
-    $scope.navegador.executarEstado('LISTANDO');
     ajustaTela();
   };
 
@@ -121,13 +120,15 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.filtrar = function () {
-    $state.go('^.filtro');
+    //$state.go('^.filtro');
+    ajustaTela();
   };
 
   $scope.incluir = function () {
     $scope.cadastro.registro = {};
     $scope.navegador.mudarEstado('INCLUINDO');
-    $state.go('^.formulario');
+    //$state.go('^.formulario');
+    ajustaTela();
   };
 
   $scope.limpar = function () {
@@ -159,7 +160,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     ];
-    $state.go('^.lista');
+    //$state.go('^.lista');
     ajustaTela();
   };
 
@@ -199,8 +200,8 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     }
     $scope.cadastro.original = angular.copy($scope.cadastro.registro);
 
-    $state.go('^.formulario', {id: $scope.cadastro.registro.id});
     $scope.navegador.mudarEstado('VISUALIZANDO');
+    $state.go('^.formulario', {id: $scope.cadastro.registro.id});
   };
 
   $scope.proximaPagina = function () {

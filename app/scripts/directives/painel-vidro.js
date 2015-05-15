@@ -1,4 +1,4 @@
-/* global aterwebApp */
+/* global aterwebApp, $ */
 
 'use strict';
 
@@ -31,12 +31,12 @@ aterwebApp.config(function($httpProvider) {
 });
 
 // aqui está a diretiva em si
-aterwebApp.directive('painelVidro', function ($http) {
+aterwebApp.directive('painelVidro', function () {
     return {
         restrict: 'M',
         replace: true,
         template: '<div class="painel-vidro"><div class="carregando"></div></div>', 
-        link: function (scope, element, attrs) {
+        link: function (scope, element) {
 
             scope.$watch('chamadasAtivas', function (newVal) {
                 if (newVal === 0) {
