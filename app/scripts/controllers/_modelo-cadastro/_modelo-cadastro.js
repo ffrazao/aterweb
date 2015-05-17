@@ -4,12 +4,6 @@
 
 aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams) {
 
-  $scope.cadastro = {filtro: null, filtroOriginal: null, lista : null, registro: null, registroOriginal: null};
-
-  $scope.navegador = new FrzNavegadorParams();
-
-  $scope.subNavegador = new FrzNavegadorParams();
-
   $scope.popup = function (size) {
     var modalInstance = $modal.open({
       template: '<ng-include src=\"\'views/_modelo-cadastro/_modelo-modal.html\'\"></ng-include>',
@@ -42,6 +36,20 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     {estado: ['VISUALIZANDO'], descricao: 'Glups', acao: $scope.acaoListarGlups},
   ];
 
+  $scope.proximaPagina = function () {
+    console.log('proxima pagina');
+  };
+
+  $scope.ultimaPagina = function () {
+    console.log('ultima pagina');
+  };
+
+  $scope.cadastro = {filtro: null, filtroOriginal: null, lista : null, registro: null, registroOriginal: null};
+
+  $scope.navegador = new FrzNavegadorParams();
+
+  $scope.subNavegador = new FrzNavegadorParams();
+
   $scope.agir = function () {
     console.log('agindo');
     ajustaTela();
@@ -52,47 +60,72 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.abrir = function () {
-    $scope.navegador.mudarEstado('FILTRANDO');
-    ajustaTela();
+    if ($state.is('^.formulario')) {
+      $scope.navegador.selecao.item = {id: 72, nome: "Fernando"};
+      $scope.navegador.mudarEstado('VISUALIZANDO');
+    } else {
+      $scope.navegador.mudarEstado('FILTRANDO');
+      ajustaTela();
+    }
   };
 
   $scope.cancelarEditar = function () {
     $scope.restaurar();
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.cancelarExcluir = function () {
     $scope.restaurar();
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.cancelarIncluir = function () {
     $scope.restaurar();
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.cancelarListar = function () {
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.confirmarEditar = function () {
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.confirmarExcluir = function () {
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
   $scope.confirmarIncluir = function () {
     $scope.cadastro.lista.push($scope.cadastro.registro);
-    
-    if ($scope.form.formulario) $scope.form.formulario.$setPristine();
+    if ($scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $scope.voltar();
   };
 
@@ -102,32 +135,32 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.editar = function () {
-    $scope.navegador.mudarEstado('EDITANDO');
+    //$scope.navegador.mudarEstado('EDITANDO');
     ajustaTela();
   };
 
-  $scope.form = {};
+  $scope.frm = {};
 
-  $scope.$watch('form.formulario.$dirty', function() {
-    if ($scope.form.formulario && $scope.form.formulario.$dirty && $scope.navegador.estadoAtual() === 'VISUALIZANDO') {
+  $scope.$watch('frm.formulario.$dirty', function(dirty) {
+    if (dirty && $scope.navegador.estadoAtual() === 'VISUALIZANDO') {
       $scope.navegador.mudarEstado('EDITANDO');
       ajustaTela();
     }
   });
 
   $scope.excluir = function () {
-    $scope.navegador.mudarEstado('EXCLUINDO');
+    //$scope.navegador.mudarEstado('EXCLUINDO');
   };
 
   $scope.filtrar = function () {
-    //$state.go('^.filtro');
+    $state.go('^.filtro');
     ajustaTela();
   };
 
   $scope.incluir = function () {
     $scope.cadastro.registro = {};
-    $scope.navegador.mudarEstado('INCLUINDO');
-    //$state.go('^.formulario');
+    //$scope.navegador.mudarEstado('INCLUINDO');
+    $state.go('^.formulario');
     ajustaTela();
   };
 
@@ -160,7 +193,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     ];
-    //$state.go('^.lista');
+    $state.go('^.lista');
     ajustaTela();
   };
 
@@ -200,16 +233,11 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     }
     $scope.cadastro.original = angular.copy($scope.cadastro.registro);
 
-    $scope.navegador.mudarEstado('VISUALIZANDO');
+    if ($scope.frm && $scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
     $state.go('^.formulario', {id: $scope.cadastro.registro.id});
-  };
-
-  $scope.proximaPagina = function () {
-    console.log('proxima pagina');
-  };
-
-  $scope.ultimaPagina = function () {
-    console.log('ultima pagina');
   };
 
   $scope.voltar = function () {
@@ -219,6 +247,11 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.$on('$stateChangeSuccess', function(evt) {
+    if ($state.is('^.formulario') && $scope.frm && $scope.frm.formulario) {
+      $scope.frm.formulario.$setPristine();
+      $scope.frm.formulario.$setUntouched();
+    }
+    return;
     if ($state.is('^.filtro')) {
       if ($scope.navegador.estadoAtual() !== 'FILTRANDO') {
         $scope.navegador.mudarEstado('FILTRANDO');
@@ -235,6 +268,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   });
 
   var ajustaTela = function() {
+    return;
     switch ($scope.navegador.estadoAtual()) {
       case 'FILTRANDO':
       default:
