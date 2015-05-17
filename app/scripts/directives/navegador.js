@@ -48,6 +48,7 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             'agir': {visivel: false, desabilitado: false},
             'cancelar': {visivel: false, desabilitado: false},
             'confirmar': {visivel: false, desabilitado: false},
+            'editar': {visivel: false, desabilitado: false},
             'excluir': {visivel: false, desabilitado: false},
             'filtrar': {visivel: false, desabilitado: false},
             'incluir': {visivel: false, desabilitado: false},
@@ -97,6 +98,7 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             mudarEstado: true,
             visivel: [
             'agir',
+            'editar',
             'excluir',
             'filtrar',
             'incluir',
@@ -451,6 +453,9 @@ aterwebApp.directive('frzNavegador', function() {
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.visualizar.visivel && ngModel.selecao.selecionado" ng-disabled="botoes.visualizar.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-warning" title="Visualizar" ng-click="ngModel.mudarEstado(\'VISUALIZANDO\')"><i class="glyphicon glyphicon-eye-open"></i><small ng-show="exibeTextoBotao">Visualizar</small></button>' +
+        '  </div>' +
+        '  <div class="btn-group" role="group" ng-show="botoes.editar.visivel && ngModel.selecao.selecionado" ng-disabled="botoes.editar.desabilitado">' +
+        '    <button type="button" class="btn btn-sm btn-warning" title="Editar" ng-click="ngModel.mudarEstado(\'EDITANDO\')"><i class="glyphicon glyphicon-pencil"></i><small ng-show="exibeTextoBotao">Editar</small></button>' +
         '  </div>' +
         '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.selecionado" ng-disabled="botoes.excluir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="ngModel.mudarEstado(\'EXCLUINDO\')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
