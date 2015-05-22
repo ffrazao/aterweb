@@ -31,9 +31,10 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.acoesEspeciais = [
-    {estado: ['LISTANDO', 'VISUALIZANDO'], descricao: 'Sei lá o quê', acao: $scope.acaoFiltrar},
-    {estado: ['LISTANDO'], descricao: 'Pluts', acao: $scope.acaoListarPluts},
-    {estado: ['VISUALIZANDO'], descricao: 'Glups', acao: $scope.acaoListarGlups},
+    {estado: ['FILTRANDO'], descricao: 'Relatorio', acao: $scope.acaoFiltrar, selecaoAtiva: false, quantidadeSelecionados: 0},
+    {estado: ['LISTANDO', 'VISUALIZANDO'], descricao: 'Sei lá o quê', acao: $scope.acaoFiltrar, selecaoAtiva: true, quantidadeSelecionados: 2},
+    {estado: ['LISTANDO'], descricao: 'Pluts', acao: $scope.acaoListarPluts, selecaoAtiva: true, quantidadeSelecionados: 1},
+    {estado: ['LISTANDO', 'VISUALIZANDO'], descricao: 'Glups', acao: $scope.acaoListarGlups, selecaoAtiva: true, quantidadeSelecionados: 0},
   ];
 
   $scope.proximaPagina = function () {

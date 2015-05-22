@@ -72,10 +72,11 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             executar: $scope.onFiltrar,
             mudarEstado: true,
             visivel: [
+            'agir',
             'confirmar',
             'incluir',
             'limpar',
-            'voltar'
+            'voltar',
             ],
             desabilitado: []
         },
@@ -249,7 +250,11 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
             for (var acao in $scope.acoesEspeciais) {
                 for (var est in $scope.acoesEspeciais[acao].estado) {
                     if ($scope.acoesEspeciais[acao].estado[est] === e) {
-                        return true;
+                        if ($scope.acoesEspeciais[acao].selecaoAtiva) {
+                            return $scope.ngModel.selecao.selecionado;
+                        } else {
+                            return true;
+                        }
                     }
                 }
             }
@@ -460,7 +465,7 @@ aterwebApp.directive('frzNavegador', function() {
         '  <div class="btn-group" role="group" ng-show="botoes.excluir.visivel && ngModel.selecao.selecionado" ng-disabled="botoes.excluir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-danger " title="Excluir" ng-click="ngModel.mudarEstado(\'EXCLUINDO\')""><i class="glyphicon glyphicon-minus"></i><small ng-show="exibeTextoBotao">Excluir</small></button>' +
         '  </div>' +
-        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && ngModel.selecao.selecionado && temAcoesEspeciais()" ng-disabled="botoes.agir.desabilitado">' +
+        '  <div class="btn-group" role="group" ng-show="botoes.agir.visivel && temAcoesEspeciais()" ng-disabled="botoes.agir.desabilitado">' +
         '    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Ações">' +
         '      <i class="glyphicon glyphicon-menu-hamburger"></i><small ng-show="exibeTextoBotao">Ações</small><span class="caret"></span>' +
         '    </button>' +
