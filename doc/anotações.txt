@@ -4,3 +4,6 @@ _experimento - criar casos de usos com experimentos do sistema
 
 _modelo_crud - criar um caso de uso de modelo do sistema
 Todos os experimentos bem sucedidos devem aparecer neste modelo
+
+inclusao do framework OAuth para executar a autorização de uso dos serviços do aterwebsrv
+visto em: http://andreareginato.github.io/oauth-ng/

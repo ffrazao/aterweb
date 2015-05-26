@@ -10,6 +10,7 @@
 */
 
 var aterwebApp = angular.module('aterwebApp', [
+	'oauth',
 	'ngAnimate',
 	'ngCookies',
 	'ngMessages',
@@ -50,7 +51,14 @@ aterwebApp.run(['$rootScope', '$state', '$stateParams', 'toastr', function ($roo
 	};
 }]);
 
-aterwebApp.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
+aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig) {
+
+	// codigo a seguir foi exigido pelo oauth
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});//.hashPrefix('!');
+
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {
 		allowHtml: true,
