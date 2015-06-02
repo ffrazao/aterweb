@@ -2,7 +2,7 @@
 
 'use strict';
 
-aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams) {
+aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance) {
 
   $scope.popup = function (size) {
     var modalInstance = $modal.open({
@@ -68,6 +68,10 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
       $scope.navegador.mudarEstado('FILTRANDO');
       ajustaTela();
     }
+  };
+
+  $scope.cancelar = function () {
+      $modalInstance.close();
   };
 
   $scope.cancelarEditar = function () {

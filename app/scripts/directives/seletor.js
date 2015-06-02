@@ -28,7 +28,7 @@ aterwebApp.directive('frzSeletor', function() {
 				});
 			};
 		},
-		link: function (scope, element, attributes) {
+		link: function (scope, element/*, attributes*/) {
 			scope.$watch('ngModel.selecao.tipo', function() {
 				if (scope.ngModel.selecao.tipo === 'U') {
 					scope.ngModel.selecao.selecionado = scope.ngModel.selecao.item && angular.isDefined(scope.ngModel.selecao.item) && scope.ngModel.selecao.item;

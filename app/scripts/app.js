@@ -10,7 +10,6 @@
 */
 
 var aterwebApp = angular.module('aterwebApp', [
-	'oauth',
 	'ngAnimate',
 	'ngCookies',
 	'ngMessages',
@@ -23,41 +22,12 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ngTable'
 ]);
 
-aterwebApp.run(['$rootScope', '$state', '$stateParams', 'toastr', function ($rootScope, $state, $stateParams, toastr) {
-	$rootScope.estado = {retornando: false};
-
-	$rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-		if ($rootScope.estado.retornando) {
-			$rootScope.estado.retornando = false;
-		} else {
-			if ($rootScope.estado.atual && $rootScope.estado.atual.state !== toState && $rootScope.estado.atual.params !== toParams) {
-				if (!$rootScope.estado.anterior) {
-					$rootScope.estado.anterior = [];
-				}
-				$rootScope.estado.anterior.push(angular.copy($rootScope.estado.atual));
-			}
-			$rootScope.estado.atual = {state: toState, params: toParams};
-		}
-	});
-
-	$rootScope.retornar = function() {
-		if ($rootScope.estado.anterior && $rootScope.estado.anterior.length > 0) {
-			$rootScope.estado.atual = $rootScope.estado.anterior.pop();
-			$state.go($rootScope.estado.atual.state.name, $rootScope.estado.atual.params);
-			$rootScope.estado.retornando = true;
-		} else {
-			toastr.error('Impossivel retornar', 'Erro');
-		}
-	};
-}]);
+// codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal
+aterwebApp.factory('$modalInstance', function () {
+  return null;
+});
 
 aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig) {
-
-	// codigo a seguir foi exigido pelo oauth
-	$locationProvider.html5Mode({
-		enabled: true,
-		requireBase: false
-	});//.hashPrefix('!');
 
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {
@@ -137,3 +107,31 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 	;
 
 });
+
+aterwebApp.run(['$rootScope', '$state', '$stateParams', 'toastr', function ($rootScope, $state, $stateParams, toastr) {
+	$rootScope.estado = {retornando: false};
+
+	$rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams/*, fromState, fromParams*/) {
+		if ($rootScope.estado.retornando) {
+			$rootScope.estado.retornando = false;
+		} else {
+			if ($rootScope.estado.atual && $rootScope.estado.atual.state !== toState && $rootScope.estado.atual.params !== toParams) {
+				if (!$rootScope.estado.anterior) {
+					$rootScope.estado.anterior = [];
+				}
+				$rootScope.estado.anterior.push(angular.copy($rootScope.estado.atual));
+			}
+			$rootScope.estado.atual = {state: toState, params: toParams};
+		}
+	});
+
+	$rootScope.retornar = function() {
+		if ($rootScope.estado.anterior && $rootScope.estado.anterior.length > 0) {
+			$rootScope.estado.atual = $rootScope.estado.anterior.pop();
+			$state.go($rootScope.estado.atual.state.name, $rootScope.estado.atual.params);
+			$rootScope.estado.retornando = true;
+		} else {
+			toastr.error('Impossivel retornar', 'Erro');
+		}
+	};
+}]);
