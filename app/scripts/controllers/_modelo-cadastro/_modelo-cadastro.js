@@ -5,6 +5,7 @@
 aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance) {
 
   $scope.popup = function (size) {
+    $scope.modalEstado = 'filtrando';
     var modalInstance = $modal.open({
       template: '<ng-include src=\"\'views/_modelo-cadastro/_modelo-modal.html\'\"></ng-include>',
       controller: 'ModeloCadastroCtrl',
@@ -158,14 +159,23 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.filtrar = function () {
-    $state.go('^.filtro');
+    if ($modalInstance) {
+      $scope.modalEstado = 'filtrando';
+    } else {
+      $state.go('^.filtro');
+    }
     ajustaTela();
   };
 
   $scope.incluir = function () {
     $scope.cadastro.registro = {};
     //$scope.navegador.mudarEstado('INCLUINDO');
-    $state.go('^.formulario');
+    if ($modalInstance) {
+      $scope.modalEstado = 'cadastrando';
+    } else {
+      $state.go('^.formulario');
+    }
+    console.log($modalInstance);
     ajustaTela();
   };
 
@@ -198,7 +208,13 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
     ];
-    $state.go('^.lista');
+
+
+    if ($modalInstance) {
+      $scope.modalEstado = 'listando';
+    } else {
+      $state.go('^.lista');
+    }
     ajustaTela();
   };
 
@@ -242,7 +258,11 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
       $scope.frm.formulario.$setPristine();
       $scope.frm.formulario.$setUntouched();
     }
-    $state.go('^.formulario', {id: $scope.cadastro.registro.id});
+    if ($modalInstance) {
+      $scope.modalEstado = 'cadastrando';
+    } else {
+      $state.go('^.formulario', {id: $scope.cadastro.registro.id});
+    }
   };
 
   $scope.voltar = function () {
@@ -273,6 +293,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   });
 
   var ajustaTela = function() {
+    console.log($modalInstance);
     return;
     switch ($scope.navegador.estadoAtual()) {
       case 'FILTRANDO':
