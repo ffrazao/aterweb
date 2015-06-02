@@ -7,6 +7,35 @@
 		<a ng-click="filtrando = true; listando = false; cadastrando = false;">Filtrar</a>
 		<a ng-click="filtrando = false; listando = true; cadastrando = false;">Listar</a>
 		<a ng-click="filtrando = false; listando = false; cadastrando = true;">Cadastrar</a>
+		<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
+			dados="cadastro.lista"
+			acoes-especiais="acoesEspeciais"
+			on-abrir = "abrir()"
+			on-agir = "agir()"
+			on-cancelar-editar = "cancelarEditar()"
+			on-cancelar-excluir = "cancelarExcluir()"
+			on-cancelar-incluir = "cancelarIncluir()"
+			on-cancelar-filtrar = "cancelarListar()"
+			on-confirmar-editar = "confirmarEditar()"
+			on-confirmar-excluir = "confirmarExcluir()"
+			on-confirmar-incluir = "confirmarIncluir()"
+			on-confirmar-filtrar = "confirmarFiltrar()"
+			on-editar = "editar()"
+			on-excluir = "excluir()"
+			on-filtrar = "filtrar()"
+			on-incluir = "incluir()"
+			on-limpar = "limpar()"
+			on-listar = "listar()"
+			on-navegar-primeiro = "navegarPrimeiro()"
+			on-navegar-anterior = "navegarAnterior()"
+			on-navegar-proximo = "navegarPosterior()"
+			on-navegar-ultimo = "navegarUltimo()"
+			on-restaurar = "restaurar()"
+			on-visualizar = "visualizar()"
+			on-voltar = "voltar()"
+			on-proxima-pagina="proximaPagina()"
+			on-ultima-pagina="ultimaPagina()"
+			></frz-navegador>
 		<div>
 			<ng-include src="'views/_modelo-cadastro/filtro.html'" ng-show="filtrando"></ng-include>
 			<ng-include src="'views/_modelo-cadastro/lista.html'" ng-show="listando"></ng-include>
