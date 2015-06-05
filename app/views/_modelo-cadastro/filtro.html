@@ -2,8 +2,29 @@
 	/{{cadastro.filtro}}/
 	<form name="frm.filtro">
 		<fieldset>
-			Codigo <input ng-model="cadastro.filtro.codigo">
+			Codigo <input ng-model="cadastro.filtro.codigo" ui-number-mask="4" style="text-align: right;">
 			Nome <input ng-model="cadastro.filtro.nome">
-		</fieldset>
+			Dia 
+
+
+<input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true">
+		
+
+
+<div class="row">
+    <div class="col-xs-4">
+        No Mask
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" 
+          max-date="dt" ng-required="true" close-text="Close" show-weeks="false" 
+          show-button-bar="false" ui-mask="99/99/9999" model-view-value="true"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)">
+            	<i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </p>
+    </div>
+</div>
 	</form>
 </div>

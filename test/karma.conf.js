@@ -32,6 +32,10 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'bower_components/ng-table/dist/ng-table.min.js',
+      'bower_components/br-validations/releases/br-validations.js',
+      'bower_components/string-mask/src/string-mask.js',
+      'bower_components/angular-input-masks/angular-input-masks.js',
+      'bower_components/angular-ui-utils/ui-utils.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -19,7 +19,10 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ui.router',
 	'ui.bootstrap',
 	'toastr',
-	'ngTable'
+	'ngTable',
+	'ui.navbar',
+	'ui.utils',
+	'ui.utils.masks',
 ]);
 
 // codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal
@@ -27,7 +30,7 @@ aterwebApp.factory('$modalInstance', function () {
   return null;
 });
 
-aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig) {
+aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $provide) {
 
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {

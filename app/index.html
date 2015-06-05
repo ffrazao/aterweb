@@ -16,6 +16,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/painel-vidro.css">
+    <link rel="stylesheet" href="styles/ui-navbar.css">
     <!-- endbuild -->
   </head>
   <body ng-app="aterwebApp">
@@ -43,8 +44,9 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
@@ -55,10 +57,17 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+    <script src="bower_components/br-validations/releases/br-validations.js"></script>
+    <script src="bower_components/string-mask/src/string-mask.js"></script>
+    <script src="bower_components/angular-input-masks/angular-input-masks.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="template/navbar-ul.html.js"></script>
+        <script src="template/navbar-li.html.js"></script>
+        <script src="scripts/navbar.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/services/login-service.js"></script>
         <script src="scripts/directives/navegador.js"></script>
@@ -66,6 +75,7 @@
         <script src="scripts/directives/mesmo-valor-que.js"></script>
         <script src="scripts/directives/valor-diferente-de.js"></script>
         <script src="scripts/directives/seletor.js"></script>
+        <script src="scripts/controllers/menu.js"></script>
         <script src="scripts/controllers/login/login.js"></script>
         <script src="scripts/controllers/login/esqueci-minha-senha.js"></script>
         <script src="scripts/controllers/login/renove-sua-senha.js"></script>

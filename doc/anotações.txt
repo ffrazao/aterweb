@@ -7,3 +7,13 @@ Todos os experimentos bem sucedidos devem aparecer neste modelo
 
 inclusao do framework OAuth para executar a autorização de uso dos serviços do aterwebsrv
 visto em: http://andreareginato.github.io/oauth-ng/
+
+04/06/2015
+inserido componente para o menu dinamico captado em: https://www.npmjs.com/package/ui-navbar 
+=> este código veio atraves do npm ao inves de pelo bower. Neste caso adaptei o código e trouxe para uma biblioteca interna da aplicação
+
+inserido componente para mascara de campos input em: http://assisrafael.github.io/angular-input-masks/
+=> também foi inserido ui utils
+=> para data hora: https://github.com/zhaber/datetimepicker
+
+inserido i18n do angular, ver em: https://github.com/angular/bower-angular-i18n

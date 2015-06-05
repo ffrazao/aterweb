@@ -4,6 +4,14 @@
 
 aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance) {
 
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+  
+
   $scope.popup = function (size) {
     $scope.modalEstado = 'filtrando';
     var modalInstance = $modal.open({
