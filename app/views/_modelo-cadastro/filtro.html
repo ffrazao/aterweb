@@ -1,5 +1,5 @@
 <div class="panel-body">Filtro <a href="" ng-click="popup();">Popup</a>
-	/{{cadastro.filtro}}/
+	/{{cadastro.filtro}}/{{dt}}/
 	<form name="frm.filtro">
 		<fieldset>
 			Codigo <input ng-model="cadastro.filtro.codigo" ui-number-mask="4" style="text-align: right;">
@@ -7,24 +7,18 @@
 			Dia 
 
 
-<input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true">
+    <input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true">
 		
 
-
-<div class="row">
-    <div class="col-xs-4">
-        No Mask
-        <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" 
-          max-date="dt" ng-required="true" close-text="Close" show-weeks="false" 
-          show-button-bar="false" ui-mask="99/99/9999" model-view-value="true"/>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open($event)">
-            	<i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </p>
-    </div>
+<div class="input-group">
+  <input id="data" type="text" class="form-control" ng-model="fromDate" placeholder="DD/MM/YYYY" bs-datepicker>
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default" ng-click="open($event)">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </button>
+  </span>
 </div>
+
+
 	</form>
 </div>

@@ -2,15 +2,33 @@
 
 'use strict';
 
-aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance) {
+aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance, $datepicker) {
+
+
+  var myDatepicker = $datepicker(angular.element("#data"), 'ModeloCadastroCtrl');
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
 
   $scope.open = function($event) {
     $event.preventDefault();
     $event.stopPropagation();
 
-    $scope.opened = true;
+    myDatepicker.open();
   };
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
   $scope.popup = function (size) {
     $scope.modalEstado = 'filtrando';

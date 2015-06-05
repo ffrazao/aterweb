@@ -23,6 +23,7 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ui.navbar',
 	'ui.utils',
 	'ui.utils.masks',
+	'mgcrea.ngStrap',
 ]);
 
 // codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal
@@ -30,7 +31,16 @@ aterwebApp.factory('$modalInstance', function () {
   return null;
 });
 
-aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $provide) {
+aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $datepickerProvider) {
+
+
+	  angular.extend($datepickerProvider.defaults, {
+	    dateFormat: 'dd/MM/yyyy',
+	    startWeek: 0,
+	    autoclose: true,
+	    dateType: 'string',
+	    trigger: 'manual',
+	  });
 
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {
