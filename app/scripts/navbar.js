@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('ui.navbar', ['ui.bootstrap', 'template/navbar-ul.html', 'template/navbar-li.html'])
 
     .directive('tree', function () {

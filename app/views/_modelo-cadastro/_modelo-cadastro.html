@@ -1,10 +1,11 @@
 <div>
 	<h4>Cadastro Modelo</h4>
 	<div class="panel panel-default">
-		<div class="panel-heading container-fluid">
+		<div class="panel-heading container-fluid" data-offset-top="-60" bs-affix style="z-index: 1001;">
 			<small>{{navegador.estadoAtual().toLowerCase()}}</small>
 			<small ng-show="navegador.selecao.tipo === 'M'">selecionado(s) {{navegador.selecao.marcado}}/{{cadastro.lista.length}}</small>
-			<frz-navegador ng-model="navegador" exibe-texto-botao="false" 
+			<frz-navegador
+			ng-model="navegador" exibe-texto-botao="false" 
 			dados="cadastro.lista"
 			acoes-especiais="acoesEspeciais"
 			on-abrir = "abrir()"

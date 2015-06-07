@@ -2,43 +2,28 @@
 
 'use strict';
 
-aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, $modalInstance, $datepicker) {
-
-
-  var myDatepicker = $datepicker(angular.element("#data"), 'ModeloCadastroCtrl');
+aterwebApp.controller('ModeloCadastroCtrl', ['$scope', '$modal_b', 'toastr', '$state', 'ngTableParams', '$http', '$q', 'FrzNavegadorParams', 
+  '$modalInstance', '$datepicker', 'ModeloSrv', function ($scope, $modal_b, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, 
+    $modalInstance, $datepicker, ModeloSrv) {
 
   $scope.clear = function () {
     $scope.dt = null;
   };
 
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-
-    myDatepicker.open();
+  $scope.open = function(elm) {
+    angular.element(document.querySelector(elm)).triggerHandler('click');
   };
-
-
-
-
-
-
-
-
-
-
-
-
 
   $scope.popup = function (size) {
     $scope.modalEstado = 'filtrando';
-    var modalInstance = $modal.open({
+
+    var modal_bInstance = $modal_b.open({
       template: '<ng-include src=\"\'views/_modelo-cadastro/_modelo-modal.html\'\"></ng-include>',
       controller: 'ModeloCadastroCtrl',
       size: size,
     });
 
-    modalInstance.result.then(function () {
+    modal_bInstance.result.then(function () {
 
     }, function () {
       //$log.info('Modal dismissed at: ' + new Date());
@@ -137,6 +122,20 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.confirmarEditar = function () {
+    ModeloSrv.alterar($scope.cadastro.registro);
+    for (var reg in $scope.cadastro.lista) {
+      if ($scope.cadastro.lista[reg].id === $scope.cadastro.registro.id) {
+        $scope.cadastro.lista[reg] = angular.copy($scope.cadastro.registro); 
+        break;
+      }
+    }
+    for (var reg in $scope.navegador.selecao.items) {
+      if ($scope.navegador.selecao.items[reg].id === $scope.cadastro.registro.id) {
+        $scope.navegador.selecao.items[reg] = angular.copy($scope.cadastro.registro); 
+        $scope.navegador.selecao.item = angular.copy($scope.cadastro.registro); 
+        break;
+      }
+    }
     if ($scope.frm.formulario) {
       $scope.frm.formulario.$setPristine();
       $scope.frm.formulario.$setUntouched();
@@ -145,6 +144,25 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.confirmarExcluir = function () {
+    for (var reg = $scope.cadastro.lista.length -1; reg >= 0; reg--) {
+      if ($scope.navegador.selecao.tipo === 'U') {
+        if ($scope.cadastro.lista[reg].id === $scope.navegador.selecao.item.id) {
+          $scope.cadastro.lista.splice(reg, 1);
+          break;
+        }
+      } else {
+        for (var r in $scope.navegador.selecao.items) {
+          if ($scope.cadastro.lista[reg].id === $scope.navegador.selecao.items[r].id) {
+            $scope.cadastro.lista.splice(reg, 1);
+            $scope.navegador.selecao.items.slice(r, 1);
+            break;
+          }
+        }
+      }
+    }
+    $scope.navegador.selecao.item = null;
+    $scope.navegador.selecao.items = [];
+    $scope.navegador.selecao.selecionado = false;
     if ($scope.frm.formulario) {
       $scope.frm.formulario.$setPristine();
       $scope.frm.formulario.$setUntouched();
@@ -153,6 +171,9 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.confirmarIncluir = function () {
+    if (!$scope.cadastro.lista) {
+      $scope.cadastro.lista = [];
+    }
     $scope.cadastro.lista.push($scope.cadastro.registro);
     if ($scope.frm.formulario) {
       $scope.frm.formulario.$setPristine();
@@ -163,10 +184,13 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
 
   $scope.confirmarFiltrar = function () {
     $scope.navegador.mudarEstado('LISTANDO');
+    $scope.navegador.selecao.item = null;
+    $scope.navegador.selecao.items = [];
+    $scope.navegador.selecao.selecionado = false;
     ajustaTela();
   };
 
-  $scope.editar = function () {
+  $scope.editar = function (id) {
     //$scope.navegador.mudarEstado('EDITANDO');
     ajustaTela();
   };
@@ -201,7 +225,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     } else {
       $state.go('^.formulario');
     }
-    console.log($modalInstance);
+    //console.log($modalInstance);
     ajustaTela();
   };
 
@@ -215,26 +239,32 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.listar = function () {
-    $scope.cadastro.lista = [
-    {id:  1, nome: 'Nome  1, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123', filhos: [{id:  1, nome: 'Abobora'}, {id:  2, nome: 'Abacate'}, ]},
-    {id:  2, nome: 'Nome  2, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123', filhos: [{id:  1, nome: 'Melão'}, {id:  2, nome: 'Melancia'}, ]},
-    {id:  3, nome: 'Nome  3, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123', filhos: [{id:  1, nome: 'Arroz'}, {id:  2, nome: 'Feijão'}, ]},
-    {id:  4, nome: 'Nome  4, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id:  5, nome: 'Nome  5, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id:  6, nome: 'Nome  6, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id:  7, nome: 'Nome  7, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id:  8, nome: 'Nome  8, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id:  9, nome: 'Nome  9, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 10, nome: 'Nome 10, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 11, nome: 'Nome 11, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    {id: 12, nome: 'Nome 12, ABCDEF GHIJK LMNOP RSTU VXYZ WABCDE', documento: '0123'},
-    ];
+    if (!$scope.cadastro.lista) {
+      $scope.cadastro.lista = [
+        {id:  1, nome: 'Joaquim Barbosa', documento: '772.718.474-80', telefone: [{id:  1, ddd: '61', numero: '9875-5553'}, {id:  2, ddd: '61', numero: '3432-1091'}, ]},
+        {id:  2, nome: 'Jorge Ferreira', documento: '572.915.984-60', telefone: [{id:  1, ddd: '62', numero: '8712-0912'}, ], email: [{id:  1, endereco: 'jfer@gmail.com'}, ]},
+        {id:  3, nome: 'André Lima', documento: '401.155.025-64', email: [{id:  1, endereco: 'andre.lima@gmail.com'}, {id:  2, endereco: 'andre.lima@outlook.com'}, ]},
+        {id:  4, nome: 'Roberto Silva', documento: '985.880.257-95'},
+        {id:  5, nome: 'Humberto Costa', documento: '329.337.772-66'},
+        {id:  6, nome: 'Julia Cardoso', documento: '683.163.561-04'},
+        {id:  7, nome: 'Emanuel Francisco Chagas', documento: '385.065.473-77'},
+        {id:  8, nome: 'Abraão Valdeno', documento: '332.111.217-57'},
+        {id:  9, nome: 'Adriano Gesinger', documento: '178.656.571-45'},
+        {id: 10, nome: 'Marco Antonio Benedetti', documento: '370.478.948-88'},
+        {id: 11, nome: 'André Luiz Quintino', documento: '236.545.068-79'},
+        {id: 12, nome: 'Maria Nascimento', documento: '336.373.611-83'},
+        {id: 13, nome: 'Afrânio de Jesus Moraes', documento: '886.835.302-48'},
+        {id: 14, nome: 'Florencio Martins', documento: '683.856.773-30'},
+        {id: 15, nome: 'Carolina Mello', documento: '171.037.803-40'},
+        {id: 16, nome: 'Neide Braga', documento: '356.744.184-11'},
+        {id: 17, nome: 'Flávia Moura', documento: '642.332.693-24'},
+        ];
+    }
 
+    $scope.navegador.selecao.item = null;
+    if ($scope.navegador.selecao === 'U') {
+      $scope.navegador.selecao.selecionado = false;
+    }
 
     if ($modalInstance) {
       $scope.modalEstado = 'listando';
@@ -261,7 +291,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   };
 
   $scope.restaurar = function () {
-    $scope.cadastro.registro = angular.copy($scope.cadastro.original);
+    $scope.cadastro.registro = angular.copy($scope.cadastro.registroOriginal);
   };
 
   $scope.visualizar = function () {
@@ -278,7 +308,13 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     } else {
       $scope.cadastro.registro = angular.copy($scope.navegador.selecao.items[$scope.navegador.folhaAtual]);
     }
-    $scope.cadastro.original = angular.copy($scope.cadastro.registro);
+    for (var reg in $scope.cadastro.lista) {
+      if ($scope.cadastro.lista[reg].id === $scope.cadastro.registro.id) {
+        $scope.cadastro.registro = angular.copy($scope.cadastro.lista[reg]); 
+        break;
+      }
+    }
+    $scope.cadastro.registroOriginal = angular.copy($scope.cadastro.registro);
 
     if ($scope.frm && $scope.frm.formulario) {
       $scope.frm.formulario.$setPristine();
@@ -319,7 +355,7 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
   });
 
   var ajustaTela = function() {
-    console.log($modalInstance);
+    //console.log($modalInstance);
     return;
     switch ($scope.navegador.estadoAtual()) {
       case 'FILTRANDO':
@@ -337,4 +373,5 @@ aterwebApp.controller('ModeloCadastroCtrl', function ($scope, $modal, toastr, $s
     };
   };
 
-});
+}
+]);

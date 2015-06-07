@@ -3,7 +3,11 @@
   </ng-include>
 </header>
 <article>
-  <section class="container" ui-view>
+  <section class="container-fluid">
+  	<div class="row">
+  		<div class="col-sm-offset-1 col-sm-10" ui-view>
+  		</div>
+	</div>
   </section>
 </article>
 <footer class="footer">

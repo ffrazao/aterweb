@@ -1,8 +1,58 @@
-<div class="panel-body">
+<div class="panel-body">Formulário
 	<form name="frm.formulario">
-		<fieldset>
+		<fieldset ng-disabled="navegador.estadoAtual() !== 'INCLUINDO' && navegador.estadoAtual() !== 'EDITANDO'">
 			Nome <input ng-model="cadastro.registro.nome"><br/>
-			Documento <input ng-model="cadastro.registro.documento"><br/>
+			Documento <input ng-model="cadastro.registro.documento" ui-cpf-mask model-view-value="true"><br/>
+			<tabset>
+				<tab active="tabFone.active" disable="tabFone.disabled">
+					<tab-heading>
+						<i class="glyphicon glyphicon-bell"></i>Telefone
+					</tab-heading>
+					<fieldset>
+						<legend>Telefone</legend>
+						<table>
+							<tr>
+								<td>DDD</td>
+								<td>Numero</td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.telefone[0].ddd"></td>
+								<td><input ng-model="cadastro.registro.telefone[0].numero"></td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.telefone[1].ddd"></td>
+								<td><input ng-model="cadastro.registro.telefone[1].numero"></td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.telefone[2].ddd"></td>
+								<td><input ng-model="cadastro.registro.telefone[2].numero"></td>
+							</tr>
+						</table>
+					</fieldset>
+				</tab>
+				<tab active="tabEmeil.active" disable="tabEmeil.disabled">
+					<tab-heading>
+						<i class="glyphicon glyphicon-bell"></i>Email
+					</tab-heading>
+					<fieldset>
+						<legend>Email</legend>
+						<table>
+							<tr>
+								<td>Email</td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.email[0].endereco"></td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.email[1].endereco"></td>
+							</tr>
+							<tr>
+								<td><input ng-model="cadastro.registro.email[2].endereco"></td>
+							</tr>
+						</table>
+					</fieldset>
+				</tab>
+			</tabset>
 		</fieldset>
 	</form>
 </div>

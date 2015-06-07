@@ -17,30 +17,64 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ngSanitize',
 	'ngTouch',
 	'ui.router',
-	'ui.bootstrap',
 	'toastr',
 	'ngTable',
 	'ui.navbar',
 	'ui.utils',
 	'ui.utils.masks',
 	'mgcrea.ngStrap',
-]);
+	'ui.bootstrap',
+	'checklist-model',
+	]);
 
 // codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal
 aterwebApp.factory('$modalInstance', function () {
-  return null;
+	return null;
 });
 
-aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $datepickerProvider) {
+aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $provide, $datepickerProvider,
+	$timepickerProvider) {
 
+	// código para fazer com que o datepicker aceite a mascara de data
+	$provide.decorator('bsDatepickerDirective', function ($delegate) {
+		var directive = $delegate[0];
+		var link = directive.link;
+		directive.compile = function () {
+			return function (scope, element, attrs) {
+				link.apply(this, arguments);
+				element.mask("99/99/9999");
+			};
+		};
+		return $delegate;
+	});
+	$provide.decorator('bsTimepickerDirective', function ($delegate) {
+		var directive = $delegate[0];
+		var link = directive.link;
+		directive.compile = function () {
+			return function (scope, element, attrs) {
+				link.apply(this, arguments);
+				element.mask("99:99");
+			};
+		};
+		return $delegate;
+	});
+	// preparar o padrao do datepicker
+	angular.extend($datepickerProvider.defaults, {
+		dateFormat: 'dd/MM/yyyy',
+		startWeek: 0,
+		autoclose: true,
+		dateType: 'string',
+		trigger: 'click',
+		language: 'pt-br',
+	});
 
-	  angular.extend($datepickerProvider.defaults, {
-	    dateFormat: 'dd/MM/yyyy',
-	    startWeek: 0,
-	    autoclose: true,
-	    dateType: 'string',
-	    trigger: 'manual',
-	  });
+	angular.extend($timepickerProvider.defaults, {
+		dateFormat: 'hh:mm',
+		autoclose: true,
+		timeType: 'string',
+		trigger: 'click',
+		language: 'pt-br',
+	});
 
 	// configurando o toastr - https://github.com/Foxandxss/angular-toastr
 	angular.extend(toastrConfig, {

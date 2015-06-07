@@ -1,24 +1,36 @@
 <div class="panel-body">Filtro <a href="" ng-click="popup();">Popup</a>
-	/{{cadastro.filtro}}/{{dt}}/
+
 	<form name="frm.filtro">
 		<fieldset>
-			Codigo <input ng-model="cadastro.filtro.codigo" ui-number-mask="4" style="text-align: right;">
+			Documento <input ng-model="cadastro.filtro.codigo" ui-cpf-mask model-view-value="true">
 			Nome <input ng-model="cadastro.filtro.nome">
-			Dia 
-
-
-    <input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true">
+			<!-- Dia <input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true"> -->
 		
-
 <div class="input-group">
-  <input id="data" type="text" class="form-control" ng-model="fromDate" placeholder="DD/MM/YYYY" bs-datepicker>
+  <input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data"
+   ng-model="fromDate"
+   bs-datepicker
+   data-autoclose="true">
   <span class="input-group-btn">
-    <button type="button" class="btn btn-default" ng-click="open($event)">
+    <button type="button" class="btn btn-default" ng-click="open('#data')">
       <i class="glyphicon glyphicon-calendar"></i>
     </button>
   </span>
 </div>
 
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="HH:MM" id="hora"
+   ng-model="fromTime"
+   bs-timepicker
+   data-arrow-behavior="picker"
+   data-autoclose="true"
+   >
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default" ng-click="open('#hora')">
+      <i class="glyphicon glyphicon-time"></i>
+    </button>
+  </span>
+</div>
 
 	</form>
 </div>

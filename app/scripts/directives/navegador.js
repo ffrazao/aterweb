@@ -37,7 +37,7 @@ aterwebApp.filter('pagina', function() {
 
 aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toastr', function($scope, FrzNavegadorParams, toastr) {
 
-    if (!$scope.ngModel.hasOwnProperty('scope')) {
+    if ($scope.ngModel && !$scope.ngModel.hasOwnProperty('scope')) {
         $scope.ngModel = new FrzNavegadorParams();
         $scope.ngModel.isNullInstance = true;
     }

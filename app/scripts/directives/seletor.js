@@ -22,10 +22,7 @@ aterwebApp.directive('frzSeletor', function() {
 		},
 		controller: function($scope) {
 			$scope.marcarElementos = function(checked) {
-				var pos = 0;
-				angular.forEach($scope.dados, function(item) {
-					$scope.ngModel.selecao.items[pos++] = checked ? item : null;
-				});
+				$scope.ngModel.selecao.items = checked ? angular.copy($scope.dados): [];
 			};
 		},
 		link: function (scope, element/*, attributes*/) {

@@ -53,7 +53,6 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
     <script src="bower_components/br-validations/releases/br-validations.js"></script>
@@ -62,15 +61,21 @@
     <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        
+        <script src="scripts/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
         <script src="template/navbar-ul.html.js"></script>
         <script src="template/navbar-li.html.js"></script>
+        <script src="scripts/checklist-model.js"></script>
         <script src="scripts/navbar.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/services/login-service.js"></script>
+        <script src="scripts/services/modelo-service.js"></script>
         <script src="scripts/directives/navegador.js"></script>
         <script src="scripts/directives/painel-vidro.js"></script>
         <script src="scripts/directives/mesmo-valor-que.js"></script>

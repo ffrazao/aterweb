@@ -2,7 +2,7 @@
 
 'use strict';
 
-aterwebApp.service('LoginSrv', ['$http', '$q', function ($http, $q) {
+aterwebApp.service('ModeloSrv', ['$http', '$q', function ($http, $q) {
 	this.incluir = function(registro) {
 		console.log('incluindo...');
 	} 
@@ -13,7 +13,7 @@ aterwebApp.service('LoginSrv', ['$http', '$q', function ($http, $q) {
 		console.log('restaurando...');
 	} 
 	this.alterar = function(registro) {
-		console.log('alterando...');
+		console.log('alterando...', registro);
 	} 
 	this.excluir = function(registro) {
 		console.log('excluindo...');
