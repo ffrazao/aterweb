@@ -16,4 +16,7 @@ inserido componente para mascara de campos input em: http://assisrafael.github.i
 => também foi inserido ui utils
 => para data hora: https://github.com/zhaber/datetimepicker
 
+não gostei, testando o http://mgcrea.github.io/angular-strap/#/datepickers
+
 inserido i18n do angular, ver em: https://github.com/angular/bower-angular-i18n
+

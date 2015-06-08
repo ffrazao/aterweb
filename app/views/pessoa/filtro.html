@@ -1,0 +1,356 @@
+<div class="panel-body"><center>Filtro</center>
+
+	<form name="frm.filtro" class="form-horizontal">
+
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Dados Pessoais</legend>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="tipoPessoa">Tipo de Pessoa</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="tipoPessoa-0">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-0" value="" ng-model="cadastro.filtro.tipoPessoa">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="tipoPessoa-0">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-1" value="F" ng-model="cadastro.filtro.tipoPessoa" >
+            Física
+          </label> 
+          <label class="radio-inline" for="tipoPessoa-1">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-2" value="J" ng-model="cadastro.filtro.tipoPessoa">
+            Jurídica
+          </label>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="nome">Nome/ Apelido</label>  
+        <div class="col-md-6">
+        <input id="nome" name="nome" type="text" placeholder="" class="form-control input-md">
+          
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='J'">
+        <label class="col-md-4 control-label" for="cpfCnpj">CPF</label>  
+        <div class="col-md-3">
+          <input id="cpfCnpj" name="cpfCnpj" type="text" placeholder="999.999.999-99" class="form-control input-md" ng-model="cadastro.filtro.cpf" ui-cpf-mask model-view-value="true">
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='F'">
+        <label class="col-md-4 control-label" for="cpfCnpj">CNPJ</label>  
+        <div class="col-md-3">
+          <input id="cpfCnpj" name="cpfCnpj" type="text" placeholder="99.999.999/9999-99" class="form-control input-md" ng-model="cadastro.filtro.cnpj" ui-cnpj-mask model-view-value="true">
+          
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="Gênero">Gênero</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="Gênero-0">
+            <input type="radio" name="Gênero" id="Gênero-0" value="M">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="Gênero-1">
+            <input type="radio" name="Gênero" id="Gênero-1" value="F">
+            Masculino
+          </label> 
+          <label class="radio-inline" for="Gênero-2">
+            <input type="radio" name="Gênero" id="Gênero-2" value="">
+            Feminino
+          </label>
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="geracao">Geração</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="geracao-0">
+            <input type="radio" name="geracao" id="geracao-0" value="A">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="geracao-1">
+            <input type="radio" name="geracao" id="geracao-1" value="I">
+            Adulto
+          </label> 
+          <label class="radio-inline" for="geracao-2">
+            <input type="radio" name="geracao" id="geracao-2" value="J">
+            Idoso
+          </label> 
+          <label class="radio-inline" for="geracao-3">
+            <input type="radio" name="geracao" id="geracao-3" value="C">
+            Jovem
+          </label> 
+          <label class="radio-inline" for="geracao-4">
+            <input type="radio" name="geracao" id="geracao-4" value="">
+            Criança
+          </label>
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ativo">Ativo</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="ativo-0">
+            <input type="radio" name="ativo" id="ativo-0" value="A">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="ativo-1">
+            <input type="radio" name="ativo" id="ativo-1" value="I">
+            Ativo
+          </label> 
+          <label class="radio-inline" for="ativo-2">
+            <input type="radio" name="ativo" id="ativo-2" value="">
+            Inativo
+          </label>
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textarea">Grupo Social</label>
+        <div class="col-md-6">                     
+          <textarea class="form-control" id="textarea" name="textarea">default text</textarea>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Beneficiário</legend>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="categoria">Categoria</label>
+        <div class="col-md-4">
+          <select id="categoria" name="categoria" class="form-control">
+            <option value="EP">Ignorar</option>
+            <option value="EF">Empreendedor Patronal</option>
+            <option value="HP">Empreendedor Familiar</option>
+            <option value="HF">Habitante Patronal</option>
+            <option value="T">Habitante Familiar</option>
+            <option value="">Trabalhador</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ater">ATER</label>
+        <div class="col-md-4">
+          <select id="ater" name="ater" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="dap">DAP</label>
+        <div class="col-md-4">
+          <select id="dap" name="dap" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="X">Não</option>
+            <option value="">NDP</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="setor">Setor</label>
+        <div class="col-md-4">
+          <select id="setor" name="setor" class="form-control">
+            <option value="1">Ignorar</option>
+            <option value="2">Agropecuária</option>
+            <option value="3">Agroindústria</option>
+            <option value="4">Artesanato</option>
+            <option value="5">Comércio</option>
+            <option value="6">Processamento Artesanal</option>
+            <option value="7">Serviço</option>
+            <option value="">Turismo</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="espacoRural">Espaço Rural</label>
+        <div class="col-md-4">
+          <select id="espacoRural" name="espacoRural" class="form-control">
+            <option value="1">Ignorar</option>
+            <option value="2">Lazer</option>
+            <option value="3">Moradia</option>
+            <option value="4">Outras</option>
+            <option value="5">Preservação Ambiental</option>
+            <option value="6">Pretação de Serviço</option>
+            <option value="7">Produção</option>
+            <option value="">Turismo Rural</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="comprasInstitucionais">Compras Institucionais</label>
+        <div class="col-md-4">
+          <select id="comprasInstitucionais" name="comprasInstitucionais" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="comunidade">Comunidade</label>
+        <div class="col-md-4">
+          <select id="comunidade" name="comunidade" class="form-control">
+            <option value="A">Ignorar</option>
+            <option value="B">A</option>
+            <option value="">B</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="beneficioSocial">Benefício Social</label>
+        <div class="col-md-4">
+          <select id="beneficioSocial" name="beneficioSocial" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="incra">Incra</label>
+        <div class="col-md-4">
+          <select id="incra" name="incra" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="atepa">Atepa</label>
+        <div class="col-md-4">
+          <select id="atepa" name="atepa" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="bsm">BSM</label>
+        <div class="col-md-4">
+          <select id="bsm" name="bsm" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="sustentabilidade">Sustentabilidade</label>
+        <div class="col-md-4">
+          <select id="sustentabilidade" name="sustentabilidade" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ipaAgricola">IPA Agrícola</label>
+        <div class="col-md-4">
+          <select id="ipaAgricola" name="ipaAgricola" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ipaAnimal">IPA Animal</label>
+        <div class="col-md-4">
+          <select id="ipaAnimal" name="ipaAnimal" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ipaNaoAgricola">IPA Não Agrícola</label>
+        <div class="col-md-4">
+          <select id="ipaNaoAgricola" name="ipaNaoAgricola" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="ipaFlores">IPA Flores</label>
+        <div class="col-md-4">
+          <select id="ipaFlores" name="ipaFlores" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="organizacao">Organização</label>
+        <div class="col-md-4">
+          <select id="organizacao" name="organizacao" class="form-control">
+            <option value="S">Ignorar</option>
+            <option value="N">Sim</option>
+            <option value="">Não</option>
+          </select>
+        </div>
+      </div>
+
+    </fieldset>
+
+	</form>
+</div>

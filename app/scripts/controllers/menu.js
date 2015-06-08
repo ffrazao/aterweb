@@ -30,7 +30,7 @@
  		},
  		{
  			name: "Pessoa",
- 			link: "login",
+ 			link: "p.pessoa.filtro",
  		}
  		]
  	},

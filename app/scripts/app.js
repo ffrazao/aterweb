@@ -151,6 +151,30 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 		url: '/formulario/:id',
 		templateUrl: 'views/_modelo-cadastro/formulario.html'
 	})
+
+	// bloco pessoa inicio
+	.state('p.pessoa', {
+		url: '/pessoa',
+		templateUrl: 'views/pessoa/_cadastro.html',
+		controller: 'PessoaCtrl'
+	})
+
+	.state('p.pessoa.filtro', {
+		url: '/',
+		templateUrl: 'views/pessoa/filtro.html'
+	})
+
+	.state('p.pessoa.lista', {
+		url: '/lista',
+		templateUrl: 'views/pessoa/lista.html'
+	})
+
+	.state('p.pessoa.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/pessoa/formulario.html'
+	})
+	// bloco pessoa termino
+
 	;
 
 });

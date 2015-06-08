@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Checklist-model
  * AngularJS directive for list of checkboxes

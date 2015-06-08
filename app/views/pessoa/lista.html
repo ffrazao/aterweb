@@ -1,0 +1,84 @@
+<div class="panel-body"><center>Lista</center>
+
+	<!-- Table -->
+	<div class="alert alert-danger" role="alert" ng-hide="cadastro.lista.length">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		Nenhum registro localizado!
+	</div>
+	<div ng-show="cadastro.lista.length">
+		<div class="table-responsive">
+			<table class="table table-hover table-striped table-responsive">
+				<tr>
+					<td>
+						<frz-seletor ng-model="navegador" dados="cadastro.lista"></frz-seletor>
+					</td>
+					<td width="30">
+						#
+					</td>
+					<td>
+						Foto/Logomarca
+					</td>
+					<td>
+						Nome
+					</td>
+					<td>
+						CPF/CNPJ
+					</td>
+					<td>
+						Beneficiário
+					</td>
+				</tr>
+				<tr ng-repeat="item in cadastro.lista | orderBy: 'nome' | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
+					<td>
+						<input type="radio" ng-show="navegador.selecao.tipo === 'U'" ng-model="navegador.selecao.item" ng-value="item"/>
+						<input type="checkbox" ng-show="navegador.selecao.tipo === 'M'" checklist-model="navegador.selecao.items" checklist-value="item"/>
+					</td>
+					<td>
+						{{$index + 1 + ((navegador.paginaAtual-1) * navegador.tamanhoPagina)}}
+					</td>
+					<td>
+						<img src="images/foto.gif" width="50px" height="50px">
+					</td>
+					<td>
+						{{item.nome}}
+					</td>
+					<td>
+						{{item.documento}}
+					</td>
+					<td>
+						X
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="container-fluid" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item && navegador.selecao.item.telefone && navegador.selecao.item.telefone.length">
+			<frz-navegador ng-model="subNavegador" exibe-texto-botao="false"
+			on-abrir="abrirSub()" dados="navegador.selecao.item.telefone"></frz-navegador>
+
+			<table class="table table-hover table-striped table-responsive">
+				<tr>
+					<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.telefone"></frz-seletor></td>
+					<td>#</td>
+					<td>DDD</td>
+					<td>Número</td>
+				</tr>
+				<tr ng-repeat="item in navegador.selecao.item.telefone | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
+					<td>
+						<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'"/>
+						<input type="checkbox" ng-show="subNavegador.selecao.tipo === 'M'" checklist-model="subNavegador.selecao.items" checklist-value="item"/>
+					</td>
+					<td>
+						{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}
+					</td>
+					<td>
+						{{item.ddd}}
+					</td>
+					<td>
+						{{item.numero}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
