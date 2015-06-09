@@ -2,35 +2,120 @@
 
 	<form name="frm.filtro">
 		<fieldset>
-			Documento <input ng-model="cadastro.filtro.codigo" ui-cpf-mask model-view-value="true">
-			Nome <input ng-model="cadastro.filtro.nome">
-			<!-- Dia <input type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true"> -->
-		
-<div class="input-group">
-  <input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data"
-   ng-model="fromDate"
-   bs-datepicker
-   data-autoclose="true">
-  <span class="input-group-btn">
-    <button type="button" class="btn btn-default" ng-click="open('#data')">
-      <i class="glyphicon glyphicon-calendar"></i>
-    </button>
-  </span>
-</div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label class="form-label">Documento</label>
+    			<input class="form-control" ng-model="cadastro.filtro.codigo" ui-cpf-mask model-view-value="true">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Nome</label>
+          <input class="form-control" ng-model="cadastro.filtro.nome">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Dia</label>
+          <input class="form-control" type="text" name="dt" ng-model="cadastro.filtro.dia" ui-mask="99/99/9999" model-view-value="true">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label class="form-label">Dia</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data"
+             ng-model="fromDate"
+             bs-datepicker
+             data-autoclose="true">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open('#data')">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Hora</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="HH:MM" id="hora"
+             ng-model="fromTime"
+             bs-timepicker
+             data-arrow-behavior="picker"
+             data-autoclose="true">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open('#hora')">
+                <i class="glyphicon glyphicon-time"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
 
-<div class="input-group">
-  <input type="text" class="form-control" placeholder="HH:MM" id="hora"
-   ng-model="fromTime"
-   bs-timepicker
-   data-arrow-behavior="picker"
-   data-autoclose="true"
-   >
-  <span class="input-group-btn">
-    <button type="button" class="btn btn-default" ng-click="open('#hora')">
-      <i class="glyphicon glyphicon-time"></i>
-    </button>
-  </span>
-</div>
-
+      <div class="form-group">
+        <div class="col-md-6">
+          <!-- componente de teste -->
+          <label class="form-label">Grupo</label>
+          <div class="panel panel-default">
+            <div class="panel-heading container-fluid">
+              <frz-navegador
+                ng-model="navegadorTeste" exibe-texto-botao="false" 
+                dados="cadastro.lista"
+                acoes-especiais="acoesEspeciais"
+                on-abrir = "abrir()"
+                on-agir = "agir()"
+                on-cancelar-editar = "cancelarEditar()"
+                on-cancelar-excluir = "cancelarExcluir()"
+                on-cancelar-incluir = "cancelarIncluir()"
+                on-cancelar-filtrar = "cancelarListar()"
+                on-confirmar-editar = "confirmarEditar()"
+                on-confirmar-excluir = "confirmarExcluir()"
+                on-confirmar-incluir = "confirmarIncluir()"
+                on-confirmar-filtrar = "confirmarFiltrar()"
+                on-editar = "editar()"
+                on-excluir = "excluir()"
+                on-filtrar = "filtrar()"
+                on-incluir = "incluir()"
+                on-limpar = "limpar()"
+                on-listar = "listar()"
+                on-navegar-primeiro = "navegarPrimeiro()"
+                on-navegar-anterior = "navegarAnterior()"
+                on-navegar-proximo = "navegarPosterior()"
+                on-navegar-ultimo = "navegarUltimo()"
+                on-restaurar = "restaurar()"
+                on-visualizar = "visualizar()"
+                on-voltar = "voltar()"
+                on-proxima-pagina="proximaPagina()"
+                on-ultima-pagina="ultimaPagina()"
+                ></frz-navegador>
+            </div>
+            <div class="table-responsible">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th><frz-seletor ng-model="navegadorTeste" dados="cadastro.lista"></frz-seletor></th>
+                    <th>#</th>
+                    <th>Nome</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="radio" ng-show="navegadorTeste.selecao.tipo === 'U'" ng-model="navegadorTeste.selecao.item" ng-value="item"/>
+                      <input type="checkbox" ng-show="navegadorTeste.selecao.tipo === 'M'" checklist-model="navegadorTeste.selecao.items" checklist-value="item"/>
+                    </td>
+                    <td>
+                      {{$index + 1 + ((navegador.paginaAtual-1) * navegador.tamanhoPagina)}}
+                    </td>
+                    <td>XXX</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  
+                </tfoot>
+              </table>
+            </div>
+            <div class="panel-footer">
+              
+            </div>
+          </div>
+        </div>
+      </div>
 	</form>
 </div>

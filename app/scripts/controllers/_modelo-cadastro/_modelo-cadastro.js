@@ -63,6 +63,8 @@ aterwebApp.controller('ModeloCadastroCtrl', ['$scope', '$modal_b', 'toastr', '$s
 
   $scope.subNavegador = new FrzNavegadorParams();
 
+  $scope.navegadorTeste = new FrzNavegadorParams();  
+
   $scope.agir = function () {
     console.log('agindo');
     ajustaTela();
