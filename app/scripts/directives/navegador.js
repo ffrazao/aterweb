@@ -11,8 +11,19 @@ aterwebApp.factory('FrzNavegadorParams', function() {
         this.paginaAtual = 1;
         this.folhaAtual = 0;
 
+        this.especialBotoesVisiveis = function (botoes) {
+            for (var e in this.scope.estados) {
+                if (e === 'ESPECIAL') {
+                    console.log(this.scope.estados[e]);
+                    this.scope.estados[e].visivel = botoes;
+                }
+            }
+        };
         this.mudarEstado = function (novoEstado) {
             this.scope.mudarEstado(novoEstado);
+        };
+        this.limparEstados = function () {
+            this.scope.historicoEstados = [];
         };
         this.estadoAtual = function() {
             return this.scope.historicoEstados[this.scope.historicoEstados.length - 1];
@@ -214,7 +225,26 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
         'CANCELANDO_EXCLUSAO': {
             executar: $scope.onCancelarExcluir,
             mudarEstado: false,
-        }
+        },
+        'ESPECIAL': {
+            executar: $scope.onEspecial,
+            mudarEstado: true,
+            visivel: [
+                'agir',
+                'cancelar',
+                'confirmar',
+                'editar',
+                'excluir',
+                'filtrar',
+                'incluir',
+                'limpar',
+                'navegar',
+                'restaurar',
+                'tamanhoPagina',
+                'visualizar',
+                'voltar',
+            ],
+        },
     };
 
     $scope.historicoEstados = [];
@@ -222,7 +252,7 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
     $scope.mudarEstado = function (novoEstado) {
         try {
             $scope.estados[novoEstado].executar();
-            if ($scope.estados[novoEstado].mudarEstado) {
+            if ($scope.estados[novoEstado].mudarEstado && $scope.ngModel.estadoAtual() !== 'ESPECIAL') {
                 // esconder botoes
                 iniciarBotoes();
                 // tornar botões visiveis
@@ -274,7 +304,8 @@ aterwebApp.controller('FrzNavegadorCtrl', ['$scope', 'FrzNavegadorParams', 'toas
 
     $scope.botaoNavegarVisivel = function () {
         var e = $scope.ngModel.estadoAtual();
-        return $scope.botoes.navegar.visivel && (e !== 'VISUALIZANDO' || (e === 'VISUALIZANDO' && $scope.ngModel.selecao.tipo === 'M'));
+        return $scope.botoes.navegar.visivel && (e !== 'VISUALIZANDO' || (e === 'VISUALIZANDO' && $scope.ngModel.selecao.tipo === 'M')) 
+            && $scope.dados && $scope.dados.length > 0;
     };
 
     $scope.botaoVoltarVisivel = function () {
@@ -403,6 +434,7 @@ aterwebApp.directive('frzNavegador', function() {
             onConfirmarFiltrar: '&',
             onConfirmarIncluir: '&',
             onEditar: '&',
+            onEspecial: '&',
             onExcluir: '&',
             onFiltrar: '&',
             onIncluir: '&',

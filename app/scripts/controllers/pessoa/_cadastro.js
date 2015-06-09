@@ -3,8 +3,8 @@
 'use strict';
 
 aterwebApp.controller('PessoaCtrl', ['$scope', '$modal_b', 'toastr', '$state', 'ngTableParams', '$http', '$q', 'FrzNavegadorParams', 
-  '$modalInstance', '$datepicker', 'ModeloSrv', function ($scope, $modal_b, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, 
-    $modalInstance, $datepicker, ModeloSrv) {
+  '$modalInstance', '$datepicker', 'ModeloSrv', 'registro', function ($scope, $modal_b, toastr, $state, ngTableParams, $http, $q, FrzNavegadorParams, 
+    $modalInstance, $datepicker, ModeloSrv, registro) {
 
 
 
@@ -92,8 +92,6 @@ $scope.tabVisivel = function(tabNome, visivel) {
   };
 
   $scope.popup = function (size) {
-    $scope.modalEstado = 'filtrando';
-
     var modal_bInstance = $modal_b.open({
       template: '<ng-include src=\"\'views/pessoa/_modal.html\'\"></ng-include>',
       controller: 'PessoaCtrl',
@@ -134,7 +132,7 @@ $scope.tabVisivel = function(tabNome, visivel) {
     console.log('ultima pagina');
   };
 
-  $scope.cadastro = {filtro: null, filtroOriginal: null, lista : null, registro: null, registroOriginal: null};
+  $scope.cadastro = {filtro: null, filtroOriginal: null, lista : null, registro: registro, registroOriginal: registro};
 
   $scope.navegador = new FrzNavegadorParams();
 
@@ -151,7 +149,7 @@ $scope.tabVisivel = function(tabNome, visivel) {
 
   $scope.abrir = function () {
     if ($state.is('^.formulario')) {
-      $scope.navegador.selecao.item = {id: 72, nome: "Fernando"};
+      //$scope.navegador.selecao.item = {id: 72, nome: "Fernando"};
       $scope.navegador.mudarEstado('VISUALIZANDO');
     } else {
       $scope.navegador.mudarEstado('FILTRANDO');
@@ -159,8 +157,18 @@ $scope.tabVisivel = function(tabNome, visivel) {
     }
   };
 
+  $scope.ok = function () {
+    if ($scope.navegador.selecao.tipo === 'U' && angular.isObject($scope.navegador.selecao.item)) {
+      $modalInstance.close($scope.navegador.selecao.item);
+    } else if ($scope.navegador.selecao.tipo === 'M' && angular.isObject($scope.navegador.selecao.items) && $scope.navegador.selecao.items.length > 0) {
+      $modalInstance.close($scope.navegador.selecao.items);
+    } else {
+      toastr.error('Nenhum registro selecionado!');
+    }
+  };
+
   $scope.cancelar = function () {
-      $modalInstance.close();
+      $modalInstance.dismiss();
   };
 
   $scope.cancelarEditar = function () {
@@ -318,23 +326,23 @@ $scope.tabVisivel = function(tabNome, visivel) {
   $scope.listar = function () {
     if (!$scope.cadastro.lista) {
       $scope.cadastro.lista = [
-        {id:  1, nome: 'Joaquim Barbosa', documento: '772.718.474-80', telefone: [{id:  1, ddd: '61', numero: '9875-5553'}, {id:  2, ddd: '61', numero: '3432-1091'}, ]},
-        {id:  2, nome: 'Jorge Ferreira', documento: '572.915.984-60', telefone: [{id:  1, ddd: '62', numero: '8712-0912'}, ], email: [{id:  1, endereco: 'jfer@gmail.com'}, ]},
-        {id:  3, nome: 'André Lima', documento: '401.155.025-64', email: [{id:  1, endereco: 'andre.lima@gmail.com'}, {id:  2, endereco: 'andre.lima@outlook.com'}, ]},
-        {id:  4, nome: 'Roberto Silva', documento: '985.880.257-95'},
-        {id:  5, nome: 'Humberto Costa', documento: '329.337.772-66'},
-        {id:  6, nome: 'Julia Cardoso', documento: '683.163.561-04'},
-        {id:  7, nome: 'Emanuel Francisco Chagas', documento: '385.065.473-77'},
-        {id:  8, nome: 'Abraão Valdeno', documento: '332.111.217-57'},
-        {id:  9, nome: 'Adriano Gesinger', documento: '178.656.571-45'},
-        {id: 10, nome: 'Marco Antonio Benedetti', documento: '370.478.948-88'},
-        {id: 11, nome: 'André Luiz Quintino', documento: '236.545.068-79'},
-        {id: 12, nome: 'Maria Nascimento', documento: '336.373.611-83'},
-        {id: 13, nome: 'Afrânio de Jesus Moraes', documento: '886.835.302-48'},
-        {id: 14, nome: 'Florencio Martins', documento: '683.856.773-30'},
-        {id: 15, nome: 'Carolina Mello', documento: '171.037.803-40'},
-        {id: 16, nome: 'Neide Braga', documento: '356.744.184-11'},
-        {id: 17, nome: 'Flávia Moura', documento: '642.332.693-24'},
+        {id:  1, tipoPessoa: 'PF', nome: 'Joaquim Barbosa', documento: '772.718.474-80', telefone: [{id:  1, ddd: '61', numero: '9875-5553'}, {id:  2, ddd: '61', numero: '3432-1091'}, ]},
+        {id:  2, tipoPessoa: 'PF', nome: 'Jorge Ferreira', documento: '572.915.984-60', telefone: [{id:  1, ddd: '62', numero: '8712-0912'}, ], email: [{id:  1, endereco: 'jfer@gmail.com'}, ]},
+        {id:  3, tipoPessoa: 'PF', nome: 'André Lima', documento: '401.155.025-64', email: [{id:  1, endereco: 'andre.lima@gmail.com'}, {id:  2, endereco: 'andre.lima@outlook.com'}, ]},
+        {id:  4, tipoPessoa: 'PF', nome: 'Roberto Silva', documento: '985.880.257-95'},
+        {id:  5, tipoPessoa: 'PF', nome: 'Humberto Costa', documento: '329.337.772-66'},
+        {id:  6, tipoPessoa: 'PF', nome: 'Julia Cardoso', documento: '683.163.561-04'},
+        {id:  7, tipoPessoa: 'PF', nome: 'Emanuel Francisco Chagas', documento: '385.065.473-77'},
+        {id:  8, tipoPessoa: 'PF', nome: 'Abraão Valdeno', documento: '332.111.217-57'},
+        {id:  9, tipoPessoa: 'PF', nome: 'Adriano Gesinger', documento: '178.656.571-45'},
+        {id: 10, tipoPessoa: 'PF', nome: 'Marco Antonio Benedetti', documento: '370.478.948-88'},
+        {id: 11, tipoPessoa: 'PF', nome: 'André Luiz Quintino', documento: '236.545.068-79'},
+        {id: 12, tipoPessoa: 'PF', nome: 'Maria Nascimento', documento: '336.373.611-83'},
+        {id: 13, tipoPessoa: 'PF', nome: 'Afrânio de Jesus Moraes', documento: '886.835.302-48'},
+        {id: 14, tipoPessoa: 'PF', nome: 'Florencio Martins', documento: '683.856.773-30'},
+        {id: 15, tipoPessoa: 'PF', nome: 'Carolina Mello', documento: '171.037.803-40'},
+        {id: 16, tipoPessoa: 'PF', nome: 'Neide Braga', documento: '356.744.184-11'},
+        {id: 17, tipoPessoa: 'PF', nome: 'Flávia Moura', documento: '642.332.693-24'},
         ];
     }
 

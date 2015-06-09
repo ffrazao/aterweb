@@ -33,15 +33,15 @@
 			on-proxima-pagina="proximaPagina()"
 			on-ultima-pagina="ultimaPagina()"
 			></frz-navegador>
-		<div>
-			<ng-include src="'views/_modelo-cadastro/filtro.html'" ng-show="modalEstado === 'filtrando'"></ng-include>
-			<ng-include src="'views/_modelo-cadastro/lista.html'" ng-show="modalEstado === 'listando'"></ng-include>
-			<ng-include src="'views/_modelo-cadastro/formulario.html'" ng-show="modalEstado === 'cadastrando'"></ng-include>
+		<div ng-init="modalEstado = 'filtrando'; navegador.limparEstados(); navegador.mudarEstado('FILTRANDO');">
+			<ng-include src="'views/pessoa/filtro.html'" ng-show="modalEstado === 'filtrando'"></ng-include>
+			<ng-include src="'views/pessoa/lista.html'" ng-show="modalEstado === 'listando'"></ng-include>
+			<ng-include src="'views/pessoa/formulario.html'" ng-show="modalEstado === 'cadastrando'"></ng-include>
 		</div>
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="submit" id="ok" name="ok" class="btn btn-primary" accesskey="O" title="Executar a ação deste formulário" ng-click="submitForm()"><u>O</u>K</button>
+	<button type="submit" id="ok" name="ok" class="btn btn-primary" accesskey="O" title="Executar a ação deste formulário" ng-click="ok()"><u>O</u>K</button>
 	<button type="button" id="cancelar" name="cancelar" class="btn btn-danger" accesskey="C" title="Cancelar a ação deste formulário" ng-click="cancelar()"><u>C</u>ancelar</button>
 </div>
 

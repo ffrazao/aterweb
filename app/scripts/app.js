@@ -31,6 +31,9 @@ var aterwebApp = angular.module('aterwebApp', [
 aterwebApp.factory('$modalInstance', function () {
 	return null;
 });
+aterwebApp.factory('registro', function () {
+	return null;
+});
 
 aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $provide, $datepickerProvider,
 	$timepickerProvider) {

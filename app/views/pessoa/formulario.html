@@ -1,10 +1,11 @@
 <div class="panel-body"><center>Formulário</center>
 	<form name="frm.formulario">
 		<fieldset ng-enabled="navegador.estadoAtual() !== 'INCLUINDO' && navegador.estadoAtual() !== 'EDITANDO'">
+			<input type="hidden" ng-model="cadastro.registro.id" />
 			<div class="row">
 				<div class="col-md-2">
 					<div class="form-group">
-						<label class="control-label" for="tipoPessoa">Foto</label>
+						<label class="control-label">Foto</label>
 						<div>
 							<img src="images/foto.gif">
 						</div>
@@ -14,11 +15,13 @@
 					<div class="row">
 						<div class="form-group col-md-3">
 							<label class="control-label" for="tipoPessoa">Tipo de Pessoa</label>
-							<input type="text" class="form-control" value="Pessoa Física">
+							<div class="form-control">
+								{{cadastro.registro.tipoPessoa === 'PF' ? 'Pessoa Física' : cadastro.registro.tipoPessoa === 'PJ' ? 'Pessoa Jurídica': ''}}
+							</div>
 						</div>
 						<div class="form-group col-md-6">
 							<label class="control-label">Nome Completo (sem abreviação)</label>
-							<input class="form-control" type="text" /> 
+							<input class="form-control" type="text" ng-model="cadastro.registro.nome"/> 
 						</div>
 						<div class="form-group col-md-3">
 							<label class="control-label">Apelido</label>
@@ -54,19 +57,19 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group col-md-8">
-						<label class="control-label" for="tipoPessoa">Responsável Inclusão</label>
+						<label class="control-label" for="tipoPessoa">Resp. Inclusão</label>
 						<input class="form-control" type="text" readonly="true" />
 					</div>
 					<div class="form-group col-md-4">
-						<label class="control-label" for="tipoPessoa">Data Inclusão</label>
+						<label class="control-label" for="tipoPessoa">Dt. Inclusão</label>
 						<input class="form-control" type="text" readonly="true" />
 					</div>
 					<div class="form-group col-md-8">
-						<label class="control-label" for="tipoPessoa">Responsável Atualização</label>
+						<label class="control-label" for="tipoPessoa">Resp. Atualização</label>
 						<input class="form-control" type="text" readonly="true" />
 					</div>
 					<div class="form-group col-md-4">
-						<label class="control-label" for="tipoPessoa">Data Atualização</label>
+						<label class="control-label" for="tipoPessoa">Dt. Atualização</label>
 						<input class="form-control" type="text" readonly="true" />
 					</div>
 				</div>
