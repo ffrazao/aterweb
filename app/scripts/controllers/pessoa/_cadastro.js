@@ -408,7 +408,9 @@ $scope.tabVisivel = function(tabNome, visivel) {
     if ($modalInstance) {
       $scope.modalEstado = 'cadastrando';
     } else {
-      $state.go('^.formulario', {id: $scope.cadastro.registro.id});
+      if ($scope.cadastro.registro) {
+        $state.go('^.formulario', {id: $scope.cadastro.registro.id});
+      }
     }
   };
 

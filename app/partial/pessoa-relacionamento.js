@@ -37,11 +37,10 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   };
 
   $scope.incluir = function (size) {
-    //$scope.cadastro.registro = {};
     var modalInstance = $modal_b.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'views/pessoa/_modal.html',
-      controller: 'PessoaCtrl',
+      templateUrl: 'pessoaRelacionamentoFrm.html',
+      controller: 'PessoaRelacionamentoCtrl',
       size: size,
       resolve: {
         registro: function () {
@@ -54,20 +53,54 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
     	if (!registro) {
     		return;
     	}
-    	if (!$scope.cadastro.registro.telefone) {
-    		$scope.cadastro.registro.telefone = [];
-    	}
+      if (!$scope.cadastro.registro) {
+        $scope.cadastro.registro = {};
+      }
+      if (!$scope.cadastro.registro.relacionamento) {
+        $scope.cadastro.registro.relacionamento = [];
+      }
     	if (angular.isArray(registro)) {
     		for (var r in registro) {
-    			$scope.cadastro.registro.telefone.push(r);
+    			$scope.cadastro.registro.relacionamento.push(r);
     		}
     	} else {
-    		$scope.cadastro.registro.telefone.push(registro);
+    		$scope.cadastro.registro.relacionamento.push(registro);
     	}
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
     });
   };
+
+  $scope.pesquisaPessoa = function(size) {
+
+    var modalInstance = $modal_b.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'views/pessoa/_modal.html',
+      controller: 'PessoaCtrl',
+      size: size,
+      resolve: {
+        registro: function () {
+          //return $scope.cadastro.registro;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (registro) {
+      if (!registro) {
+        return;
+      }
+      if (!$scope.relacionamento) {
+        $scope.relacionamento = {};
+      }
+      if (angular.isArray(registro)) {
+        $scope.relacionamento.pessoa = angular.copy(registro[0]);
+      } else {
+        $scope.relacionamento.pessoa = angular.copy(registro);
+      }
+    }, function () {
+      console.log('Modal dismissed at: ' + new Date());
+    });
+  }
 
   $scope.items = [];
   $scope.selected = {
@@ -75,13 +108,7 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   };
 
   $scope.ok = function () {
-  	if ($scope.navegador.selecao.tipo === 'U' && angular.isObject($scope.navegador.selecao.item)) {
-  		$modalInstance.close($scope.navegador.selecao.item);
-  	} else if ($scope.navegador.selecao.tipo === 'M' && angular.isObject($scope.navegador.selecao.items) && $scope.navegador.selecao.items.length === 1) {
-  		$modalInstance.close($scope.navegador.selecao.items[0]);
-  	} else {
-  		toastr.error('Nenhum registro selecionado!');
-  	}
+  	$modalInstance.close($scope.relacionamento);
   };
 
   $scope.cancel = function () {

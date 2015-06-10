@@ -2,7 +2,7 @@
     <div class="panel-heading container-fluid">
       <frz-navegador
         ng-model="pessoaRelacionamentoNvg" exibe-texto-botao="false" 
-        dados="cadastro.registro.telefone"
+        dados="cadastro.registro.relacionamento"
         acoes-especiais="acoesEspeciais"
         on-abrir = "abrir()"
         on-agir = "agir()"
@@ -20,17 +20,25 @@
         on-ultima-pagina="ultimaPagina()"
         ></frz-navegador>
     </div>
-    <div class="table-responsible">
+    <div class="painel-body"  ng-hide="cadastro.registro.relacionamento.length">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        Nenhum registro localizado!
+      </div>
+    </div>
+    <div class="table-responsible" ng-show="cadastro.registro.relacionamento.length > 0">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><frz-seletor ng-model="pessoaRelacionamentoNvg" dados="cadastro.registro.telefone"></frz-seletor></th>
+            <th><frz-seletor ng-model="pessoaRelacionamentoNvg" dados="cadastro.registro.relacionamento"></frz-seletor></th>
             <th>#</th>
             <th>Nome</th>
+            <th>Tipo de Relacionamento</th>
+            <th>Função</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="tel in cadastro.registro.telefone">
+          <tr ng-repeat="tel in cadastro.registro.relacionamento">
             <td>
               <input type="radio" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'U'" ng-model="pessoaRelacionamentoNvg.selecao.item" ng-value="tel"/>
               <input type="checkbox" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'M'" checklist-model="pessoaRelacionamentoNvg.selecao.items" checklist-value="tel"/>
@@ -38,26 +46,59 @@
             <td>
               {{$index + 1 + ((pessoaRelacionamentoNvg.paginaAtual-1) * pessoaRelacionamentoNvg.tamanhoPagina)}}
             </td>
-            <td>{{tel}}</td>
+            <td>{{tel.pessoa.nome}}</td>
+            <td>{{tel.relacionamentoTipo.id}}</td>
+            <td>{{tel.relacionamentoFuncao.id}}</td>
           </tr>
         </tbody>
         <tfoot>
-            //{{cadastro.registro}}/
         </tfoot>
       </table>
     </div>
     <div class="panel-footer">
-      
+      teste /{{cadastro.registro}}/
     </div>
     <script type="text/ng-template" id="pessoaRelacionamentoFrm.html">
         <div class="modal-header">
             <h3 class="modal-title">Pessoa Relacionamento</h3>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <div class="col-md-4">
-              <label class="form-label">Numero</label>
-              <input class="form-control" ng-model="cadastro.filtro.numero">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <label class="form-label">Pessoa</label>
+                <div class="input-group">
+                  <input type="hidden" ng-model="relacionamento.pessoa.id">
+                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="relacionamento.pessoa.nome">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" aria-label="Left Align" ng-click="pesquisaPessoa('lg')">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Tipo de Relacionamento</label>
+                <select class="form-control" ng-model="relacionamento.relacionamentoTipo.id">
+                  <option value="1">Familiar</option>
+                  <option value="2">Profissional</option>
+                  <option value="3">Acadêmico</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Função</label>
+                <select class="form-control" ng-model="relacionamento.relacionamentoFuncao.id">
+                  <option value="1">Pai</option>
+                  <option value="2">Filho</option>
+                  <option value="3">Neto</option>
+                </select>
+              </div>
+              <div class="col-md-4" ng-show="false">
+                <label class="form-label">Detalhes</label>
+                <select class="form-control"/>
+              </div>
             </div>
           </div>
         </div>
