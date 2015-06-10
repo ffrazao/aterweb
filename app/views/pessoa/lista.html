@@ -20,13 +20,22 @@
 							Foto/Logomarca
 						</th>
 						<th>
-							Nome
+							Tipo Pessoa
+						</th>
+						<th>
+							Nome/Razão Social
+						</th>
+						<th>
+							Apelido/Sigla
 						</th>
 						<th>
 							CPF/CNPJ
 						</th>
 						<th>
 							Beneficiário
+						</th>
+						<th>
+							Colaborador
 						</th>
 					</tr>
 				</thead>
@@ -43,23 +52,29 @@
 							<img class="img-thumbnail" src="images/foto.gif" width="50px" height="50px">
 						</td>
 						<td>
+							{{item.pessoaTipo}}
+						</td>
+						<td>
 							{{item.nome}}
+						</td>
+						<td>
+							{{item.apelidoSigla}}
 						</td>
 						<td>
 							{{item.documento}}
 						</td>
 						<td>
-							X
+							Sim
+						</td>
+						<td>
+							Não
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
 		<div class="container-fluid" ng-show="navegador.selecao.tipo === 'U' && navegador.selecao.item && navegador.selecao.item.telefone && navegador.selecao.item.telefone.length">
-			<frz-navegador ng-model="subNavegador" exibe-texto-botao="false"
-			on-abrir="abrirSub()" dados="navegador.selecao.item.telefone"></frz-navegador>
-
+			<frz-navegador ng-model="subNavegador" exibe-texto-botao="false" on-abrir="abrirSub()" dados="navegador.selecao.item.telefone"></frz-navegador>
 			<table class="table table-hover table-striped table-responsive">
 				<tr>
 					<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.telefone"></frz-seletor></td>

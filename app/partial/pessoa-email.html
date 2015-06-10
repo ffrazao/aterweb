@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading container-fluid">
       <frz-navegador
-        ng-model="pessoaRelacionamentoNvg" exibe-texto-botao="false" 
-        dados="cadastro.registro.relacionamento"
+        ng-model="pessoaEmailNvg" exibe-texto-botao="false" 
+        dados="cadastro.registro.email"
         acoes-especiais="acoesEspeciais"
         on-abrir = "abrir()"
         on-agir = "agir()"
@@ -20,35 +20,31 @@
         on-ultima-pagina="ultimaPagina()"
         ></frz-navegador>
     </div>
-    <div class="painel-body"  ng-hide="cadastro.registro.relacionamento.length">
+    <div class="painel-body"  ng-hide="cadastro.registro.email.length">
       <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         Nenhum registro localizado!
       </div>
     </div>
-    <div class="table-responsible" ng-show="cadastro.registro.relacionamento.length > 0">
+    <div class="table-responsible" ng-show="cadastro.registro.email.length > 0">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><frz-seletor ng-model="pessoaRelacionamentoNvg" dados="cadastro.registro.relacionamento"></frz-seletor></th>
+            <th><frz-seletor ng-model="pessoaEmailNvg" dados="cadastro.registro.email"></frz-seletor></th>
             <th>#</th>
-            <th>Nome</th>
-            <th>Tipo de Relacionamento</th>
-            <th>Função</th>
+            <th>E-mail</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="tel in cadastro.registro.relacionamento">
+          <tr ng-repeat="tel in cadastro.registro.email">
             <td>
-              <input type="radio" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'U'" ng-model="pessoaRelacionamentoNvg.selecao.item" ng-value="tel"/>
-              <input type="checkbox" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'M'" checklist-model="pessoaRelacionamentoNvg.selecao.items" checklist-value="tel"/>
+              <input type="radio" ng-show="pessoaEmailNvg.selecao.tipo === 'U'" ng-model="pessoaEmailNvg.selecao.item" ng-value="tel"/>
+              <input type="checkbox" ng-show="pessoaEmailNvg.selecao.tipo === 'M'" checklist-model="pessoaEmailNvg.selecao.items" checklist-value="tel"/>
             </td>
             <td>
-              {{$index + 1 + ((pessoaRelacionamentoNvg.paginaAtual-1) * pessoaRelacionamentoNvg.tamanhoPagina)}}
+              {{$index + 1 + ((pessoaEmailNvg.paginaAtual-1) * pessoaEmailNvg.tamanhoPagina)}}
             </td>
             <td>{{tel.pessoa.nome}}</td>
-            <td>{{tel.relacionamentoTipo.id}}</td>
-            <td>{{tel.relacionamentoFuncao.id}}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -57,9 +53,9 @@
     </div>
     <div class="panel-footer">
     </div>
-    <script type="text/ng-template" id="pessoaRelacionamentoFrm.html">
+    <script type="text/ng-template" id="pessoaEmailFrm.html">
         <div class="modal-header">
-            <h3 class="modal-title">Pessoa Relacionamento</h3>
+            <h3 class="modal-title">Email</h3>
         </div>
         <div class="modal-body">
           <div class="container-fluid">
@@ -67,8 +63,8 @@
               <div class="col-md-12">
                 <label class="form-label">Pessoa</label>
                 <div class="input-group">
-                  <input type="hidden" ng-model="relacionamento.pessoa.id">
-                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="relacionamento.pessoa.nome">
+                  <input type="hidden" ng-model="email.pessoa.id">
+                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="email.pessoa.nome">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button" aria-label="Left Align" ng-click="pesquisaPessoa('lg')">
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -79,8 +75,8 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <label class="form-label">Tipo de Relacionamento</label>
-                <select class="form-control" ng-model="relacionamento.relacionamentoTipo.id">
+                <label class="form-label">Email</label>
+                <select class="form-control" ng-model="email.relacionamentoTipo.id">
                   <option value="1">Familiar</option>
                   <option value="2">Profissional</option>
                   <option value="3">Acadêmico</option>
@@ -88,7 +84,7 @@
               </div>
               <div class="col-md-4">
                 <label class="form-label">Função</label>
-                <select class="form-control" ng-model="relacionamento.relacionamentoFuncao.id">
+                <select class="form-control" ng-model="email.relacionamentoFuncao.id">
                   <option value="1">Pai</option>
                   <option value="2">Filho</option>
                   <option value="3">Neto</option>
