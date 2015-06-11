@@ -1,0 +1,292 @@
+<fieldset>
+	<!-- [{{dados}}] -->
+	<input type="hidden" data-ng-model="dados.id">
+	<div class="form-group" data-ng-hide="dados.id">
+		<label class="col-md-4 control-label"><button class="btn btn-primary" data-ng-model="procurarPorPessoa" btn-checkbox data-ng-click="procurarPorPessoaFn()">Procurar Endereço Por Pessoa</button></label>
+		<div class="col-md-7">
+			<div class="row" data-ng-show="procurarPorPessoa">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label" for="procuraNome">Nome</label>
+								<input id="procuraNome" name="procuraNome" class="form-control" type="text" data-ng-model="procuraNome">
+							</div>
+							<div class="col-md-5">
+								<label class="control-label" for="procuraDocumento">Documento</label>
+								<input id="procuraDocumento" name="procuraDocumento" class="form-control" type="text" data-ng-model="procuraDocumento">
+							</div>
+							<div class="col-md-1">
+								<button class="btn btn-primary" aria-label="Left Align" data-ng-click="procurarEnderecoPorPessoa()">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" data-ng-show="procurarPorPessoa">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-6">
+								<h3 class="panel-title">Pessoas</h3>
+							</div>
+							<div class="col-md-6" data-ng-show="pessoaList.length">
+								<div class="btn-group">
+									<input type="search" placeholder="filtro" data-ng-model="filtroPessoa" data-ng-change="filtroPessoaPagina=1"/>
+									<span type="button" class="glyphicon glyphicon-remove-circle form-inline" data-ng-click="filtroPessoa = null"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="table-responsive" data-ng-show="pessoaList.length">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Seleção</th>
+									<th>Nome</th>
+									<th>Documento</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="item in pessoaList | filter: filtroPessoa | offset : filtroPessoaPagina : tamanhoPagina | limitTo: tamanhoPagina">
+									<td>{{$index + 1 + ((filtroPessoaPagina-1)*tamanhoPagina)}}</td>
+									<td><input type="radio" name="pessoaSelecionadaRadio" data-ng-click="selecionaEnderecos(item.enderecos)"></td>
+									<td>{{item.nome}}</td>
+									<td>{{item.cpf}}{{item.cnpj}}</td>
+								</tr>
+							</tbody>
+							<tfoot data-ng-show="pessoaList.length > tamanhoPagina">
+								<tr>
+									<td colspan="4">
+										<pagination style="margin:0px;" data-previous-text="&lsaquo;" data-next-text="&rsaquo;" data-first-text="&laquo;" data-last-text="&raquo;"
+											data-boundary-links="true" data-max-size="5" data-items-per-page="tamanhoPagina" class="pagination-sm"
+											data-total-items="pessoaList.length"
+											data-ng-model="filtroPessoaPagina" data-ng-init="filtroPessoaPagina = 1"></pagination>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div class="panel-footer text-right">
+						<label>Total: {{pessoaList.length}}</label>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-6">
+								<h3 class="panel-title">Endereços</h3>
+							</div>
+							<div class="col-md-6" data-ng-show="enderecoList.length">
+								<div class="btn-group">
+									<input type="search" placeholder="filtro" data-ng-model="filtroEndereco" data-ng-change="filtroEnderecoPagina=1"/>
+									<span type="button" class="glyphicon glyphicon-remove-circle form-inline" data-ng-click="filtroEndereco = null"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="table-responsive" data-ng-show="enderecoList.length">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Endereço</th>
+									<th>Propriedade Rural</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="item in enderecoList | filter: filtroEndereco | offset : filtroEnderecoPagina : tamanhoPagina | limitTo: tamanhoPagina">
+									<td>{{$index + 1 + ((filtroEnderecoPagina-1)*tamanhoPagina)}}</td>
+									<td>
+										<span data-ng-bind-html="item.enderecoHtml | sanitize"></span>
+									</td>
+									<td>{{item.propriedadeRuralConfirmacao}}</td>
+									<td><button class="btn btn-primary" data-ng-click="selecionaEndereco(item)">Selecionar</button></td>
+								</tr>
+							</tbody>
+							<tfoot data-ng-show="enderecoList.length > tamanhoPagina">
+								<tr>
+									<td colspan="4">
+										<pagination style="margin:0px;" data-previous-text="&lsaquo;" data-next-text="&rsaquo;" data-first-text="&laquo;" data-last-text="&raquo;"
+											data-boundary-links="true" data-max-size="5" data-items-per-page="tamanhoPagina" class="pagination-sm"
+											data-total-items="enderecoList.length"
+											data-ng-model="filtroEnderecoPagina" data-ng-init="filtroEnderecoPagina = 1"></pagination>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div class="panel-footer text-right">
+						<label>Total: {{enderecoList.length}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label">Localização</label>
+		<div class="col-md-4">
+			<label class="radio-inline">
+				<input type="radio" name="localizacao" value="N" data-ng-model="localizacao" data-ng-init="localizacao='N'">
+				Nacional
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="localizacao" value="I" data-ng-model="localizacao">
+				Internacional
+			</label>
+		</div>
+		<input type="hidden" id="pais" name="pais" data-ng-model="dados.pessoaGrupoCidadeVi.pessoaGrupoMunicipioVi.pessoaGrupoEstadoVi.pessoaGrupoPaisVi.id">
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='N'">
+		<label class="col-md-4 control-label" for="pais">País</label>
+		<div class="col-md-5">
+			<select id="pais" name="pais" class="form-control" data-ng-model="dados.pessoaGrupoPaisVi.id" data-ng-options="item.id as item.nome for item in lista.paisList"></select>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I'">
+		<label class="col-md-4 control-label">Propriedade Rural</label>
+		<div class="col-md-4">
+			<label class="radio-inline">
+				<input type="radio" name="dados.propriedadeRuralConfirmacao" value="N" data-ng-model="dados.propriedadeRuralConfirmacao">
+				Não
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="dados.propriedadeRuralConfirmacao" value="S" data-ng-model="dados.propriedadeRuralConfirmacao">
+				Sim
+			</label>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I'">
+		<label class="col-md-4 control-label" for="cep">CEP</label>
+		<div class="col-md-2">
+			<div class="input-group">
+				<input id="cep" name="cep" class="form-control" type="text" data-ng-model="dados.cep" data-ui-mask="99999-999" maxlength="10" size="10">
+				<span class="input-group-addon glyphicon glyphicon-search" data-ng-click="buscaCep()"></span>
+			</div>
+		</div>
+		<label class="col-md-2 control-label" for="codigoIbge">Código IBGE</label>
+		<div class="col-md-3">
+			<div class="input-group">
+				<input id="codigoIbge" name="codigoIbge" type="text" placeholder="Código IBGE" class="form-control input-md" data-ng-model="dados.codigoIbge" maxlength="10" size="10">
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I'">
+		<label class="col-md-4 control-label" for="estado"></label>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-4">
+					<label class="control-label" for="estado">Estado</label>
+					<select id="estado" name="estado" class="form-control" data-ng-model="dados.pessoaGrupoCidadeVi.pessoaGrupoMunicipioVi.pessoaGrupoEstadoVi.id" data-ng-options="item.id as item.nome for item in lista.estadoList" data-ng-change="dados.pessoaGrupoMunicipioVi.id = null; dados.pessoaGrupoCidadeVi.id = null; dados.propriedadeRural.pessoaGrupoBaciaHidrograficaVi.id = null; dados.propriedadeRural.pessoaGrupoComunidadeVi.id = null"></select>
+				</div>
+				<div class="col-md-8">
+					<label class="control-label" for="municipio">Município</label>
+					<select id="municipio" name="municipio" class="form-control" data-ng-model="dados.pessoaGrupoCidadeVi.pessoaGrupoMunicipioVi.id" data-ng-options="item.id as item.nome for item in lista.municipioList" data-ng-change="dados.pessoaGrupoCidadeVi.id = null; dados.propriedadeRural.pessoaGrupoBaciaHidrograficaVi.id = null; dados.propriedadeRural.pessoaGrupoComunidadeVi.id = null"></select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I'">
+		<label class="col-md-4 control-label" for="cidade"></label>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label" for="cidade">Cidade</label>
+					<select id="cidade" name="cidade" class="form-control" data-ng-model="dados.pessoaGrupoCidadeVi.id" data-ng-options="item.id as item.nome for item in lista.cidadeList" data-ng-change="dados.propriedadeRural.pessoaGrupoBaciaHidrograficaVi.id = null; dados.propriedadeRural.pessoaGrupoComunidadeVi.id = null"></select>
+				</div>
+				<div class="col-md-6" data-ng-show="dados.propriedadeRuralConfirmacao === 'N'">
+					<label class="control-label" for="bairro">Bairro</label>
+					<input id="bairro" name="bairro" type="text" placeholder="Bairro" class="form-control input-md" data-ng-model="dados.bairro" readonly="readonly" maxlength="250" size="250">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I' || dados.propriedadeRuralConfirmacao == 'N'">
+		<label class="col-md-4 control-label" for="comunidade">Área Rural</label>
+		<div class="col-md-7">
+			<div class="row">
+				<!-- Select Basic -->
+				<div class="col-md-6">
+					<label class="control-label" for="comunidade">Comunidade</label>
+					<select id="comunidade" name="comunidade" class="form-control" data-ng-model="dados.propriedadeRural.pessoaGrupoComunidadeVi.id" data-ng-options="item.xId as item.xNome for item in lista.comunidadeList"></select>
+				</div>
+				<div class="col-md-6">
+					<label class="control-label" for="baciaHidrografica">Bacia Hidrográfica</label>
+					<select id="baciaHidrografica" name="baciaHidrografica" class="form-control" data-ng-model="dados.propriedadeRural.pessoaGrupoBaciaHidrograficaVi.id" data-ng-options="item.xId as item.xNome for item in lista.baciaHidrograficaList"></select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label" for="nomePropriedadeRuralOuEstabelecimento" data-ng-show="(dados.propriedadeRuralConfirmacao === 'S') && localizacao=='N'">Nome da Propriedade Rural</label>
+		<label class="col-md-4 control-label" for="nomePropriedadeRuralOuEstabelecimento" data-ng-show="(dados.propriedadeRuralConfirmacao === 'N') || localizacao=='I'">Nome do Estabelecimento</label>
+		<div class="col-md-7">
+			<input id="nomePropriedadeRuralOuEstabelecimento" name="nomePropriedadeRuralOuEstabelecimento" type="text" placeholder="Nome de Identificação do Local" class="form-control input-md" data-ng-model="dados.nomePropriedadeRuralOuEstabelecimento" maxlength="250" size="250">
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa || localizacao=='I'">
+		<label class="col-md-4 control-label" for="logradouro"></label>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label" for="logradouro">Logradouro</label>
+					<input id="logradouro" name="logradouro" type="text" placeholder="Logradouro" class="form-control input-md" data-ng-model="dados.logradouro" maxlength="250" size="250">
+				</div>
+				<div class="col-md-4">
+					<label class="control-label" for="complemento">Complemento</label>
+					<input id="complemento" name="complemento" type="text" placeholder="Complemento" class="form-control input-md" data-ng-model="dados.complemento" maxlength="250" size="250">
+				</div>
+				<div class="col-md-2">
+					<label class="control-label" for="numero">Número</label>
+					<input id="numero" name="numero" type="text" placeholder="Número" class="form-control input-md" data-ng-model="dados.numero" maxlength="50" size="50">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label" for="roteiroAcessoOuEnderecoInternacional" data-ng-show="localizacao=='N'">Roteiro de Acesso ou Referência</label>
+		<label class="col-md-4 control-label" for="roteiroAcessoOuEnderecoInternacional" data-ng-hide="localizacao=='N'">Endereço</label>
+		<div class="col-md-7">
+			<textarea class="form-control" id="roteiroAcessoOuEnderecoInternacional" name="roteiroAcessoOuEnderecoInternacional" data-ng-model="dados.roteiroAcessoOuEnderecoInternacional" maxlength="250" size="250"></textarea>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label" for="latitude">Coordenadas</label>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label" for="latitude">Latitude</label>
+					<input id="latitude" name="latitude" type="text" placeholder="Latitude" class="form-control input-md" data-ng-model="dados.latitude">
+				</div>
+				<div class="col-md-6">
+					<label class="control-label" for="longitude">Longitude</label>
+					<input id="longitude" name="longitude" type="text" placeholder="Longitude" class="form-control input-md" data-ng-model="dados.longitude">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label" for="pesquisaGoogle">Pesquisa Google</label>
+		<div class="col-md-7">
+			<div class="input-group">
+				<input id="pesquisaGoogle" name="pesquisaGoogle" class="form-control" placeholder="Pesquisa" type="text" data-ng-model="pesquisaGoogle">
+				<span class="input-group-addon glyphicon glyphicon-search"></span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" data-ng-hide="procurarPorPessoa">
+		<label class="col-md-4 control-label" for="mapa">Mapa</label>
+		<div class="col-md-7">
+			<!-- 
+			<style>.angular-google-map-container { height: 400px; }</style>
+			<div>
+				<ui-gmap-google-map id="mapa" name="mapa" center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+			</div> -->
+		</div>
+	</div>
+<!-- [{{dados | json}}] [{{pesquisaGoogle}}] -->
+</fieldset>

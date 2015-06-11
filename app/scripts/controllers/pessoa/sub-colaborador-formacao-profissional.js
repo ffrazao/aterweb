@@ -2,7 +2,7 @@
 
 'use strict';
 
-aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams', '$modal_b', '$modalInstance', 'toastr',
+aterwebApp.controller('PessoaColaboradorFormacaoProfissionalCtrl', ['$scope', 'FrzNavegadorParams', '$modal_b', '$modalInstance', 'toastr',
 	function($scope, FrzNavegadorParams, $modal_b, $modalInstance, toastr) {
 
   $scope.acaoXpto = function() {
@@ -18,14 +18,14 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
     {estado: ['ESPECIAL'], descricao: 'XPTO', acao: $scope.acaoXpto, selecaoAtiva: true, quantidadeSelecionados: 1},
   ];
 
-  $scope.pessoaRelacionamentoNvg = new FrzNavegadorParams();
+  $scope.pessoaColaboradorFormacaoProfissionalNvg = new FrzNavegadorParams();
 
   $scope.abrir = function () {
-	$scope.pessoaRelacionamentoNvg.mudarEstado('ESPECIAL');
+	$scope.pessoaColaboradorFormacaoProfissionalNvg.mudarEstado('ESPECIAL');
   };
 
   $scope.especial = function () {
-	$scope.pessoaRelacionamentoNvg.especialBotoesVisiveis(['agir', 'editar', 'excluir', 'incluir', 'navegar', 'tamanhoPagina', ]);
+	$scope.pessoaColaboradorFormacaoProfissionalNvg.especialBotoesVisiveis(['agir', 'editar', 'excluir', 'incluir', 'navegar', 'tamanhoPagina', ]);
   };
 
   $scope.editar = function (id) {
@@ -39,8 +39,8 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   $scope.incluir = function (size) {
     var modalInstance = $modal_b.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'pessoaRelacionamentoFrm.html',
-      controller: 'PessoaRelacionamentoCtrl',
+      templateUrl: 'pessoaColaboradorFormacaoProfissionalFrm.html',
+      controller: 'PessoaColaboradorFormacaoProfissionalCtrl',
       size: size,
       resolve: {
         registro: function () {
@@ -56,15 +56,15 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
       if (!$scope.cadastro.registro) {
         $scope.cadastro.registro = {};
       }
-      if (!$scope.cadastro.registro.relacionamento) {
-        $scope.cadastro.registro.relacionamento = [];
+      if (!$scope.cadastro.registro.colaboradorFormacaoProfissional) {
+        $scope.cadastro.registro.colaboradorFormacaoProfissional = [];
       }
     	if (angular.isArray(registro)) {
     		for (var r in registro) {
-    			$scope.cadastro.registro.relacionamento.push(r);
+    			$scope.cadastro.registro.colaboradorFormacaoProfissional.push(r);
     		}
     	} else {
-    		$scope.cadastro.registro.relacionamento.push(registro);
+    		$scope.cadastro.registro.colaboradorFormacaoProfissional.push(registro);
     	}
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
@@ -89,13 +89,13 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
       if (!registro) {
         return;
       }
-      if (!$scope.relacionamento) {
-        $scope.relacionamento = {};
+      if (!$scope.colaboradorFormacaoProfissional) {
+        $scope.colaboradorFormacaoProfissional = {};
       }
       if (angular.isArray(registro)) {
-        $scope.relacionamento.pessoa = angular.copy(registro[0]);
+        $scope.colaboradorFormacaoProfissional.pessoa = angular.copy(registro[0]);
       } else {
-        $scope.relacionamento.pessoa = angular.copy(registro);
+        $scope.colaboradorFormacaoProfissional.pessoa = angular.copy(registro);
       }
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
@@ -108,7 +108,7 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   };
 
   $scope.ok = function () {
-  	$modalInstance.close($scope.relacionamento);
+  	$modalInstance.close($scope.colaboradorFormacaoProfissional);
   };
 
   $scope.cancel = function () {

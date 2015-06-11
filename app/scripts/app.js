@@ -25,6 +25,7 @@ var aterwebApp = angular.module('aterwebApp', [
 	'mgcrea.ngStrap',
 	'ui.bootstrap',
 	'checklist-model',
+	'endereco',
 	]);
 
 // codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal

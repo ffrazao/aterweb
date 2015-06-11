@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="form-group col-md-12">
 				<label class="control-label">Captação</label>
-				<textarea class="form-control" rows="3"></textarea>
+				<ng-include src="'views/pessoa/sub-diagnostico-captacao.html'" ng-controller="PessoaDiagnosticoCaptacaoCtrl" />
 			</div>
 		</div>
 	</tab>
@@ -17,11 +17,8 @@
 		<div class="row">
 			<div class="form-group col-md-12">
 				<label class="control-label">Resultado</label>
-				<textarea class="form-control" rows="3"></textarea>
+				<ng-include src="'views/pessoa/sub-diagnostico-resultado.html'" ng-controller="PessoaDiagnosticoResultadoCtrl" />
 			</div>
 		</div>
 	</tab>
 </tabset>
-
-
-

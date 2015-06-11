@@ -1,0 +1,109 @@
+<div class="panel panel-default">
+    <div class="panel-heading container-fluid">
+      <frz-navegador
+        ng-model="pessoaGrupoSocialNvg" exibe-texto-botao="false" 
+        dados="cadastro.registro.grupoSocial"
+        acoes-especiais="acoesEspeciais"
+        on-abrir = "abrir()"
+        on-agir = "agir()"
+        on-editar = "editar()"
+        on-especial = "especial()"
+        on-excluir = "excluir()"
+        on-filtrar = "filtrar()"
+        on-incluir = "incluir('lg')"
+        on-listar = "listar()"
+        on-navegar-primeiro = "navegarPrimeiro()"
+        on-navegar-anterior = "navegarAnterior()"
+        on-navegar-proximo = "navegarPosterior()"
+        on-navegar-ultimo = "navegarUltimo()"
+        on-proxima-pagina="proximaPagina()"
+        on-ultima-pagina="ultimaPagina()"
+        ></frz-navegador>
+    </div>
+    <div class="painel-body"  ng-hide="cadastro.registro.grupoSocial.length">
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        Nenhum registro localizado!
+      </div>
+    </div>
+    <div class="table-responsible" ng-show="cadastro.registro.grupoSocial.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><frz-seletor ng-model="pessoaGrupoSocialNvg" dados="cadastro.registro.grupoSocial"></frz-seletor></th>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Grupo Social</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="tel in cadastro.registro.grupoSocial">
+            <td>
+              <input type="radio" ng-show="pessoaGrupoSocialNvg.selecao.tipo === 'U'" ng-model="pessoaGrupoSocialNvg.selecao.item" ng-value="tel"/>
+              <input type="checkbox" ng-show="pessoaGrupoSocialNvg.selecao.tipo === 'M'" checklist-model="pessoaGrupoSocialNvg.selecao.items" checklist-value="tel"/>
+            </td>
+            <td>
+              {{$index + 1 + ((pessoaGrupoSocialNvg.paginaAtual-1) * pessoaGrupoSocialNvg.tamanhoPagina)}}
+            </td>
+            <td>{{tel.pessoa.nome}}</td>
+            <td>{{tel.grupoSocialTipo.id}}</td>
+            <td>{{tel.grupoSocialFuncao.id}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+    </div>
+    <script type="text/ng-template" id="pessoaGrupoSocialFrm.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Grupo Social</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <label class="form-label">Pessoa</label>
+                <div class="input-group">
+                  <input type="hidden" ng-model="grupoSocial.pessoa.id">
+                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="grupoSocial.pessoa.nome">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" aria-label="Left Align" ng-click="pesquisaPessoa('lg')">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Grupo Social</label>
+                <select class="form-control" ng-model="grupoSocial.grupoSocialTipo.id">
+                  <option value="1">Familiar</option>
+                  <option value="2">Profissional</option>
+                  <option value="3">Acadêmico</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Função</label>
+                <select class="form-control" ng-model="grupoSocial.grupoSocialFuncao.id">
+                  <option value="1">Pai</option>
+                  <option value="2">Filho</option>
+                  <option value="3">Neto</option>
+                </select>
+              </div>
+              <div class="col-md-4" ng-show="false">
+                <label class="form-label">Detalhes</label>
+                <select class="form-control"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+        </div>
+    </script>
+</div>

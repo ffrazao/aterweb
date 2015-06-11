@@ -2,7 +2,7 @@
 
 'use strict';
 
-aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams', '$modal_b', '$modalInstance', 'toastr',
+aterwebApp.controller('PessoaAtividadeCtrl', ['$scope', 'FrzNavegadorParams', '$modal_b', '$modalInstance', 'toastr',
 	function($scope, FrzNavegadorParams, $modal_b, $modalInstance, toastr) {
 
   $scope.acaoXpto = function() {
@@ -18,14 +18,14 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
     {estado: ['ESPECIAL'], descricao: 'XPTO', acao: $scope.acaoXpto, selecaoAtiva: true, quantidadeSelecionados: 1},
   ];
 
-  $scope.pessoaRelacionamentoNvg = new FrzNavegadorParams();
+  $scope.pessoaAtividadeNvg = new FrzNavegadorParams();
 
   $scope.abrir = function () {
-	$scope.pessoaRelacionamentoNvg.mudarEstado('ESPECIAL');
+	$scope.pessoaAtividadeNvg.mudarEstado('ESPECIAL');
   };
 
   $scope.especial = function () {
-	$scope.pessoaRelacionamentoNvg.especialBotoesVisiveis(['agir', 'editar', 'excluir', 'incluir', 'navegar', 'tamanhoPagina', ]);
+	$scope.pessoaAtividadeNvg.especialBotoesVisiveis(['agir', 'editar', 'excluir', 'incluir', 'navegar', 'tamanhoPagina', ]);
   };
 
   $scope.editar = function (id) {
@@ -39,8 +39,8 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   $scope.incluir = function (size) {
     var modalInstance = $modal_b.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'pessoaRelacionamentoFrm.html',
-      controller: 'PessoaRelacionamentoCtrl',
+      templateUrl: 'pessoaAtividadeFrm.html',
+      controller: 'PessoaAtividadeCtrl',
       size: size,
       resolve: {
         registro: function () {
@@ -56,15 +56,15 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
       if (!$scope.cadastro.registro) {
         $scope.cadastro.registro = {};
       }
-      if (!$scope.cadastro.registro.relacionamento) {
-        $scope.cadastro.registro.relacionamento = [];
+      if (!$scope.cadastro.registro.atividade) {
+        $scope.cadastro.registro.atividade = [];
       }
     	if (angular.isArray(registro)) {
     		for (var r in registro) {
-    			$scope.cadastro.registro.relacionamento.push(r);
+    			$scope.cadastro.registro.atividade.push(r);
     		}
     	} else {
-    		$scope.cadastro.registro.relacionamento.push(registro);
+    		$scope.cadastro.registro.atividade.push(registro);
     	}
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
@@ -89,13 +89,13 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
       if (!registro) {
         return;
       }
-      if (!$scope.relacionamento) {
-        $scope.relacionamento = {};
+      if (!$scope.atividade) {
+        $scope.atividade = {};
       }
       if (angular.isArray(registro)) {
-        $scope.relacionamento.pessoa = angular.copy(registro[0]);
+        $scope.atividade.pessoa = angular.copy(registro[0]);
       } else {
-        $scope.relacionamento.pessoa = angular.copy(registro);
+        $scope.atividade.pessoa = angular.copy(registro);
       }
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
@@ -108,7 +108,7 @@ aterwebApp.controller('PessoaRelacionamentoCtrl', ['$scope', 'FrzNavegadorParams
   };
 
   $scope.ok = function () {
-  	$modalInstance.close($scope.relacionamento);
+  	$modalInstance.close($scope.atividade);
   };
 
   $scope.cancel = function () {

@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading container-fluid">
       <frz-navegador
-        ng-model="pessoaRelacionamentoNvg" exibe-texto-botao="false" 
-        dados="cadastro.registro.relacionamento"
+        ng-model="pessoaColaboradorLotacaoNvg" exibe-texto-botao="false" 
+        dados="cadastro.registro.colaboradorLotacao"
         acoes-especiais="acoesEspeciais"
         on-abrir = "abrir()"
         on-agir = "agir()"
@@ -20,35 +20,35 @@
         on-ultima-pagina="ultimaPagina()"
         ></frz-navegador>
     </div>
-    <div class="painel-body"  ng-hide="cadastro.registro.relacionamento.length">
-      <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <div class="painel-body"  ng-hide="cadastro.registro.colaboradorLotacao.length">
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
         Nenhum registro localizado!
       </div>
     </div>
-    <div class="table-responsible" ng-show="cadastro.registro.relacionamento.length > 0">
+    <div class="table-responsible" ng-show="cadastro.registro.colaboradorLotacao.length > 0">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><frz-seletor ng-model="pessoaRelacionamentoNvg" dados="cadastro.registro.relacionamento"></frz-seletor></th>
+            <th><frz-seletor ng-model="pessoaColaboradorLotacaoNvg" dados="cadastro.registro.colaboradorLotacao"></frz-seletor></th>
             <th>#</th>
             <th>Nome</th>
-            <th>Tipo de Relacionamento</th>
+            <th>Colaborador Lotação</th>
             <th>Função</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="tel in cadastro.registro.relacionamento">
+          <tr ng-repeat="tel in cadastro.registro.colaboradorLotacao">
             <td>
-              <input type="radio" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'U'" ng-model="pessoaRelacionamentoNvg.selecao.item" ng-value="tel"/>
-              <input type="checkbox" ng-show="pessoaRelacionamentoNvg.selecao.tipo === 'M'" checklist-model="pessoaRelacionamentoNvg.selecao.items" checklist-value="tel"/>
+              <input type="radio" ng-show="pessoaColaboradorLotacaoNvg.selecao.tipo === 'U'" ng-model="pessoaColaboradorLotacaoNvg.selecao.item" ng-value="tel"/>
+              <input type="checkbox" ng-show="pessoaColaboradorLotacaoNvg.selecao.tipo === 'M'" checklist-model="pessoaColaboradorLotacaoNvg.selecao.items" checklist-value="tel"/>
             </td>
             <td>
-              {{$index + 1 + ((pessoaRelacionamentoNvg.paginaAtual-1) * pessoaRelacionamentoNvg.tamanhoPagina)}}
+              {{$index + 1 + ((pessoaColaboradorLotacaoNvg.paginaAtual-1) * pessoaColaboradorLotacaoNvg.tamanhoPagina)}}
             </td>
             <td>{{tel.pessoa.nome}}</td>
-            <td>{{tel.relacionamentoTipo.id}}</td>
-            <td>{{tel.relacionamentoFuncao.id}}</td>
+            <td>{{tel.colaboradorLotacaoTipo.id}}</td>
+            <td>{{tel.colaboradorLotacaoFuncao.id}}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -57,9 +57,9 @@
     </div>
     <div class="panel-footer">
     </div>
-    <script type="text/ng-template" id="pessoaRelacionamentoFrm.html">
+    <script type="text/ng-template" id="pessoaColaboradorLotacaoFrm.html">
         <div class="modal-header">
-            <h3 class="modal-title">Pessoa Relacionamento</h3>
+            <h3 class="modal-title">Colaborador Lotação</h3>
         </div>
         <div class="modal-body">
           <div class="container-fluid">
@@ -67,8 +67,8 @@
               <div class="col-md-12">
                 <label class="form-label">Pessoa</label>
                 <div class="input-group">
-                  <input type="hidden" ng-model="relacionamento.pessoa.id">
-                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="relacionamento.pessoa.nome">
+                  <input type="hidden" ng-model="colaboradorLotacao.pessoa.id">
+                  <input type="text" class="form-control" placeholder="Pesquisar..." readonly="true" ng-model="colaboradorLotacao.pessoa.nome">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button" aria-label="Left Align" ng-click="pesquisaPessoa('lg')">
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -79,8 +79,8 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <label class="form-label">Tipo de Relacionamento</label>
-                <select class="form-control" ng-model="relacionamento.relacionamentoTipo.id">
+                <label class="form-label">Colaborador Lotação</label>
+                <select class="form-control" ng-model="colaboradorLotacao.colaboradorLotacaoTipo.id">
                   <option value="1">Familiar</option>
                   <option value="2">Profissional</option>
                   <option value="3">Acadêmico</option>
@@ -88,7 +88,7 @@
               </div>
               <div class="col-md-4">
                 <label class="form-label">Função</label>
-                <select class="form-control" ng-model="relacionamento.relacionamentoFuncao.id">
+                <select class="form-control" ng-model="colaboradorLotacao.colaboradorLotacaoFuncao.id">
                   <option value="1">Pai</option>
                   <option value="2">Filho</option>
                   <option value="3">Neto</option>

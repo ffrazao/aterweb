@@ -1,0 +1,83 @@
+<div class="panel panel-default">
+    <div class="panel-heading container-fluid">
+      <frz-navegador
+        ng-model="pessoaEmailNvg" exibe-texto-botao="false" 
+        dados="cadastro.registro.email"
+        acoes-especiais="acoesEspeciais"
+        on-abrir = "abrir()"
+        on-agir = "agir()"
+        on-editar = "editar()"
+        on-especial = "especial()"
+        on-excluir = "excluir()"
+        on-filtrar = "filtrar()"
+        on-incluir = "incluir()"
+        on-listar = "listar()"
+        on-navegar-primeiro = "navegarPrimeiro()"
+        on-navegar-anterior = "navegarAnterior()"
+        on-navegar-proximo = "navegarPosterior()"
+        on-navegar-ultimo = "navegarUltimo()"
+        on-proxima-pagina="proximaPagina()"
+        on-ultima-pagina="ultimaPagina()"
+        ></frz-navegador>
+    </div>
+    <div class="painel-body"  ng-hide="cadastro.registro.email.length">
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        Nenhum registro localizado!
+      </div>
+    </div>
+    <div class="table-responsible" ng-show="cadastro.registro.email.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><frz-seletor ng-model="pessoaEmailNvg" dados="cadastro.registro.email"></frz-seletor></th>
+            <th>#</th>
+            <th>Finalidade</th>
+            <th>E-mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="tel in cadastro.registro.email">
+            <td>
+              <input type="radio" ng-show="pessoaEmailNvg.selecao.tipo === 'U'" ng-model="pessoaEmailNvg.selecao.item" ng-value="tel"/>
+              <input type="checkbox" ng-show="pessoaEmailNvg.selecao.tipo === 'M'" checklist-model="pessoaEmailNvg.selecao.items" checklist-value="tel"/>
+            </td>
+            <td>
+              {{$index + 1 + ((pessoaEmailNvg.paginaAtual-1) * pessoaEmailNvg.tamanhoPagina)}}
+            </td>
+            <td>
+              <select class="form-control">
+                <option value="P">Particular</option>
+                <option value="T">Trabalho</option>
+                <option value="PT">Particular & Trabalho</option>
+              </select>
+            </td>
+            <td>{{tel.endereco}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+    </div>
+    <script type="text/ng-template" id="pessoaEmailFrm.html">
+        <div class="modal-header">
+            <h3 class="modal-title">E-mail</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-8">
+                <label class="form-label">E-mail</label>
+                <input type="text" class="form-control" ng-model="email.endereco">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+        </div>
+    </script>
+</div>
