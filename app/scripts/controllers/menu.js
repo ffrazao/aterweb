@@ -13,76 +13,76 @@
  	$scope.tree = 
  	[
  	{
- 		name: "Dashboard",
- 		link: "#",
+ 		name: 'Dashboard',
+ 		link: '#',
  	}, 
  	{
- 		name: "Cadastro",
- 		link: "#",
+ 		name: 'Cadastro',
+ 		link: '#',
  		subtree: [
  		{
- 			name: "Propriedade Rural",
- 			link: "#",
+ 			name: 'Propriedade Rural',
+ 			link: 'p.propriedadeRural.filtro',
  		},
  		{
- 			name: "Grupo Social",
- 			link: "p.modeloCadastro.filtro",
+ 			name: 'Grupo Social',
+ 			link: 'p.grupoSocial.filtro',
  		},
  		{
- 			name: "Pessoa",
- 			link: "p.pessoa.filtro",
+ 			name: 'Pessoa',
+ 			link: 'p.pessoa.filtro',
  		}
  		]
  	},
  	{
- 		name: "Atividade",
- 		link: "#",
+ 		name: 'Atividade',
+ 		link: '#',
  		subtree: [
  		{
- 			name: "Planejar",
- 			link: "#",
+ 			name: 'Planejar',
+ 			link: '#',
  		},
  		{
- 			name: "Registrar",
- 			link: "p.modeloCadastro.filtro",
+ 			name: 'Registrar',
+ 			link: 'p.modeloCadastro.filtro',
  		},
  		{
- 			name: "Agenda",
- 			link: "login",
+ 			name: 'Agenda',
+ 			link: 'login',
  		}
  		]
  	},
  	{
- 		name: "Diagnóstico",
- 		link: "#",
+ 		name: 'Diagnóstico',
+ 		link: '#',
  		subtree: [
  		{
- 			name: "Índices de Produção",
- 			link: "#",
+ 			name: 'Índices de Produção',
+ 			link: '#',
  		},
  		{
- 			name: "Índices Sociais",
- 			link: "p.modeloCadastro.filtro",
+ 			name: 'Índices Sociais',
+ 			link: 'p.modeloCadastro.filtro',
  		},
  		{
- 			name: "Enquete",
- 			link: "login",
+ 			name: 'Enquete',
+ 			link: 'login',
  			subtree: [
  			{
- 				name: "Configuração",
- 				link: "#",
+ 				name: 'Configuração',
+ 				link: '#',
  			},
  			{
- 				name: "Responder",
- 				link: "p.modeloCadastro.filtro",
+ 				name: 'Responder',
+ 				link: 'p.modeloCadastro.filtro',
  				subtree: [
  				{
- 					name: "Anônimo",
- 					link: "#",
+ 					name: 'Anônimo',
+ 					link: '#',
  				},
  				{
- 					name: "Identificado",
- 					link: "p.modeloCadastro.filtro",
+ 					name: 'Identificado',
+ 					link: 'p.modeloCadastro.filtro',
  				},
  				],
  			},
@@ -91,16 +91,16 @@
  		],
  	},
 	{
-		name: "Configuração",
-		link: "login",
+		name: 'Configuração',
+		link: 'login',
 		subtree: [
 		{
-			name: "Usuário",
-			link: "#",
+			name: 'Usuário',
+			link: '#',
 		},
 		{
-			name: "Perfil",
-			link: "#",
+			name: 'Perfil',
+			link: '#',
 		},
 		],
 	},

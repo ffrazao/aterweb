@@ -1,0 +1,57 @@
+<div class="panel-body"><center class="sr-only">Lista</center>
+
+	<!-- Table -->
+	<div class="alert alert-warning" role="alert" ng-hide="cadastro.lista.length">
+		<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+		Nenhum registro localizado!
+	</div>
+	<div ng-show="cadastro.lista.length">
+		<div class="table-responsive">
+	        <table class="table table-condensed table-hover" hover>
+	            <thead>
+	                <tr>    
+	                    <th>
+	                        <button type="button" name="selectLinha" data-ng-click="alterarSelecao()" class="btn btn-default btn-xs">&#9737;</button>
+	                    </th>
+	                    <th>#</th>
+	                    <th>Nome</th>
+	                    <th>Situação Fundiária</th>
+	                    <th>Comunidade</th>
+	                    <!--th>Nome dos Produtores</th-->
+	                    <th>Outorga</th>
+	                    <!--th>Sistema Predominante de Produção</th-->
+	                </tr>
+	            </thead>
+	            <tbody data-ng-repeat="linha in lista"> 
+	                <tr data-ng-click="selecionado(linha, $event);">
+	                    <td>
+	                        <input type="radio" name="linhaSelecionada" data-ng-click="selecionou(linha)" data-ng-checked="linha.id == linhasSelecionadas[0].id" value="{{linha}}" data-ng-show="tipoSelecao === 'radio'">
+	                        <input type="checkbox" data-ng-click="selecionou(linha)" data-ng-true-value="linha" data-ng-false-value="false" data-ng-show="tipoSelecao === 'checkbox'">
+	                    </td>
+	                    
+	                    <td>
+	                        {{$index + 1}}
+	                    </td>
+	                    
+	                    <td>{{linha.nomePropriedade}}</td>
+	                    <td>
+	                        <span data-ng-if="linha.situacaoFundiaria == 'E'">Escritura Definitiva</span>
+	                        <span data-ng-if="linha.situacaoFundiaria == 'C'">Concessão de uso</span>
+	                        <span data-ng-if="linha.situacaoFundiaria == 'P'">Posse</span>
+	                    </td>
+	                    <td> {{linha.comunidadeList[0].nome}} </td>
+	                    <!--td>
+	                        <span data-ng-if="linha.proprietarioList == ''">-</span>
+	                        <li data-ng-repeat="proprietario in linha.proprietarioList">{{proprietario.nome}}</li>
+	                    </td-->
+	                    <td> 
+	                        <span data-ng-if="linha.outorga == 'S'">Sim</span>
+	                        <span data-ng-if="linha.outorga == 'N'">Não</span>
+	                    </td>
+	                    <!--td>{{linha.sistemaProducao}}</td-->
+	                </tr>
+	            </tbody>
+	        </table>
+		</div>
+	</div>
+</div>

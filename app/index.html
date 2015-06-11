@@ -11,15 +11,21 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
     <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/painel-vidro.css">
     <link rel="stylesheet" href="styles/ui-navbar.css">
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
     <!-- endbuild -->
   </head>
-  <body ng-app="aterwebApp">
+  <body ng-app="aterwebApp" ng-cloak class="ng-cloak">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -62,6 +68,8 @@
     <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
     <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,6 +96,7 @@
         <script src="scripts/controllers/login/login.js"></script>
         <script src="scripts/controllers/login/renove-sua-senha.js"></script>
         <script src="scripts/controllers/menu.js"></script>
+        <script src="scripts/controllers/grupo-social/_cadastro.js"></script>
         <script src="scripts/controllers/pessoa/_cadastro.js"></script>
         <script src="scripts/controllers/pessoa/sub-arquivo.js"></script>
         <script src="scripts/controllers/pessoa/sub-atividade.js"></script>
@@ -103,6 +112,7 @@
         <script src="scripts/controllers/pessoa/sub-pendencia.js"></script>
         <script src="scripts/controllers/pessoa/sub-relacionamento.js"></script>
         <script src="scripts/controllers/pessoa/sub-telefone.js"></script>
+        <script src="scripts/controllers/propriedade-rural/_cadastro.js"></script>
         <!-- endbuild -->
 </body>
 </html>

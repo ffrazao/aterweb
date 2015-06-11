@@ -26,6 +26,7 @@ var aterwebApp = angular.module('aterwebApp', [
 	'ui.bootstrap',
 	'checklist-model',
 	'endereco',
+	'ui.tree',
 	]);
 
 // codigo requerido para permitir que o mesmo controller de tela seja também utilizado em modal
@@ -178,6 +179,52 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 		templateUrl: 'views/pessoa/formulario.html'
 	})
 	// bloco pessoa termino
+
+	// bloco grupo social inicio
+	.state('p.grupoSocial', {
+		url: '/grupo-social',
+		templateUrl: 'views/grupo-social/_cadastro.html',
+		controller: 'GrupoSocialCtrl'
+	})
+
+	.state('p.grupoSocial.filtro', {
+		url: '/',
+		templateUrl: 'views/grupo-social/filtro.html'
+	})
+
+	.state('p.grupoSocial.lista', {
+		url: '/lista',
+		templateUrl: 'views/grupo-social/lista.html'
+	})
+
+	.state('p.grupoSocial.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/grupo-social/formulario.html'
+	})
+	// bloco grupo social termino
+
+	// bloco propriedade rural inicio
+	.state('p.propriedadeRural', {
+		url: '/propriedade-rural',
+		templateUrl: 'views/propriedade-rural/_cadastro.html',
+		controller: 'PropriedadeRuralCtrl'
+	})
+
+	.state('p.propriedadeRural.filtro', {
+		url: '/',
+		templateUrl: 'views/propriedade-rural/filtro.html'
+	})
+
+	.state('p.propriedadeRural.lista', {
+		url: '/lista',
+		templateUrl: 'views/propriedade-rural/lista.html'
+	})
+
+	.state('p.propriedadeRural.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/propriedade-rural/formulario.html'
+	})
+	// bloco propriedade rural termino
 
 	;
 

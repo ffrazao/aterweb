@@ -1,6 +1,6 @@
-<div class="panel-body"><center>Formulário</center>
+<div class="panel-body"><center class="sr-only">Formulário</center>
 	<form name="frm.formulario">
-		<fieldset ng-enabled="navegador.estadoAtual() !== 'INCLUINDO' && navegador.estadoAtual() !== 'EDITANDO'">
+		<fieldset ng-disabled="navegador.estadoAtual() !== 'INCLUINDO' && navegador.estadoAtual() !== 'EDITANDO'">
 			<input type="hidden" ng-model="cadastro.registro.id" />
 			<div class="row">
 				<div class="col-md-2">

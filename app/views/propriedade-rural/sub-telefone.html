@@ -1,0 +1,91 @@
+<div class="panel panel-default">
+    <div class="panel-heading container-fluid">
+      <frz-navegador
+        ng-model="pessoaTelefoneNvg" exibe-texto-botao="false" 
+        dados="cadastro.registro.telefone"
+        acoes-especiais="acoesEspeciais"
+        on-abrir = "abrir()"
+        on-agir = "agir()"
+        on-editar = "editar()"
+        on-especial = "especial()"
+        on-excluir = "excluir()"
+        on-filtrar = "filtrar()"
+        on-incluir = "incluir()"
+        on-listar = "listar()"
+        on-navegar-primeiro = "navegarPrimeiro()"
+        on-navegar-anterior = "navegarAnterior()"
+        on-navegar-proximo = "navegarPosterior()"
+        on-navegar-ultimo = "navegarUltimo()"
+        on-proxima-pagina="proximaPagina()"
+        on-ultima-pagina="ultimaPagina()"
+        ></frz-navegador>
+    </div>
+    <div class="painel-body"  ng-hide="cadastro.registro.telefone.length">
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        Nenhum registro localizado!
+      </div>
+    </div>
+    <div class="table-responsible" ng-show="cadastro.registro.telefone.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><frz-seletor ng-model="pessoaTelefoneNvg" dados="cadastro.registro.telefone"></frz-seletor></th>
+            <th>#</th>
+            <th>Finalidade</th>
+            <th>Tipo</th>
+            <th>Numero</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="tel in cadastro.registro.telefone">
+            <td>
+              <input type="radio" ng-show="pessoaTelefoneNvg.selecao.tipo === 'U'" ng-model="pessoaTelefoneNvg.selecao.item" ng-value="tel"/>
+              <input type="checkbox" ng-show="pessoaTelefoneNvg.selecao.tipo === 'M'" checklist-model="pessoaTelefoneNvg.selecao.items" checklist-value="tel"/>
+            </td>
+            <td>
+              {{$index + 1 + ((pessoaTelefoneNvg.paginaAtual-1) * pessoaTelefoneNvg.tamanhoPagina)}}
+            </td>
+            <td>
+              <select class="form-control">
+                <option value="P">Particular</option>
+                <option value="T">Trabalho</option>
+                <option value="PT">Particular & Trabalho</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control">
+                <option value="F">Fixo</option>
+                <option value="C">Celular</option>
+                <option value="F">Fax</option>
+              </select>
+            </td>
+            <td>{{tel.numero}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+    </div>
+    <script type="text/ng-template" id="pessoaTelefoneFrm.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Telefone</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Telefone</label>
+                <input type="text" class="form-control" ng-model="telefone.numero" ui-br-phone-number model-view-value="true">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+        </div>
+    </script>
+</div>
