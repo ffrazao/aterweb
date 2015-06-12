@@ -58,7 +58,7 @@
  		subtree: [
  		{
  			name: 'Índices de Produção',
- 			link: '#',
+ 			link: 'p.indiceProducao.filtro',
  		},
  		{
  			name: 'Índices Sociais',

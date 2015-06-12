@@ -226,6 +226,29 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 	})
 	// bloco propriedade rural termino
 
+	// bloco índice produção inicio
+	.state('p.indiceProducao', {
+		url: '/indice-producao',
+		templateUrl: 'views/indice-producao/_cadastro.html',
+		controller: 'IndiceProducaoCtrl'
+	})
+
+	.state('p.indiceProducao.filtro', {
+		url: '/',
+		templateUrl: 'views/indice-producao/filtro.html'
+	})
+
+	.state('p.indiceProducao.lista', {
+		url: '/lista',
+		templateUrl: 'views/indice-producao/lista.html'
+	})
+
+	.state('p.indiceProducao.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/indice-producao/formulario.html'
+	})
+	// bloco índice produção termino
+
 	;
 
 });
