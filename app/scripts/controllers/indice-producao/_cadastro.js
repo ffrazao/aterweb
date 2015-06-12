@@ -133,7 +133,7 @@ $scope.tabVisivel = function(tabNome, visivel) {
     console.log('ultima pagina');
   };
 
-  $scope.cadastro = {filtro: null, filtroOriginal: null, lista : null, registro: registro, registroOriginal: registro};
+  $scope.cadastro = {filtro: {tipoIpa: 1}, filtroOriginal: null, lista : null, registro: registro, registroOriginal: registro};
 
   $scope.navegador = new FrzNavegadorParams();
 
