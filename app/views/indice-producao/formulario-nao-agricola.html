@@ -1,0 +1,60 @@
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="projeto">Projeto</label>
+		<select class="form-control" id="projeto" name="projeto">
+			<option value="1">Agroindústria</option>
+			<option value="2">Artesanato</option>
+			<option value="3">Processamento Artesanal</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-2">
+		<label class="control-label" for="condicao">Condição</label>
+		<select class="form-control" id="condicao" name="condicao">
+			<option value="1">Formal</option>
+			<option value="2">Informal</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="produto">Produto</label>
+		<select class="form-control" id="produto" name="produto">
+			<option value="1">Convencional</option>
+			<option value="2">Orgânico Certificado</option>
+		</select>
+	</div>
+
+</div>
+
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="numeroProdutores">Número de Produtores</label>
+		<input class="form-control" type="text" id="numeroProdutores" name="numeroProdutores">
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="quantidade">Quantidade</label>
+		<input class="form-control" type="text" id="quantidade" name="quantidade">
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="unidade">Unidade</label>
+		<div class="form-control" id="unidade" name="unidade"></div>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<label class="control-label">Produtores</label>
+        <ng-include src="'views/pessoa/sub-endereco.html'" ng-controller="PessoaEnderecoCtrl" />
+	</div>
+</div>

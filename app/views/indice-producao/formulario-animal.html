@@ -1,0 +1,63 @@
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-2">
+		<label class="control-label" for="tipoCultura">Tipo de Cultura</label>
+		<select id="tipoCultura" name="tipoCultura" class="form-control">
+			<option value="1">Apicultura</option>
+			<option value="2">Avicultura Caipira</option>
+			<option value="3">Avicultura de Corte</option>
+			<option value="4">Bovinocultura de Corte</option>
+			<option value="5">Bovinocultura de Leite</option>
+			<option value="6">Bubalinocultura</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="sistemaProducao">Sistema de Produção</label>
+		<select id="sistemaProducao" name="sistemaProducao" class="form-control">
+			<option value="1">Convencional</option>
+			<option value="2">Orgânico Certificado</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="exploracao">Exploração</label>
+		<select id="exploracao" name="exploracao" class="form-control">
+			<option value="1">Extensivo</option>
+			<option value="1">Intensivo</option>
+			<option value="1">Semi-Intensivo</option>
+		</select>
+	</div>
+
+</div>
+
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="numeroProdutores">Número de Produtores</label>
+		<input class="form-control" type="text" id="numeroProdutores" name="numeroProdutores">
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="produtividadeSugerida">Produtividade Sugerida</label>
+		<div class="form-control" type="text" id="produtividadeSugerida" name="produtividadeSugerida">De 100 a 1000</div>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="Produtividade">Produtividade</label>
+		<input class="form-control" type="text" id="Produtividade" name="Produtividade">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<label class="control-label">Produtores</label>
+        <ng-include src="'views/pessoa/sub-endereco.html'" ng-controller="PessoaEnderecoCtrl" />
+	</div>
+</div>

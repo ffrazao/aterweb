@@ -1,0 +1,97 @@
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-2">
+		<label class="control-label" for="tipoCultura">Tipo de Cultura</label>
+		<select id="tipoCultura" name="tipoCultura" class="form-control">
+			<option value="1">Flores</option>
+			<option value="2">Frutíferas</option>
+			<option value="3">Grandes Culturas</option>
+			<option value="4">Hortaliças</option>
+			<option value="5">Ornamentais</option>
+			<option value="6">Silvicultura</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-2">
+		<label class="control-label" for="cultura">Cultura</label>
+		<select id="cultura" name="cultura" class="form-control">
+			<option value="1">Abacate</option>
+			<option value="2">Abóbora</option>
+			<option value="3">Abóbora Híbrida</option>
+			<option value="4">Abóbora Italiana</option>
+			<option value="5">Abóbora Menina</option>
+			<option value="6">Acelga</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="sistemaProducao">Sistema de Produção</label>
+		<select id="sistemaProducao" name="sistemaProducao" class="form-control">
+			<option value="1">Convencional</option>
+			<option value="2">Orgânico Certificado</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="protecaoEpocaForma">Proteção/Época/Forma</label>
+		<select id="protecaoEpocaForma" name="protecaoEpocaForma" class="form-control">
+			<option value="1">1ª Safra</option>
+			<option value="2">1ª Safra + PD</option>
+			<option value="3">2ª Safra</option>
+			<option value="4">2ª Safra + PD</option>
+			<option value="5">3ª Safra</option>
+			<option value="6">3ª Safra + PD</option>
+			<option value="7">Campo</option>
+			<option value="8">Formação</option>
+			<option value="9">Produção</option>
+			<option value="10">Protegido</option>
+		</select>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-2">
+		<label class="control-label" for="usoDagua">Uso D'Água</label>
+		<select id="usoDagua" name="usoDagua" class="form-control">
+			<option value="1">Irrigado</option>
+			<option value="2">Sequeiro</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="numeroProdutores">Número de Produtores</label>
+		<input class="form-control" type="text" id="numeroProdutores" name="numeroProdutores">
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="area">Área</label>
+		<input class="form-control" type="text" id="area" name="area">
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="produtividadeSugerida">Produtividade Sugerida</label>
+		<div class="form-control" type="text" id="produtividadeSugerida" name="produtividadeSugerida">De 100 a 1000</div>
+	</div>
+
+	<!-- Select Basic -->
+	<div class="col-md-3">
+		<label class="control-label" for="Produtividade">Produtividade</label>
+		<input class="form-control" type="text" id="Produtividade" name="Produtividade">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<label class="control-label">Produtores</label>
+        <ng-include src="'views/pessoa/sub-endereco.html'" ng-controller="PessoaEnderecoCtrl" />
+	</div>
+</div>

@@ -1,1 +1,203 @@
-FLORICULTURA
+<legend>IPA Floricultura</legend>
+
+<div class="panel-body"><center class="sr-only">Lista</center>
+	<!-- Table -->
+	<div class="alert alert-warning" role="alert" ng-hide="cadastro.lista.length">
+		<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+		Nenhum registro localizado!
+	</div>
+	<div ng-show="cadastro.lista.length">
+		<div class="table-responsive">
+			<table class="table table-hover table-striped table-responsive" border="0">
+				<thead>
+					<tr>
+						<th rowspan="2">
+							<frz-seletor ng-model="navegador" dados="cadastro.lista"></frz-seletor>
+						</th>
+						<th width="30" rowspan="2">
+							#
+						</th>
+						<th title="Unidade Organizacional" rowspan="2">
+							U. O.
+						</th>
+						<th rowspan="2">
+							Ano
+						</th>
+						<th colspan="5">
+							Sistema de Produção
+						</th>
+						<th colspan="2">
+							Produtores
+						</th>
+						<th colspan="2">
+							Produtividade
+						</th>
+						<th colspan="2">
+							Área (ha)
+						</th>
+						<th colspan="3">
+							Produção
+						</th>
+					</tr>
+					<tr>
+						<th>
+							Tipo de Cultura
+						</th>
+						<th>
+							Cultura
+						</th>
+						<th>
+							Sistema
+						</th>
+						<th>
+							Proteção/Época/Forma
+						</th>
+						<th>
+							Uso D'água
+						</th>
+						<th>
+							Esp.
+						</th>
+						<th>
+							Acu.
+						</th>
+						<th>
+							Quantidade
+						</th>
+						<th>
+							Unidade
+						</th>
+						<th>
+							Esp.
+						</th>
+						<th>
+							Acu.
+						</th>
+						<th>
+							Esp.
+						</th>
+						<th>
+							Acu.
+						</th>
+						<th>
+							Unid.
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in cadastro.lista | orderBy: 'nome' | pagina: navegador.paginaAtual : navegador.tamanhoPagina | limitTo: navegador.tamanhoPagina">
+						<td>
+							<input type="radio" ng-show="navegador.selecao.tipo === 'U'" ng-model="navegador.selecao.item" ng-value="item"/>
+							<input type="checkbox" ng-show="navegador.selecao.tipo === 'M'" checklist-model="navegador.selecao.items" checklist-value="item"/>
+						</td>
+						<td>
+							{{$index + 1 + ((navegador.paginaAtual-1) * navegador.tamanhoPagina)}}
+						</td>
+						<td>
+							{{item.pessoaTipo}}
+						</td>
+						<td>
+							{{item.nome}}
+						</td>
+						<td>
+							{{item.apelidoSigla}}
+						</td>
+						<td>
+							{{item.documento}}
+						</td>
+						<td>
+							Sim
+						</td>
+						<td>
+							Não
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-responsive" ng-show="true"><p class="sr-only">navegador.selecao.tipo === 'U' && navegador.selecao.item && navegador.selecao.item.telefone && navegador.selecao.item.telefone.length</p>
+			<frz-navegador ng-model="subNavegador" exibe-texto-botao="false" on-abrir="abrirSub()" dados="navegador.selecao.item.telefone"></frz-navegador>
+			<table class="table table-hover table-striped table-responsive" border="0">
+				<thead>				
+					<tr>
+						<th><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.telefone"></frz-seletor></th>
+						<th>#</th>
+						<th>Produtor</th>
+						<th>Propriedade</th>
+						<th>Área</th>
+						<th>Qtd. Produção Anual</th>
+						<th>Produtividade Individual</th>
+						<th>Produção</th>
+						<th>Registro</th>
+						<th>Situação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in navegador.selecao.item.telefone | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
+						<td>
+							<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'"/>
+							<input type="checkbox" ng-show="subNavegador.selecao.tipo === 'M'" checklist-model="subNavegador.selecao.items" checklist-value="item"/>
+						</td>
+						<td>
+							{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}
+						</td>
+						<td>
+							{{item.ddd}}
+						</td>
+						<td>
+							{{item.numero}}
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

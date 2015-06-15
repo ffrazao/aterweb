@@ -1,16 +1,4 @@
-<div ng-if="cadastro.filtro.tipoIpa == 1">
-	IPA AGRÍCOLA
-	<ng-include src="'views/indice-producao/lista-agricola.html'"/>
-</div>
-<div ng-if="cadastro.filtro.tipoIpa == 2">
-	IPA ANIMAL
-	<ng-include src="'views/indice-producao/lista-animal.html'"/>
-</div>
-<div ng-if="cadastro.filtro.tipoIpa == 3">
-	IPA NÃO AGRÍCOLA
-	<ng-include src="'views/indice-producao/lista-nao-agricola.html'"/>
-</div>
-<div ng-if="cadastro.filtro.tipoIpa == 4">
-	IPA FLORICULTURA
-	<ng-include src="'views/indice-producao/lista-floricultura.html'"/>
-</div>
+<div ng-include src="'views/indice-producao/lista-agricola.html'" ng-if="cadastro.filtro.tipoIpa == 1"></div>
+<div ng-include src="'views/indice-producao/lista-animal.html'" ng-if="cadastro.filtro.tipoIpa == 2"/></div>
+<div ng-include src="'views/indice-producao/lista-nao-agricola.html'" ng-if="cadastro.filtro.tipoIpa == 3"/></div>
+<div ng-include src="'views/indice-producao/lista-floricultura.html'" ng-if="cadastro.filtro.tipoIpa == 4"/></div>

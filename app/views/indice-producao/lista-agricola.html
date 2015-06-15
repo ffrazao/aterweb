@@ -1,5 +1,7 @@
-<div class="panel-body"><center class="sr-only">Lista</center>
 
+<legend>IPA Agrícola</legend>
+
+<div class="panel-body"><center class="sr-only">Lista</center>
 	<!-- Table -->
 	<div class="alert alert-warning" role="alert" ng-hide="cadastro.lista.length">
 		<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
@@ -7,7 +9,7 @@
 	</div>
 	<div ng-show="cadastro.lista.length">
 		<div class="table-responsive">
-			<table class="table table-hover table-striped table-responsive" border="2">
+			<table class="table table-hover table-striped table-responsive" border="0">
 				<thead>
 					<tr>
 						<th rowspan="2">
@@ -25,8 +27,14 @@
 						<th colspan="5">
 							Sistema de Produção
 						</th>
-						<th >
+						<th colspan="2">
+							Produtores
+						</th>
+						<th rowspan="2">
 							Produtividade
+						</th>
+						<th rowspan="2">
+							Unidade
 						</th>
 						<th colspan="2">
 							Área (ha)
@@ -34,16 +42,13 @@
 						<th colspan="3">
 							Produção
 						</th>
-						<th colspan="2">
-							Produtores
-						</th>
 					</tr>
 					<tr>
 						<th>
-							Cultura
+							Tipo de Cultura
 						</th>
 						<th>
-							Tipo
+							Cultura
 						</th>
 						<th>
 							Sistema
@@ -55,9 +60,6 @@
 							Uso D'água
 						</th>
 						<th>
-							Quantidade
-						</th>
-						<th>
 							Esp.
 						</th>
 						<th>
@@ -68,9 +70,6 @@
 						</th>
 						<th>
 							Acu.
-						</th>
-						<th>
-							Unid.
 						</th>
 						<th>
 							Esp.
@@ -140,52 +139,56 @@
 		</div>
 		<div class="table-responsive" ng-show="true"><p class="sr-only">navegador.selecao.tipo === 'U' && navegador.selecao.item && navegador.selecao.item.telefone && navegador.selecao.item.telefone.length</p>
 			<frz-navegador ng-model="subNavegador" exibe-texto-botao="false" on-abrir="abrirSub()" dados="navegador.selecao.item.telefone"></frz-navegador>
-			<table class="table table-hover table-striped table-responsive" border="2">
-				<tr>
-					<td><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.telefone"></frz-seletor></td>
-					<td>#</td>
-					<td>Produtor</td>
-					<td>Propriedade</td>
-					<td>Área</td>
-					<td>Produção Anual</td>
-					<td>Produtividade Individual</td>
-					<td>Produção</td>
-					<td>Registro</td>
-					<td>Situação</td>
-				</tr>
-				<tr ng-repeat="item in navegador.selecao.item.telefone | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
-					<td>
-						<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'"/>
-						<input type="checkbox" ng-show="subNavegador.selecao.tipo === 'M'" checklist-model="subNavegador.selecao.items" checklist-value="item"/>
-					</td>
-					<td>
-						{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}
-					</td>
-					<td>
-						{{item.ddd}}
-					</td>
-					<td>
-						{{item.numero}}
-					</td>
-					<td>
-						X
-					</td>
-					<td>
-						X
-					</td>
-					<td>
-						X
-					</td>
-					<td>
-						X
-					</td>
-					<td>
-						X
-					</td>
-					<td>
-						X
-					</td>
-				</tr>
+			<table class="table table-hover table-striped table-responsive" border="0">
+				<thead>				
+					<tr>
+						<th><frz-seletor ng-model="subNavegador" dados="navegador.selecao.item.telefone"></frz-seletor></th>
+						<th>#</th>
+						<th>Produtor</th>
+						<th>Propriedade</th>
+						<th>Área</th>
+						<th>Produção Anual</th>
+						<th>Produtividade Individual</th>
+						<th>Produção</th>
+						<th>Registro</th>
+						<th>Situação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in navegador.selecao.item.telefone | pagina: subNavegador.paginaAtual : subNavegador.tamanhoPagina | limitTo: subNavegador.tamanhoPagina">
+						<td>
+							<input type="radio" ng-model="subNavegador.selecao.item" ng-value="item" ng-show="subNavegador.selecao.tipo === 'U'"/>
+							<input type="checkbox" ng-show="subNavegador.selecao.tipo === 'M'" checklist-model="subNavegador.selecao.items" checklist-value="item"/>
+						</td>
+						<td>
+							{{$index + 1 + ((subNavegador.paginaAtual-1)*subNavegador.tamanhoPagina)}}
+						</td>
+						<td>
+							{{item.ddd}}
+						</td>
+						<td>
+							{{item.numero}}
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+						<td>
+							X
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
