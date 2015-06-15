@@ -502,7 +502,7 @@ aterwebApp.directive('frzNavegador', function() {
         '      <i class="glyphicon glyphicon-menu-hamburger"></i><small ng-show="exibeTextoBotao">Ações</small><span class="caret"></span>' +
         '    </button>' +
         '    <ul class="dropdown-menu pull-right" role="menu">' +
-        '      <li ng-repeat="item in acoesEspeciais | filter: { estado: ngModel.estadoAtual() }"><a ng-click="acaoEspecial(item)">{{ngModel.estadoAtual()}} - {{item.descricao}}</a></li>' +
+        '      <li ng-repeat="item in acoesEspeciais | filter: { estado: ngModel.estadoAtual() }"><a ng-click="acaoEspecial(item)">{{item.descricao}}</a></li>' +
         '    </ul>' +
         '  </div>' +
         '  <div class="btn-group" role="group">' +

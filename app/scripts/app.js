@@ -249,6 +249,52 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 	})
 	// bloco índice produção termino
 
+	// bloco usuário início
+	.state('p.usuario', {
+		url: '/usuario',
+		templateUrl: 'views/usuario/_cadastro.html',
+		controller: 'UsuarioCtrl'
+	})
+
+	.state('p.usuario.filtro', {
+		url: '/',
+		templateUrl: 'views/usuario/filtro.html'
+	})
+
+	.state('p.usuario.lista', {
+		url: '/lista',
+		templateUrl: 'views/usuario/lista.html'
+	})
+
+	.state('p.usuario.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/usuario/formulario.html'
+	})
+	// bloco usuário termino
+
+	// bloco perfil início
+	.state('p.perfil', {
+		url: '/perfil',
+		templateUrl: 'views/perfil/_cadastro.html',
+		controller: 'PerfilCtrl'
+	})
+
+	.state('p.perfil.filtro', {
+		url: '/',
+		templateUrl: 'views/perfil/filtro.html'
+	})
+
+	.state('p.perfil.lista', {
+		url: '/lista',
+		templateUrl: 'views/perfil/lista.html'
+	})
+
+	.state('p.perfil.formulario', {
+		url: '/formulario/:id',
+		templateUrl: 'views/perfil/formulario.html'
+	})
+	// bloco perfil termino
+
 	;
 
 });

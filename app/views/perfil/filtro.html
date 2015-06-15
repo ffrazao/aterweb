@@ -1,0 +1,84 @@
+<div class="panel-body"><center class="sr-only">Filtro</center>
+
+  <form name="frm.filtro" class="form-horizontal">
+    <fieldset>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="perfil">Perfil</label>  
+        <div class="col-md-6">
+          <input id="perfil" name="perfil" type="text" placeholder="Nome de um Perfil do Sistema" class="form-control input-md">
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="codigo">Código</label>  
+        <div class="col-md-4">
+          <input id="codigo" name="codigo" type="text" placeholder="Código de um Perfil do Sistema" class="form-control input-md">
+        </div>
+      </div>
+
+     <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="modulo">Módulo</label>
+        <div class="col-md-4">
+          <select id="modulo" name="modulo" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Principal</option>
+            <option value="2">Crédito Rural</option>
+            <option value="">Compras</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="funcionalidade">Funcionalidade</label>
+        <div class="col-md-4">
+          <select id="funcionalidade" name="funcionalidade" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Propriedade</option>
+            <option value="2">Grupo Social</option>
+            <option value="3">Pessoa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="acao">Ação</label>
+        <div class="col-md-4">
+          <select id="acao" name="acao" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Incluir</option>
+            <option value="2">Filtrar</option>
+            <option value="3">Editar</option>
+            <option value="4">Excluir</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="situacao">Situação</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="situacao-0">
+            <input type="radio" name="situacao" id="situacao-0" value="1" checked="checked">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="situacao-1">
+            <input type="radio" name="situacao" id="situacao-1" value="2">
+            Ativo
+          </label> 
+          <label class="radio-inline" for="situacao-2">
+            <input type="radio" name="situacao" id="situacao-2" value="3">
+            Inativo
+          </label>
+        </div>
+      </div>
+
+    </fieldset>
+
+  </form>
+</div>

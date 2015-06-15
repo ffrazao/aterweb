@@ -1,0 +1,110 @@
+<div class="panel-body"><center class="sr-only">Filtro</center>
+
+  <form name="frm.filtro" class="form-horizontal">
+    <fieldset>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="tipoPessoa">Tipo de Pessoa</label>
+        <div class="col-md-5"> 
+          <label class="radio-inline" for="tipoPessoa-0">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-0" value="1" checked="checked">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="tipoPessoa-1">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-1" value="2">
+            Pessoa Física
+          </label> 
+          <label class="radio-inline" for="tipoPessoa-2">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-2" value="3">
+            Pessoa Jurídica
+          </label> 
+          <label class="radio-inline" for="tipoPessoa-3">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-3" value="4">
+            Grupo Social
+          </label>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="usuarioNome">Nome</label>  
+        <div class="col-md-4">
+          <input id="usuarioNome" name="usuarioNome" type="text" placeholder="Nome do Usuário" class="form-control input-md">
+
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="usuarioLogin">Login</label>  
+        <div class="col-md-4">
+          <input id="usuarioLogin" name="usuarioLogin" type="text" placeholder="Login do Usuário" class="form-control input-md">
+
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group" ng-init="cadastro.filtro.empresa = ''">
+        <label class="col-md-4 control-label" for="empresa">Empresa</label>
+        <div class="col-md-4">
+          <select id="empresa" name="empresa" class="form-control" ng-model="cadastro.filtro.empresa">
+            <option value="">Ignorar</option>
+            <option value="1">EMATER-DF</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group" ng-hide="cadastro.filtro.empresa == ''">
+        <label class="col-md-4 control-label" for="unidadeOrganizacional">Unidade Organizacional</label>
+        <div class="col-md-4">
+          <select id="unidadeOrganizacional" name="unidadeOrganizacional" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">PRESI</option>
+            <option value="2">DIREX</option>
+            <option value="">GETIN</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="matricula">Matrícula</label>  
+        <div class="col-md-2">
+          <input id="matricula" name="matricula" type="text" placeholder="Matrícula do Usuário" class="form-control input-md">
+
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="situacao">Situação</label>
+        <div class="col-md-6"> 
+          <label class="radio-inline" for="situacao-0">
+            <input type="radio" name="situacao" id="situacao-0" value="1" checked="checked">
+            Ignorar
+          </label> 
+          <label class="radio-inline" for="situacao-1">
+            <input type="radio" name="situacao" id="situacao-1" value="2">
+            Ativo
+          </label> 
+          <label class="radio-inline" for="situacao-2">
+            <input type="radio" name="situacao" id="situacao-2" value="3">
+            Inativo
+          </label>
+          <label class="radio-inline" for="situacao-3">
+            <input type="radio" name="situacao" id="situacao-3" value="4">
+            Renovar Senha
+          </label>
+          <label class="radio-inline" for="situacao-4">
+            <input type="radio" name="situacao" id="situacao-4" value="5">
+            Bloqueado
+          </label>
+        </div>
+      </div>
+
+    </fieldset>
+
+  </form>
+</div>

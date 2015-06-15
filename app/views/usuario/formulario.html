@@ -1,0 +1,90 @@
+<div class="panel-body"><center class="sr-only">Formulário</center>
+	<form name="frm.formulario">
+		<fieldset sr-only="navegador.estadoAtual() !== 'INCLUINDO' && navegador.estadoAtual() !== 'EDITANDO'">
+			<input type="hidden" name="id" data-ng-model="cadastro.registro.id" />
+			<input type="hidden" name="@class" data-ng-model="cadastro.registro['@class']" />
+			<div class="row">
+
+				<!-- Select Basic -->
+				<div class="col-md-4">
+					<label class="control-label" for="pessoa">Pessoa</label>
+					<div class="input-group">
+						<input type="text" readonly="true" class="form-control" ng-model="cadastro.registro.pessoa.nome">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default btn-md">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+
+				<!-- Select Basic -->
+				<div class="col-md-5">
+					<label class="control-label" for="email">E-mail</label>
+					<input type="text" readonly="true" class="form-control" ng-control="cadastro.registro.pessoa">
+				</div>
+
+				<!-- Select Basic -->
+			</div>
+
+			<div class="row">
+				<div class="col-md-3">
+					<label class="control-label" for="usuario">Usuário</label>
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="cadastro.registro.usuario.nome">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default btn-md">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+
+
+				<!-- Select Basic -->
+				<div class="col-md-2">
+					<label class="control-label" for="unidadeOrganizacional">Data de Expiração</label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data" ng-model="fromDate" bs-datepicker data-autoclose="true">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open('#data')">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+
+				<!-- Select Basic -->
+				<div class="col-md-4">
+					<label class="control-label" for="situacao">Situação</label>
+					<div class="input-group"> 
+						<label class="radio-inline" for="situacao-0">
+							<input type="radio" name="situacao" id="situacao-0" value="1" checked="checked">
+							Ativo
+						</label> 
+						<label class="radio-inline" for="situacao-1">
+							<input type="radio" name="situacao" id="situacao-1" value="2">
+							Inativo
+						</label> 
+						<label class="radio-inline" for="situacao-2">
+							<input type="radio" name="situacao" id="situacao-2" value="3">
+							Renovar Senha
+						</label>
+						<label class="radio-inline" for="situacao-3">
+							<input type="radio" name="situacao" id="situacao-3" value="4">
+							Bloqueado
+						</label>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<label class="control-label">Perfis Disponíveis</label>
+			        <ng-include src="'views/pessoa/sub-endereco.html'" ng-controller="PessoaEnderecoCtrl" />
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
