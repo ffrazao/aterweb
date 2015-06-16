@@ -1,0 +1,125 @@
+<div class="panel-body"><center class="sr-only">Filtro</center>
+
+  <form name="frm.filtro" class="form-horizontal">
+    <fieldset>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="login">Login do Usuário</label>  
+        <div class="col-md-3">
+          <input id="login" name="login" type="text" placeholder="Nome do Login do Usuário do Sistema" class="form-control input-md">
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group" ng-init="cadastro.filtro.empresa = ''">
+        <label class="col-md-4 control-label" for="empresa">Empresa</label>
+        <div class="col-md-4">
+          <select id="empresa" name="empresa" class="form-control" ng-model="cadastro.filtro.empresa">
+            <option value="">Ignorar</option>
+            <option value="1">EMATER-DF</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group" ng-hide="cadastro.filtro.empresa == ''">
+        <label class="col-md-4 control-label" for="unidadeOrganizacional">Unidade Organizacional</label>
+        <div class="col-md-4">
+          <select id="unidadeOrganizacional" name="unidadeOrganizacional" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">PRESI</option>
+            <option value="2">DIREX</option>
+            <option value="">GETIN</option>
+          </select>
+        </div>
+      </div>
+
+     <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="modulo">Período</label>
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data" ng-model="fromDate" bs-datepicker data-autoclose="true">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open('#data')">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                </span>
+                <input type="text" class="form-control" placeholder="HH:MM" id="data" ng-model="fromDate" bs-timepicker data-autoclose="true">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open('#data')">
+                    <i class="glyphicon glyphicon-time"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-1">
+              Até
+            </div>
+            <div class="col-md-5">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="DD/MM/AAAA" id="data" ng-model="fromDate" bs-datepicker data-autoclose="true">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open('#data')">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                </span>
+                <input type="text" class="form-control" placeholder="HH:MM" id="data" ng-model="fromDate" bs-timepicker data-autoclose="true">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open('#data')">
+                    <i class="glyphicon glyphicon-time"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="modulo">Módulo</label>
+        <div class="col-md-4">
+          <select id="modulo" name="modulo" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Principal</option>
+            <option value="2">Crédito Rural</option>
+            <option value="">Compras</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="funcionalidade">Funcionalidade</label>
+        <div class="col-md-4">
+          <select id="funcionalidade" name="funcionalidade" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Propriedade</option>
+            <option value="2">Grupo Social</option>
+            <option value="3">Pessoa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="acao">Ação</label>
+        <div class="col-md-4">
+          <select id="acao" name="acao" class="form-control">
+            <option value="">Ignorar</option>
+            <option value="1">Incluir</option>
+            <option value="2">Filtrar</option>
+            <option value="3">Editar</option>
+            <option value="4">Excluir</option>
+          </select>
+        </div>
+      </div>
+
+    </fieldset>
+
+  </form>
+</div>

@@ -102,6 +102,10 @@
 			name: 'Perfil',
 			link: 'p.perfil.filtro',
 		},
+		{
+			name: 'Log',
+			link: 'p.log.filtro',
+		},
 		],
 	},
  	];

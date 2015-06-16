@@ -295,6 +295,24 @@ aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider
 	})
 	// bloco perfil termino
 
+	// bloco log início
+	.state('p.log', {
+		url: '/log',
+		templateUrl: 'views/log/_cadastro.html',
+		controller: 'LogCtrl'
+	})
+
+	.state('p.log.filtro', {
+		url: '/',
+		templateUrl: 'views/log/filtro.html'
+	})
+
+	.state('p.log.lista', {
+		url: '/lista',
+		templateUrl: 'views/log/lista.html'
+	})
+	// bloco log termino
+
 	;
 
 });
