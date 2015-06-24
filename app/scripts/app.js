@@ -38,7 +38,9 @@ aterwebApp.factory('registro', function () {
 });
 
 aterwebApp.config(function($locationProvider, $stateProvider, $urlRouterProvider, toastrConfig, $provide, $datepickerProvider,
-	$timepickerProvider) {
+	$timepickerProvider, $httpProvider) {
+
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 	// código para fazer com que o datepicker aceite a mascara de data
 	$provide.decorator('bsDatepickerDirective', function ($delegate) {

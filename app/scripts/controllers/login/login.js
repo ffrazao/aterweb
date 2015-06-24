@@ -9,7 +9,7 @@
  * # LoginCtrl
  * Controller of the aterwebApp
  */
- aterwebApp.controller('LoginCtrl', function ($scope, $location, $modal, toastr, $state) {
+ aterwebApp.controller('LoginCtrl', function ($scope, $location, $modal, toastr, $state, $http) {
 
  	$scope.iniciar = function() {
  		$scope.registroOrig = $location.search();
@@ -35,7 +35,11 @@
       //$scope.mensagens.push({ tipo: 'danger', texto: 'Verifique os campos marcados' });
       return;
     }
-    $scope.renoveSuaSenha();
+    //$scope.renoveSuaSenha();
+    $http.get("http://localhost:8080/login").success(function(data) {
+      console.log('OK');
+    });
+
   };
 
   $scope.mensagens = [
