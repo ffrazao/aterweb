@@ -21,17 +21,17 @@
  		link: '#',
  		subtree: [
  		{
- 			name: 'Propriedade Rural',
- 			link: 'p.propriedadeRural.filtro',
+ 			name: 'Pessoa',
+ 			link: 'p.pessoa.filtro',
  		},
  		{
  			name: 'Grupo Social',
  			link: 'p.grupoSocial.filtro',
  		},
  		{
- 			name: 'Pessoa',
- 			link: 'p.pessoa.filtro',
- 		}
+ 			name: 'Propriedade Rural',
+ 			link: 'p.propriedadeRural.filtro',
+ 		},
  		]
  	},
  	{
