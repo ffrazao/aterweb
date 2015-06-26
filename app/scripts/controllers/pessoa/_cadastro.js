@@ -324,39 +324,25 @@ $scope.tabVisivel = function(tabNome, visivel) {
   };
 
   $scope.listar = function () {
-    if (!$scope.cadastro.lista) {
-      $scope.cadastro.lista = [
-        {id:  1, tipoPessoa: 'PF', nome: 'Joaquim Barbosa', documento: '772.718.474-80', telefone: [{id:  1, ddd: '61', numero: '9875-5553'}, {id:  2, ddd: '61', numero: '3432-1091'}, ]},
-        {id:  2, tipoPessoa: 'PF', nome: 'Jorge Ferreira', documento: '572.915.984-60', telefone: [{id:  1, ddd: '62', numero: '8712-0912'}, ], email: [{id:  1, endereco: 'jfer@gmail.com'}, ]},
-        {id:  3, tipoPessoa: 'PF', nome: 'André Lima', documento: '401.155.025-64', email: [{id:  1, endereco: 'andre.lima@gmail.com'}, {id:  2, endereco: 'andre.lima@outlook.com'}, ]},
-        {id:  4, tipoPessoa: 'PF', nome: 'Roberto Silva', documento: '985.880.257-95'},
-        {id:  5, tipoPessoa: 'PF', nome: 'Humberto Costa', documento: '329.337.772-66'},
-        {id:  6, tipoPessoa: 'PF', nome: 'Julia Cardoso', documento: '683.163.561-04'},
-        {id:  7, tipoPessoa: 'PF', nome: 'Emanuel Francisco Chagas', documento: '385.065.473-77'},
-        {id:  8, tipoPessoa: 'PF', nome: 'Abraão Valdeno', documento: '332.111.217-57'},
-        {id:  9, tipoPessoa: 'PF', nome: 'Adriano Gesinger', documento: '178.656.571-45'},
-        {id: 10, tipoPessoa: 'PF', nome: 'Marco Antonio Benedetti', documento: '370.478.948-88'},
-        {id: 11, tipoPessoa: 'PF', nome: 'André Luiz Quintino', documento: '236.545.068-79'},
-        {id: 12, tipoPessoa: 'PF', nome: 'Maria Nascimento', documento: '336.373.611-83'},
-        {id: 13, tipoPessoa: 'PF', nome: 'Afrânio de Jesus Moraes', documento: '886.835.302-48'},
-        {id: 14, tipoPessoa: 'PF', nome: 'Florencio Martins', documento: '683.856.773-30'},
-        {id: 15, tipoPessoa: 'PF', nome: 'Carolina Mello', documento: '171.037.803-40'},
-        {id: 16, tipoPessoa: 'PF', nome: 'Neide Braga', documento: '356.744.184-11'},
-        {id: 17, tipoPessoa: 'PF', nome: 'Flávia Moura', documento: '642.332.693-24'},
-        ];
-    }
+    $http.post("http://localhost:8080/pessoa/filtro-ok", $scope.cadastro.filtro).success(function(data) {
+      console.log(data);
 
-    $scope.navegador.selecao.item = null;
-    if ($scope.navegador.selecao === 'U') {
-      $scope.navegador.selecao.selecionado = false;
-    }
+      $scope.cadastro.lista = angular.copy(data);
 
-    if ($modalInstance) {
-      $scope.modalEstado = 'listando';
-    } else {
-      $state.go('^.lista');
-    }
-    ajustaTela();
+      $scope.navegador.selecao.item = null;
+      if ($scope.navegador.selecao === 'U') {
+        $scope.navegador.selecao.selecionado = false;
+      }
+
+      if ($modalInstance) {
+        $scope.modalEstado = 'listando';
+      } else {
+        $state.go('^.lista');
+      }
+      ajustaTela();
+    }).error(function(data) {
+        toastr.error('Erro ao filtrar!', data);
+    });
   };
 
   $scope.navegarPrimeiro = function () {
