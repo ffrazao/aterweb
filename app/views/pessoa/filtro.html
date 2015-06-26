@@ -1,9 +1,10 @@
 <div class="panel-body"><center class="sr-only">Filtro</center>
 
 	<form name="frm.filtro" class="form-horizontal">
-
+    <input type="hidden" ng-value="cadastro.filtro.numeroPagina">
+    <input type="hidden" ng-value="cadastro.filtro.registrosPagina">
     <fieldset>
-
+      
       <!-- Form Name -->
       <legend>Dados Pessoais</legend>
 
@@ -16,11 +17,11 @@
             Ignorar
           </label> 
           <label class="radio-inline" for="tipoPessoa-1">
-            <input type="radio" name="tipoPessoa" id="tipoPessoa-1" value="F" ng-model="cadastro.filtro.tipoPessoa" >
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-1" value="PF" ng-model="cadastro.filtro.tipoPessoa" >
             Física
           </label> 
           <label class="radio-inline" for="tipoPessoa-2">
-            <input type="radio" name="tipoPessoa" id="tipoPessoa-2" value="J" ng-model="cadastro.filtro.tipoPessoa">
+            <input type="radio" name="tipoPessoa" id="tipoPessoa-2" value="PJ" ng-model="cadastro.filtro.tipoPessoa">
             Jurídica
           </label>
         </div>
@@ -28,100 +29,106 @@
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="nome">Nome/ Apelido</label>  
+        <label class="col-md-4 control-label" for="nome"><span ng-hide="cadastro.filtro.tipoPessoa==='PJ'">Nome/ Apelido</span> <span ng-hide="cadastro.filtro.tipoPessoa==='PF'">Razão Social/ Sigla</span></label>  
         <div class="col-md-6">
-        <input id="nome" name="nome" type="text" placeholder="" class="form-control input-md">
-          
+          <input id="nome" name="nome" type="text" placeholder="" class="form-control input-md" ng-model="cadastro.filtro.nome">
         </div>
       </div>
 
       <!-- Text input-->
-      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='J'">
-        <label class="col-md-4 control-label" for="cpfCnpj">CPF</label>  
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='PJ'">
+        <label class="col-md-4 control-label" for="cpf">CPF</label>  
         <div class="col-md-3">
-          <input id="cpfCnpj" name="cpfCnpj" type="text" placeholder="999.999.999-99" class="form-control input-md" ng-model="cadastro.filtro.cpf" ui-cpf-mask model-view-value="true">
-        </div>
-      </div>
-
-      <!-- Text input-->
-      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='F'">
-        <label class="col-md-4 control-label" for="cpfCnpj">CNPJ</label>  
-        <div class="col-md-3">
-          <input id="cpfCnpj" name="cpfCnpj" type="text" placeholder="99.999.999/9999-99" class="form-control input-md" ng-model="cadastro.filtro.cnpj" ui-cnpj-mask model-view-value="true">
-          
+          <input id="cpf" name="cpf" type="text" placeholder="999.999.999-99" class="form-control input-md" ng-model="cadastro.filtro.cpf" ui-cpf-mask model-view-value="true">
         </div>
       </div>
 
       <!-- Multiple Radios (inline) -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="Gênero">Gênero</label>
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='PJ'">
+        <label class="col-md-4 control-label" for="pessoaGenero">Gênero</label>
         <div class="col-md-6"> 
-          <label class="radio-inline" for="Gênero-0">
-            <input type="radio" name="Gênero" id="Gênero-0" value="M">
+          <label class="radio-inline" for="pessoaGenero-0">
+            <input type="radio" name="pessoaGenero" id="pessoaGenero-0" value="" ng-model="cadastro.filtro.pessoaGenero">
             Ignorar
           </label> 
-          <label class="radio-inline" for="Gênero-1">
-            <input type="radio" name="Gênero" id="Gênero-1" value="F">
+          <label class="radio-inline" for="pessoaGenero-1">
+            <input type="radio" name="pessoaGenero" id="pessoaGenero-1" value="M" ng-model="cadastro.filtro.pessoaGenero">
             Masculino
           </label> 
-          <label class="radio-inline" for="Gênero-2">
-            <input type="radio" name="Gênero" id="Gênero-2" value="">
+          <label class="radio-inline" for="pessoaGenero-2">
+            <input type="radio" name="pessoaGenero" id="pessoaGenero-2" value="F" ng-model="cadastro.filtro.pessoaGenero">
             Feminino
           </label>
         </div>
       </div>
 
       <!-- Multiple Radios (inline) -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="geracao">Geração</label>
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='PJ'">
+        <label class="col-md-4 control-label" for="pessoaGeracao">Geração</label>
         <div class="col-md-6"> 
-          <label class="radio-inline" for="geracao-0">
-            <input type="radio" name="geracao" id="geracao-0" value="A">
+          <label class="radio-inline" for="pessoaGeracao-0">
+            <input type="radio" name="pessoaGeracao" id="pessoaGeracao-0" value="" ng-model="cadastro.filtro.pessoaGeracao">
             Ignorar
           </label> 
-          <label class="radio-inline" for="geracao-1">
-            <input type="radio" name="geracao" id="geracao-1" value="I">
+          <label class="radio-inline" for="pessoaGeracao-1">
+            <input type="radio" name="pessoaGeracao" id="pessoaGeracao-1" value="A" ng-model="cadastro.filtro.pessoaGeracao">
             Adulto
           </label> 
-          <label class="radio-inline" for="geracao-2">
-            <input type="radio" name="geracao" id="geracao-2" value="J">
+          <label class="radio-inline" for="pessoaGeracao-2">
+            <input type="radio" name="pessoaGeracao" id="pessoaGeracao-2" value="I" ng-model="cadastro.filtro.pessoaGeracao">
             Idoso
           </label> 
-          <label class="radio-inline" for="geracao-3">
-            <input type="radio" name="geracao" id="geracao-3" value="C">
+          <label class="radio-inline" for="pessoaGeracao-3">
+            <input type="radio" name="pessoaGeracao" id="pessoaGeracao-3" value="J" ng-model="cadastro.filtro.pessoaGeracao">
             Jovem
           </label> 
-          <label class="radio-inline" for="geracao-4">
-            <input type="radio" name="geracao" id="geracao-4" value="">
+          <label class="radio-inline" for="pessoaGeracao-4">
+            <input type="radio" name="pessoaGeracao" id="pessoaGeracao-4" value="C" ng-model="cadastro.filtro.pessoaGeracao">
             Criança
           </label>
         </div>
       </div>
 
+      <!-- Text input-->
+      <div class="form-group" ng-hide="cadastro.filtro.tipoPessoa==='PF'">
+        <label class="col-md-4 control-label" for="cnpj">CNPJ</label>  
+        <div class="col-md-3">
+          <input id="cnpj" name="cnpj" type="text" placeholder="99.999.999/9999-99" class="form-control input-md" ng-model="cadastro.filtro.cnpj" ui-cnpj-mask model-view-value="true">
+        </div>
+      </div>
+
       <!-- Multiple Radios (inline) -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ativo">Ativo</label>
-        <div class="col-md-6"> 
-          <label class="radio-inline" for="ativo-0">
-            <input type="radio" name="ativo" id="ativo-0" value="A">
+        <label class="col-md-4 control-label" for="pessoaSituacao">Situação</label>
+        <div class="col-md-8"> 
+          <label class="radio-inline" for="pessoaSituacao-0">
+            <input type="radio" name="pessoaSituacao" id="pessoaSituacao-0" value="" ng-model="cadastro.filtro.pessoaSituacao">
             Ignorar
           </label> 
-          <label class="radio-inline" for="ativo-1">
-            <input type="radio" name="ativo" id="ativo-1" value="I">
+          <label class="radio-inline" for="pessoaSituacao-1">
+            <input type="radio" name="pessoaSituacao" id="pessoaSituacao-1" value="A" ng-model="cadastro.filtro.pessoaSituacao">
             Ativo
           </label> 
-          <label class="radio-inline" for="ativo-2">
-            <input type="radio" name="ativo" id="ativo-2" value="">
-            Inativo
+          <label class="radio-inline" for="pessoaSituacao-2">
+            <input type="radio" name="pessoaSituacao" id="pessoaSituacao-2" value="F" ng-model="cadastro.filtro.pessoaSituacao">
+            Inativo por Falecimento
+          </label>
+          <label class="radio-inline" for="pessoaSituacao-3">
+            <input type="radio" name="pessoaSituacao" id="pessoaSituacao-3" value="O" ng-model="cadastro.filtro.pessoaSituacao">
+            Inativo por Outro Motivo
+          </label>
+          <label class="radio-inline" for="pessoaSituacao-4">
+            <input type="radio" name="pessoaSituacao" id="pessoaSituacao-4" value="U" ng-model="cadastro.filtro.pessoaSituacao">
+            Inativo por Falta de Uso
           </label>
         </div>
       </div>
 
       <!-- Textarea -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="textarea">Grupo Social</label>
+        <label class="col-md-4 control-label" for="grupoSocialList">Grupo Social</label>
         <div class="col-md-6">                     
-          <textarea class="form-control" id="textarea" name="textarea">default text</textarea>
+          <textarea class="form-control" id="grupoSocialList" name="grupoSocialList" ng-model="cadastro.filtro.grupoSocialList"></textarea>
         </div>
       </div>
 
@@ -134,218 +141,216 @@
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="categoria">Categoria</label>
+        <label class="col-md-4 control-label" for="publicoAlvoCategoria">Categoria</label>
         <div class="col-md-4">
-          <select id="categoria" name="categoria" class="form-control">
-            <option value="EP">Ignorar</option>
-            <option value="EF">Empreendedor Patronal</option>
-            <option value="HP">Empreendedor Familiar</option>
-            <option value="HF">Habitante Patronal</option>
-            <option value="T">Habitante Familiar</option>
-            <option value="">Trabalhador</option>
+          <select id="publicoAlvoCategoria" name="publicoAlvoCategoria" class="form-control" ng-model="cadastro.filtro.publicoAlvoCategoria">
+            <option value="">Ignorar</option>
+            <option value="E">Empreendedor</option>
+            <option value="H">Habitante</option>
+            <option value="T">Trabalhador</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ater">ATER</label>
+        <label class="col-md-4 control-label" for="publicoAlvoAter">ATER</label>
         <div class="col-md-4">
-          <select id="ater" name="ater" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoAter" name="publicoAlvoAter" class="form-control" ng-model="cadastro.filtro.publicoAlvoAter">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="dap">DAP</label>
+        <label class="col-md-4 control-label" for="publicoAlvoDap">DAP</label>
         <div class="col-md-4">
-          <select id="dap" name="dap" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="X">Não</option>
-            <option value="">NDP</option>
+          <select id="publicoAlvoDap" name="publicoAlvoDap" class="form-control" ng-model="cadastro.filtro.publicoAlvoDap">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
+            <option value="X">NDP</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="setor">Setor</label>
+        <label class="col-md-4 control-label" for="publicoAlvoSetor">Setor</label>
         <div class="col-md-4">
-          <select id="setor" name="setor" class="form-control">
-            <option value="1">Ignorar</option>
-            <option value="2">Agropecuária</option>
-            <option value="3">Agroindústria</option>
-            <option value="4">Artesanato</option>
-            <option value="5">Comércio</option>
-            <option value="6">Processamento Artesanal</option>
-            <option value="7">Serviço</option>
-            <option value="">Turismo</option>
+          <select id="publicoAlvoSetor" name="publicoAlvoSetor" class="form-control" ng-model="cadastro.filtro.publicoAlvoSetor">
+            <option value="">Ignorar</option>
+            <option value="1">Agropecuária</option>
+            <option value="2">Agroindústria</option>
+            <option value="3">Artesanato</option>
+            <option value="4">Comércio</option>
+            <option value="5">Processamento Artesanal</option>
+            <option value="6">Serviço</option>
+            <option value="7">Turismo</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="espacoRural">Espaço Rural</label>
+        <label class="col-md-4 control-label" for="publicoAlvoPropriedadeUtilizacaoEspacoRural">Espaço Rural</label>
         <div class="col-md-4">
-          <select id="espacoRural" name="espacoRural" class="form-control">
-            <option value="1">Ignorar</option>
-            <option value="2">Lazer</option>
-            <option value="3">Moradia</option>
-            <option value="4">Outras</option>
-            <option value="5">Preservação Ambiental</option>
-            <option value="6">Pretação de Serviço</option>
-            <option value="7">Produção</option>
-            <option value="">Turismo Rural</option>
+          <select id="publicoAlvoPropriedadeUtilizacaoEspacoRural" name="publicoAlvoPropriedadeUtilizacaoEspacoRural" class="form-control" ng-model="cadastro.filtro.publicoAlvoPropriedadeUtilizacaoEspacoRural">
+            <option value="">Ignorar</option>
+            <option value="1">Lazer</option>
+            <option value="2">Moradia</option>
+            <option value="3">Outras</option>
+            <option value="4">Preservação Ambiental</option>
+            <option value="5">Pretação de Serviço</option>
+            <option value="6">Produção</option>
+            <option value="7">Turismo Rural</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="comprasInstitucionais">Compras Institucionais</label>
+        <label class="col-md-4 control-label" for="publicoAlvoComprasInstitucionais">Compras Institucionais</label>
         <div class="col-md-4">
-          <select id="comprasInstitucionais" name="comprasInstitucionais" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoComprasInstitucionais" name="publicoAlvoComprasInstitucionais" class="form-control" ng-model="cadastro.filtro.publicoAlvoComprasInstitucionais">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="comunidade">Comunidade</label>
+        <label class="col-md-4 control-label" for="publicoAlvoPessoaGrupoComunidadeVi">Comunidade</label>
         <div class="col-md-4">
-          <select id="comunidade" name="comunidade" class="form-control">
-            <option value="A">Ignorar</option>
-            <option value="B">A</option>
-            <option value="">B</option>
+          <select id="publicoAlvoPessoaGrupoComunidadeVi" name="publicoAlvoPessoaGrupoComunidadeVi" class="form-control" ng-model="cadastro.filtro.publicoAlvoPessoaGrupoComunidadeVi">
+            <option value="">Ignorar</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="beneficioSocial">Benefício Social</label>
+        <label class="col-md-4 control-label" for="publicoAlvoBeneficioSocial">Benefício Social</label>
         <div class="col-md-4">
-          <select id="beneficioSocial" name="beneficioSocial" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoBeneficioSocial" name="publicoAlvoBeneficioSocial" class="form-control" ng-model="cadastro.filtro.publicoAlvoBeneficioSocial">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="incra">Incra</label>
+        <label class="col-md-4 control-label" for="publicoAlvoIncra">Incra</label>
         <div class="col-md-4">
-          <select id="incra" name="incra" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoIncra" name="publicoAlvoIncra" class="form-control" ng-model="cadastro.filtro.publicoAlvoIncra">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="atepa">Atepa</label>
+        <label class="col-md-4 control-label" for="publicoAlvoAtepa">Atepa</label>
         <div class="col-md-4">
-          <select id="atepa" name="atepa" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoAtepa" name="publicoAlvoAtepa" class="form-control" ng-model="cadastro.filtro.publicoAlvoAtepa">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="bsm">BSM</label>
+        <label class="col-md-4 control-label" for="publicoAlvoBsm">BSM</label>
         <div class="col-md-4">
-          <select id="bsm" name="bsm" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoBsm" name="publicoAlvoBsm" class="form-control" ng-model="cadastro.filtro.publicoAlvoBsm">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="sustentabilidade">Sustentabilidade</label>
+        <label class="col-md-4 control-label" for="publicoAlvoSustentabilidade">Sustentabilidade</label>
         <div class="col-md-4">
-          <select id="sustentabilidade" name="sustentabilidade" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoSustentabilidade" name="publicoAlvoSustentabilidade" class="form-control" ng-model="cadastro.filtro.publicoAlvoSustentabilidade">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ipaAgricola">IPA Agrícola</label>
+        <label class="col-md-4 control-label" for="publicoAlvoIpaAgricola">IPA Agrícola</label>
         <div class="col-md-4">
-          <select id="ipaAgricola" name="ipaAgricola" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoIpaAgricola" name="publicoAlvoIpaAgricola" class="form-control" ng-model="cadastro.filtro.publicoAlvoIpaAgricola">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ipaAnimal">IPA Animal</label>
+        <label class="col-md-4 control-label" for="publicoAlvoIpaAnimal">IPA Animal</label>
         <div class="col-md-4">
-          <select id="ipaAnimal" name="ipaAnimal" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoIpaAnimal" name="publicoAlvoIpaAnimal" class="form-control" ng-model="cadastro.filtro.publicoAlvoIpaAnimal">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ipaNaoAgricola">IPA Não Agrícola</label>
+        <label class="col-md-4 control-label" for="publicoAlvoIpaNaoAgricola">IPA Não Agrícola</label>
         <div class="col-md-4">
-          <select id="ipaNaoAgricola" name="ipaNaoAgricola" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoIpaNaoAgricola" name="publicoAlvoIpaNaoAgricola" class="form-control" ng-model="cadastro.filtro.publicoAlvoIpaNaoAgricola">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ipaFlores">IPA Flores</label>
+        <label class="col-md-4 control-label" for="publicoAlvoIpaFlores">IPA Flores</label>
         <div class="col-md-4">
-          <select id="ipaFlores" name="ipaFlores" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoIpaFlores" name="publicoAlvoIpaFlores" class="form-control" ng-model="cadastro.filtro.publicoAlvoIpaFlores">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
 
       <!-- Select Basic -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="organizacao">Organização</label>
+        <label class="col-md-4 control-label" for="publicoAlvoOrganizacao">Organização</label>
         <div class="col-md-4">
-          <select id="organizacao" name="organizacao" class="form-control">
-            <option value="S">Ignorar</option>
-            <option value="N">Sim</option>
-            <option value="">Não</option>
+          <select id="publicoAlvoOrganizacao" name="publicoAlvoOrganizacao" class="form-control" ng-model="cadastro.filtro.publicoAlvoOrganizacao">
+            <option value="">Ignorar</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
           </select>
         </div>
       </div>
