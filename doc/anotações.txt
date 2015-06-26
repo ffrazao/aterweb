@@ -22,3 +22,4 @@ inserido i18n do angular, ver em: https://github.com/angular/bower-angular-i18n
 
 inserido codigo para auxiliar a selecao de itens de checkbox http://vitalets.github.io/checklist-model/
 
+testar o componente http://mbenford.github.io/ngTagsInput/ para uso de multi selecao
